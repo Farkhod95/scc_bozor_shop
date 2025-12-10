@@ -1,4 +1,3 @@
-# views/list_user.py
 from rest_framework import status, serializers
 from rest_framework.generics import GenericAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
@@ -44,14 +43,28 @@ class ListUserAPIView(GenericAPIView, ResponseController):
                 name="Success",
                 value=[
                     {
-                        "id": 1,
-                        "username": "ali01",
-                        "first_name": "Ali",
-                        "last_name": "Valiyev",
-                        "email": "ali01@gmail.com",
-                        "phone_number": "+998901234567",
-                        "profile_image": "http://example.uz/media/profile_images/ali01.jpg",
-                        "role": "admin",
+                        "message": "OK",
+                        "links": {
+                            "next": "http://example.com/?page=2",
+                            "previous": None,
+                        },
+                        "pagination": {
+                            "current_page": 1,
+                            "total_pages": 12,
+                            "page_size": 10,
+                            "total_items": 120,
+                        },
+                        "data": [
+                            {
+                                "id": 1,
+                                "username": "ali01",
+                                "first_name": "Ali",
+                                "last_name": "Valiyev",
+                                "email": "ali01@gmail.com",
+                                "phone_number": "+998901234567",
+                                "profile_image": "http://example.uz/media/profile_images/ali01.jpg"
+                            }
+                        ]
                     },
                 ],
             ),

@@ -10,6 +10,7 @@ class UploadFileSerializer(serializers.Serializer):
 
 
 class UploadedFileDataSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
     file = serializers.CharField()
 
 
