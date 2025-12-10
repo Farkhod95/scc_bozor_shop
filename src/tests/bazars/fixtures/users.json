@@ -1,0 +1,55 @@
+[
+  {
+    "model": "accounts.user",
+    "pk": 1,
+    "fields": {
+      "username": "superuser",
+      "password": "pbkdf2_sha256$1000000$5ARKjlrBHljkV4rR8fzOCa$GD7Of2sFgG+wRENQw2Zya6URxFYNKCVYPAKzcUKbNTI=",
+      "first_name": "Bekzod",
+      "last_name": "Xakimov",
+      "email": "superuser@email.com",
+      "phone_number": "+998901234567",
+      "role": "superadmin",
+      "is_active": true,
+
+      "created_at": "2025-12-04T16:00:00Z",
+      "updated_at": "2025-12-04T16:00:00Z"
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 2,
+    "fields": {
+      "username": "admin123",
+      "password": "pbkdf2_sha256$1000000$5ARKjlrBHljkV4rR8fzOCa$GD7Of2sFgG+wRENQw2Zya6URxFYNKCVYPAKzcUKbNTI=",
+      "first_name": "Ali",
+      "last_name": "Valiyev",
+      "email": "admin@email.com",
+      "phone_number": "+994555555555",
+      "role": "admin",
+      "is_active": true,
+
+      "created_at": "2025-12-04T16:00:00Z",
+      "updated_at": "2025-12-04T16:00:00Z"
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 3,
+    "fields": {
+      "username": "user123",
+      "password": "pbkdf2_sha256$1000000$5ARKjlrBHljkV4rR8fzOCa$GD7Of2sFgG+wRENQw2Zya6URxFYNKCVYPAKzcUKbNTI=",
+      "first_name": "John",
+      "last_name": "Doe",
+      "email": "user123@gmail.com",
+      "phone_number": "+998123456789",
+      "role": "user",
+      "is_active": true,
+
+      "created_by": 1,
+
+      "created_at": "2025-12-04T16:00:00Z",
+      "updated_at": "2025-12-04T16:00:00Z"
+    }
+  }
+]

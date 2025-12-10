@@ -1,0 +1,59 @@
+from rest_framework import serializers, permissions, status
+from rest_framework.generics import ListAPIView
+from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
+
+from apps.catalog.services.list_categories import list_categories
+from apps.core.auth.authentication import JWTAuthentication
+from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin
+from apps.core.services.response_controller import ResponseController
+from apps.core.services.docs import common_responses
+
+
+class ListCategorySerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    title = serializers.CharField()
+    description = serializers.CharField(allow_null=True)
+    created_at = serializers.DateTimeField()
+
+
+class ListCategoryAPIView(ListAPIView, ResponseController):
+    serializer_class = ListCategorySerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    @extend_schema(
+        tags=["Categories"],
+        summary="List categories",
+        description="Retrieve all categories ordered by newest first.",
+        responses={
+            **common_responses,
+            status.HTTP_200_OK: OpenApiResponse(
+                response=ListCategorySerializer(many=True),
+                description="Categories retrieved successfully.",
+                examples=[
+                    OpenApiExample(
+                        "Success Example",
+                        value={
+                            "success": True,
+                            "message": "Categories retrieved successfully.",
+                            "data": [
+                                {
+                                    "id": 1,
+                                    "title": "Fruits",
+                                    "description": "All fruits items",
+                                    "created_at": "2025-12-05T10:00:00Z"
+                                }
+                            ]
+                        }
+                    )
+                ]
+            ),
+        },
+    )
+    def get(self, request, *args, **kwargs):
+        categories = list_categories()
+        serializer = self.get_serializer(categories, many=True)
+        return self.success_response(
+            data=serializer.data,
+            status=status.HTTP_200_OK
+        )

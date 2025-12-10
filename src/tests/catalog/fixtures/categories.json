@@ -1,0 +1,32 @@
+[
+  {
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+        "title": "Electronics",
+        "description": "All kinds of electronic devices and gadgets.",
+        "created_at": "2025-12-04T16:00:00Z",
+        "updated_at": "2025-12-04T16:00:00Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+        "title": "Books",
+        "description": "A wide range of books from various genres.",
+        "created_at": "2025-12-04T16:00:00Z",
+        "updated_at": "2025-12-04T16:00:00Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+        "title": "Clothing",
+        "description": "}Apparel and accessories for all ages.",
+        "created_at": "2025-12-04T16:00:00Z",
+        "updated_at": "2025-12-04T16:00:00Z"
+    }
+  }
+]

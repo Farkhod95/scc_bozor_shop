@@ -1,0 +1,45 @@
+services:
+  bazardb:
+    container_name: bazardb_test
+    image: postgres:16.4
+    environment:
+      POSTGRES_DB: db_bazar
+      POSTGRES_USER: bazar_user
+      POSTGRES_PASSWORD: bazar_pass
+    ports:
+      - "5433:5432"
+    networks:
+      - test_net
+
+  bazarweb:
+    container_name: bazarweb_test
+    build: .
+    command: python manage.py runserver 0.0.0.0:5544
+    volumes:
+      - .:/code
+    ports:
+      - "5544:5544"
+    depends_on:
+      - bazardb
+    env_file:
+      - .env.dev
+    networks:
+      - test_net
+
+
+  bazar_test:
+    profiles: [ "test" ]
+    build: .
+    command: python manage.py test
+    volumes:
+      - .:/code
+    depends_on:
+      - bazardb
+    env_file:
+      - .env.dev
+    networks:
+      - test_net
+
+networks:
+  test_net:
+    driver: bridge

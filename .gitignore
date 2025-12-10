@@ -1,0 +1,8 @@
+*.sqlite3
+/backups
+
+#PyCharm
+.idea/
+
+# Visual Studio Code
+.vscode/
