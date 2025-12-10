@@ -8,5 +8,5 @@ router = DefaultRouter()
 
 
 urlpatterns = [
-    path("upload-file", upload_file.UploadFileView.as_view(), name="upload_file"),
+    path("upload/file", upload_file.UploadFileView.as_view(), name="upload_file"),
 ] + router.urls
