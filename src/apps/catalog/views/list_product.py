@@ -7,8 +7,13 @@ from apps.core.auth.authentication import JWTAuthentication
 from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin
 from apps.core.services.response_controller import ResponseController
 from apps.core.services.docs import common_responses
-from apps.core.services.responses import Message
 from apps.core.utils.pagination import CustomPagination
+
+
+class ListBazarQuerySerializer(serializers.Serializer):
+    search = serializers.CharField(required=False)
+    unit = serializers.CharField(required=False)
+    category_id = serializers.IntegerField(required=False)
 
 
 class ListProductSerializer(serializers.Serializer):
@@ -30,6 +35,7 @@ class ListProductAPIView(ListAPIView, ResponseController):
         tags=["Products"],
         summary="List products",
         description="Retrieve all products ordered by newest first, including their category.",
+        parameters=[ListBazarQuerySerializer],
         responses={
             **common_responses,
             status.HTTP_200_OK: OpenApiResponse(
@@ -58,7 +64,13 @@ class ListProductAPIView(ListAPIView, ResponseController):
         },
     )
     def get(self, request, *args, **kwargs):
-        products = list_products(user=request.user, lang=request.lang)
+        query_serializer = ListBazarQuerySerializer(data=request.query_params)
+        query_serializer.is_valid(raise_exception=True)
+
+        filters = {k: v for k, v in query_serializer.validated_data.items() if k != "search"}
+        search = query_serializer.validated_data.get("search")
+
+        products = list_products(user=request.user, lang=request.lang, filters=filters, search=search)
         serializer = self.get_serializer(products, many=True)
 
         page = self.paginate_queryset(serializer.data)

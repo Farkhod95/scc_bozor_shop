@@ -11,6 +11,7 @@ from apps.core.utils.pagination import CustomPagination
 
 
 class ListBazarQuerySerializer(serializers.Serializer):
+    search = serializers.CharField(required=False)
     city_id = serializers.IntegerField(required=False)
 
 
@@ -78,9 +79,12 @@ class ListBazarAPIView(ListAPIView, ResponseController):
         },
     )
     def get(self, request, *args, **kwargs):
-        serializer = ListBazarQuerySerializer(data=request.query_params)
-        serializer.is_valid(raise_exception=True)
+        query_serializer = ListBazarQuerySerializer(data=request.query_params)
+        query_serializer.is_valid(raise_exception=True)
 
-        data = list_bazar(**serializer.validated_data)
+        filters = {k: v for k, v in query_serializer.validated_data.items() if k != "search"}
+        search = query_serializer.validated_data.get("search")
+
+        data = list_bazar(filters=filters, search=search)
         page = self.paginate_queryset(data)
         return self.get_paginated_response(page)

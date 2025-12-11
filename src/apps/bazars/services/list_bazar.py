@@ -1,10 +1,12 @@
 from apps.bazars.models import Bazar
+from apps.core.utils.dynamic_filters import apply_filters_and_search
 
-def list_bazar(*, city_id: int | None = None):
-    qs = Bazar.objects.select_related("city", "city__region").all()
 
-    if city_id is not None:
-        qs = qs.filter(city_id=city_id)
+def list_bazar(filters=None, search=None):
+    queryset = Bazar.objects.select_related("city", "city__region").all()
+
+    search_fields = ["name", "address", "total_places", "city__name", "city__region__name"]
+    queryset = apply_filters_and_search(queryset, filters=filters, search=search, search_fields=search_fields)
 
     return [
         {
@@ -15,5 +17,5 @@ def list_bazar(*, city_id: int | None = None):
             "address": obj.address,
             "total_places": obj.total_places,
         }
-        for obj in qs
+        for obj in queryset
     ]

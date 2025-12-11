@@ -10,6 +10,10 @@ from apps.core.services.docs import common_responses
 from apps.core.utils.pagination import CustomPagination
 
 
+class ListCategoryQuerySerializer(serializers.Serializer):
+    search = serializers.CharField(required=False)
+
+
 class ListCategorySerializer(serializers.Serializer):
     id = serializers.IntegerField()
     title = serializers.CharField()
@@ -28,6 +32,7 @@ class ListCategoryAPIView(ListAPIView, ResponseController):
         tags=["Categories"],
         summary="List categories",
         description="Retrieve all categories ordered by newest first.",
+        parameters=[ListCategoryQuerySerializer],
         responses={
             **common_responses,
             status.HTTP_200_OK: OpenApiResponse(
@@ -54,7 +59,13 @@ class ListCategoryAPIView(ListAPIView, ResponseController):
         },
     )
     def get(self, request, *args, **kwargs):
-        categories = list_categories(user=request.user, lang=request.lang)
+        query_serializer = ListCategoryQuerySerializer(data=request.query_params)
+        query_serializer.is_valid(raise_exception=True)
+
+        filters = {k: v for k, v in query_serializer.validated_data.items() if k != "search"}
+        search = query_serializer.validated_data.get("search")
+
+        categories = list_categories(user=request.user, lang=request.lang, filters=filters, search=search)
         serializer = self.get_serializer(categories, many=True)
 
         page = self.paginate_queryset(serializer.data)

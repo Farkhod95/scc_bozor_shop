@@ -11,6 +11,10 @@ from apps.core.services.responses import Message
 from apps.core.utils.pagination import CustomPagination
 
 
+class ListUserQuerySerializer(serializers.Serializer):
+    search = serializers.CharField(required=False)
+
+
 class ListUserSerializer(serializers.Serializer):
     id = serializers.IntegerField()
     username = serializers.CharField()
@@ -27,11 +31,11 @@ class ListUserAPIView(GenericAPIView, ResponseController):
     serializer_class = ListUserSerializer
     pagination_class = CustomPagination
 
-
     @extend_schema(
         tags=["Users"],
         summary="List users",
         description="Retrieve a list of all users.",
+        parameters=[ListUserQuerySerializer],
         responses={
             **common_responses,
             status.HTTP_200_OK: OpenApiResponse(
@@ -72,7 +76,14 @@ class ListUserAPIView(GenericAPIView, ResponseController):
         },
     )
     def get(self, request, *args, **kwargs):
-        data = list_users(request.user)
+        query_serializer = ListUserQuerySerializer(data=request.GET)
+        query_serializer.is_valid(raise_exception=True)
+
+        filters = {k: v for k, v in query_serializer.validated_data.items() if k != "search"}
+        search = query_serializer.validated_data.get("search")
+
+        data = list_users(filters=filters, search=search)
+
         page = self.paginate_queryset(data)
         serializer = self.get_serializer(page, many=True)
         return self.get_paginated_response(serializer.data)
