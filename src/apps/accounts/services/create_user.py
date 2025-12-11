@@ -29,7 +29,8 @@ def create_user(**validated_data) -> dict:
         **validated_data,
         password=make_password(password),
         profile_image=profile_image,
-        role=UserType.ADMIN
+        role=UserType.ADMIN,
+        is_staff=True,
     )
 
     return {

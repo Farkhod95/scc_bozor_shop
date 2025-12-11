@@ -30,7 +30,7 @@ class TestCreateProductAPI(APITestCase):
         self.category = Category.objects.get(id=1)
 
         self.valid_payload = {
-            "name": "New Product",
+            "name_uz": "New Product",
             "unit": "kg",
             "category_id": self.category.id,
         }
@@ -47,7 +47,7 @@ class TestCreateProductAPI(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         data = response.json()["data"]
 
-        self.assertEqual(data["name"], "New Product")
+        self.assertEqual(data["name_uz"], "New Product")
         self.assertEqual(data["category"], self.category.id)
 
     def test_create_product_normal_user_forbidden(self):

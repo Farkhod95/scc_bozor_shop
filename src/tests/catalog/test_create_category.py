@@ -26,8 +26,8 @@ class TestCreateCategoryAPI(APITestCase):
         self.url = "/api/catalog/v1/category/create/"
 
         self.valid_payload = {
-            "title": "Electronics",
-            "description": "All tech products"
+            "title_uz": "Electronics",
+            "description_uz": "All tech products"
         }
 
         self.invalid_payload = {
@@ -40,7 +40,7 @@ class TestCreateCategoryAPI(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         data = response.json()
-        self.assertEqual(data["data"]["title"], "Electronics")
+        self.assertEqual(data["data"]["title_uz"], "Electronics")
         self.assertTrue(Category.objects.filter(title="Electronics").exists())
 
     def test_create_category_unauthenticated(self):

@@ -11,8 +11,15 @@ from apps.core.services.responses import Message
 
 
 class CreateCategorySerializer(serializers.Serializer):
-    title = serializers.CharField(max_length=255)
-    description = serializers.CharField(required=False, allow_blank=True, allow_null=True)
+    title_uz = serializers.CharField(max_length=255)
+    title_ru = serializers.CharField(max_length=255, required=False, allow_blank=True)
+    title_en = serializers.CharField(max_length=255, required=False, allow_blank=True)
+    title_kr = serializers.CharField(max_length=255, required=False, allow_blank=True)
+
+    description_uz = serializers.CharField(required=False, allow_blank=True, allow_null=True)
+    description_ru = serializers.CharField(required=False, allow_blank=True, allow_null=True)
+    description_en = serializers.CharField(required=False, allow_blank=True, allow_null=True)
+    description_kr = serializers.CharField(required=False, allow_blank=True, allow_null=True)
 
 
 class CreateCategoryAPIView(CreateAPIView, ResponseController):

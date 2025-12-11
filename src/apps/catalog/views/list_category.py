@@ -7,6 +7,7 @@ from apps.core.auth.authentication import JWTAuthentication
 from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin
 from apps.core.services.response_controller import ResponseController
 from apps.core.services.docs import common_responses
+from apps.core.utils.pagination import CustomPagination
 
 
 class ListCategorySerializer(serializers.Serializer):
@@ -20,6 +21,8 @@ class ListCategoryAPIView(ListAPIView, ResponseController):
     serializer_class = ListCategorySerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
+    pagination_class = CustomPagination
+
 
     @extend_schema(
         tags=["Categories"],
@@ -51,9 +54,8 @@ class ListCategoryAPIView(ListAPIView, ResponseController):
         },
     )
     def get(self, request, *args, **kwargs):
-        categories = list_categories()
+        categories = list_categories(user=request.user, lang=request.lang)
         serializer = self.get_serializer(categories, many=True)
-        return self.success_response(
-            data=serializer.data,
-            status=status.HTTP_200_OK
-        )
+
+        page = self.paginate_queryset(serializer.data)
+        return self.get_paginated_response(page)

@@ -50,7 +50,7 @@ class DetailCategoryAPIView(RetrieveAPIView, ResponseController):
     def get(self, request, *args, **kwargs):
         category_id = kwargs.get("pk")
 
-        data = get_category_detail(category_id=category_id)
+        data = get_category_detail(category_id=category_id, user=request.user, lang=request.lang)
 
         return self.success_response(
             data=data,

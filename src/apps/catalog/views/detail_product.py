@@ -47,7 +47,7 @@ class DetailProductAPIView(RetrieveAPIView, ResponseController):
     def get(self, request, *args, **kwargs):
         product_id = kwargs.get("pk")
 
-        data = get_product_detail(product_id=product_id)
+        data = get_product_detail(product_id=product_id, user=request.user, lang=request.lang)
 
         return self.success_response(
             data=data,

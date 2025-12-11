@@ -35,40 +35,41 @@ class ListUserAPIView(GenericAPIView, ResponseController):
         responses={
             **common_responses,
             status.HTTP_200_OK: OpenApiResponse(
+                response=ListUserSerializer,
                 description="List of users retrieved successfully.",
-            ),
-        },
-        examples=[
-            OpenApiExample(
-                name="Success",
-                value=[
-                    {
-                        "message": "OK",
-                        "links": {
-                            "next": "http://example.com/?page=2",
-                            "previous": None,
-                        },
-                        "pagination": {
-                            "current_page": 1,
-                            "total_pages": 12,
-                            "page_size": 10,
-                            "total_items": 120,
-                        },
-                        "data": [
+                examples=[
+                    OpenApiExample(
+                        name="Success",
+                        value=[
                             {
-                                "id": 1,
-                                "username": "ali01",
-                                "first_name": "Ali",
-                                "last_name": "Valiyev",
-                                "email": "ali01@gmail.com",
-                                "phone_number": "+998901234567",
-                                "profile_image": "http://example.uz/media/profile_images/ali01.jpg"
-                            }
-                        ]
-                    },
+                                "message": "OK",
+                                "links": {
+                                    "next": "http://example.com/?page=2",
+                                    "previous": None,
+                                },
+                                "pagination": {
+                                    "current_page": 1,
+                                    "total_pages": 12,
+                                    "page_size": 10,
+                                    "total_items": 120,
+                                },
+                                "data": [
+                                    {
+                                        "id": 1,
+                                        "username": "ali01",
+                                        "first_name": "Ali",
+                                        "last_name": "Valiyev",
+                                        "email": "ali01@gmail.com",
+                                        "phone_number": "+998901234567",
+                                        "profile_image": "http://example.uz/media/profile_images/ali01.jpg"
+                                    }
+                                ]
+                            },
+                        ],
+                    ),
                 ],
             ),
-        ],
+        },
     )
     def get(self, request, *args, **kwargs):
         data = list_users(request.user)

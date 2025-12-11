@@ -13,7 +13,12 @@ from apps.core.services.model_status import UnitType
 
 class CreateProductSerializer(serializers.Serializer):
     category_id = serializers.IntegerField()
-    name = serializers.CharField(max_length=255)
+
+    name_uz = serializers.CharField(max_length=255)
+    name_ru = serializers.CharField(max_length=255, required=False, allow_blank=True)
+    name_en = serializers.CharField(max_length=255, required=False, allow_blank=True)
+    name_kr = serializers.CharField(max_length=255, required=False, allow_blank=True)
+
     unit = serializers.ChoiceField(choices=UnitType)
 
 class CreateProductAPIView(CreateAPIView, ResponseController):
@@ -57,10 +62,8 @@ class CreateProductAPIView(CreateAPIView, ResponseController):
         serializer.is_valid(raise_exception=True)
 
         data = create_product(
-            category_id=serializer.validated_data['category_id'],
-            name=serializer.validated_data['name'],
-            unit=serializer.validated_data['unit'],
-            created_by=request.user
+            created_by=request.user,
+            **serializer.validated_data
         )
 
         return self.success_response(
