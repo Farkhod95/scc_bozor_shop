@@ -40,5 +40,5 @@ class DeleteCategoryAPIView(DestroyAPIView, ResponseController):
         delete_category(category_id)
         return self.success_response(
             message=Message.CATEGORY_DELETED_SUCCESSFULLY,
-            status=status.HTTP_204_NO_CONTENT
+            status=status.HTTP_200_OK
         )

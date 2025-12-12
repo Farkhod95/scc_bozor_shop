@@ -21,7 +21,8 @@ def create_bazar(*, city_id: int, address: str, total_places: int, user, **data)
         city=city,
         address=address,
         total_places=total_places,
-        created_by=user
+        created_by=user,
+        **data
     )
 
     _create_places_for_bazar(bazar, total_places)

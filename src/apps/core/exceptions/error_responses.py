@@ -117,6 +117,13 @@ ERROR_MESSAGES = {
         "ru": "Указанный базар не найден.",
     },
 
+    "bazar_does_not_exist": {
+        "en": "Bazar does not exist.",
+        "uz": "Bozor mavjud emas.",
+        "uz-cyrl": "Бозор мавжуд эмас.",
+        "ru": "Базар не существует.",
+    },
+
     "bazar_admin_not_found": {
         "en": "The specified bazar admin was not found.",
         "uz": "Ko'rsatilgan bozor admini topilmadi.",

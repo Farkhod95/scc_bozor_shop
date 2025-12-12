@@ -40,5 +40,5 @@ class DeleteCityAPIView(DestroyAPIView, ResponseController):
         delete_city(city_id)
         return self.success_response(
             message=Message.CITY_DELETED_SUCCESSFULLY,
-            status=status.HTTP_204_NO_CONTENT
+            status=status.HTTP_200_OK
         )

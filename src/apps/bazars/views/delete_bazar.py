@@ -25,8 +25,8 @@ class DeleteBazarAPIView(DestroyAPIView, ResponseController):
                 examples=[
                     OpenApiExample(
                         "Not Found Example",
-                        value={"message_key": "bazar_not_found"},
-                        status_codes=[404],
+                        value={"detail": "Bazar does not exist."},
+                        status_codes=[400],
                     )
                 ]
             ),
@@ -42,5 +42,5 @@ class DeleteBazarAPIView(DestroyAPIView, ResponseController):
 
         return self.success_response(
             message=Message.BAZAR_DELETED_SUCCESSFULLY,
-            status=status.HTTP_204_NO_CONTENT
+            status=status.HTTP_200_OK
         )
