@@ -1,7 +1,7 @@
 from typing import Iterable, Dict, Any
 from apps.catalog.models import Product
 from apps.core.utils.dynamic_filters import apply_filters_and_search
-from apps.core.utils.translations import translate_response
+from apps.core.utils.translations import translate_response, expand_translated_fields
 
 
 def list_products(user, lang: str, filters=None, search=None) -> Iterable[Dict[str, Any]]:
@@ -9,7 +9,9 @@ def list_products(user, lang: str, filters=None, search=None) -> Iterable[Dict[s
     is_admin = user.is_staff
     result = []
 
-    search_fields = ["name", "address", "total_places", "city__name", "city__region__name"]
+    search_fields = ["name", "unit"]
+    search_fields = expand_translated_fields(Product, search_fields)
+
     queryset = apply_filters_and_search(products, filters=filters, search=search, search_fields=search_fields)
 
 

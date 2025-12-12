@@ -71,7 +71,6 @@ class ListProductAPIView(ListAPIView, ResponseController):
         search = query_serializer.validated_data.get("search")
 
         products = list_products(user=request.user, lang=request.lang, filters=filters, search=search)
-        serializer = self.get_serializer(products, many=True)
 
-        page = self.paginate_queryset(serializer.data)
+        page = self.paginate_queryset(products)
         return self.get_paginated_response(page)

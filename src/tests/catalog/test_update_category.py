@@ -29,8 +29,8 @@ class TestUpdateCategoryAPI(APITestCase):
         self.category = Category.objects.get(id=1)
 
         self.valid_payload = {
-            "title": "Updated Title",
-            "description": "Updated description",
+            "title_uz": "Updated Title",
+            "description_uz": "Updated description",
         }
 
 
@@ -43,7 +43,7 @@ class TestUpdateCategoryAPI(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.json()["data"]
 
-        self.assertEqual(data["title"], "Updated Title")
+        self.assertEqual(data["title_uz"], "Updated Title")
         self.assertEqual(data["id"], self.category.id)
 
     def test_update_category_normal_user_forbidden(self):

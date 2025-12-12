@@ -2,28 +2,28 @@ from rest_framework import status
 from rest_framework.generics import RetrieveAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
-from apps.catalog.services.detail_category import get_category_detail
+from apps.locations.services.detail_city import get_city_detail
 from apps.core.auth.authentication import JWTAuthentication
-from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin, IsAdmin
+from apps.core.auth.permissions import IsAuthenticated
 from apps.core.services.response_controller import ResponseController
 from apps.core.services.docs import common_responses
 
 
-class DetailCategoryAPIView(RetrieveAPIView, ResponseController):
+class DetailCityAPIView(RetrieveAPIView, ResponseController):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
     @extend_schema(
-        tags=["Categories"],
-        summary="Get category detail",
-        description="Returns detailed information about a category by its ID.",
+        tags=["Cities"],
+        summary="Get city detail",
+        description="Returns detailed information about a city by its ID.",
         responses={
             **common_responses,
             status.HTTP_200_OK: OpenApiResponse(
-                description="Category detail returned successfully."
+                description="City detail returned successfully."
             ),
             status.HTTP_404_NOT_FOUND: OpenApiResponse(
-                description="Category not found."
+                description="City not found."
             ),
         },
         examples=[
@@ -32,25 +32,26 @@ class DetailCategoryAPIView(RetrieveAPIView, ResponseController):
                 value={
                     "success": True,
                     "data": {
-                        "id": 1,
-                        "title": "Fruits",
-                        "description": "Fresh fruit category",
-                        "created_at": "2025-01-15T12:00:30Z"
+                        "id": 5,
+                        "name": "Namangan",
+                        "code": "NM",
+                        "region_id": 1,
+                        "created_at": "2025-12-11T12:00:00Z"
                     }
                 },
                 status_codes=[200],
             ),
             OpenApiExample(
                 name="Not Found",
-                value={"detail": "Category not found"},
+                value={"detail": "City not found"},
                 status_codes=[404],
             ),
         ],
     )
     def get(self, request, *args, **kwargs):
-        category_id = kwargs.get("pk")
+        city_id = kwargs.get("pk")
 
-        data = get_category_detail(category_id=category_id, user=request.user, lang=request.lang)
+        data = get_city_detail(city_id=city_id, user=request.user, lang=request.lang)
 
         return self.success_response(
             data=data,

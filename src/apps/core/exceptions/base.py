@@ -39,7 +39,6 @@ def custom_exception_handler(exc, context):
     else:
         status_code = response.status_code
 
-    print(status_code, localized_message)
     return Response({
         "detail": localized_message,
     }, status=status_code)

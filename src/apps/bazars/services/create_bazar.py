@@ -8,8 +8,8 @@ from apps.locations.models import City
 
 
 @transaction.atomic
-def create_bazar(*, name: str, city_id: int, address: str, total_places: int, user) -> Dict[str, Any]:
-    if Bazar.objects.filter(name=name, city_id=city_id).exists():
+def create_bazar(*, city_id: int, address: str, total_places: int, user, **data) -> Dict[str, Any]:
+    if Bazar.objects.filter(name_uz=data["name_uz"], city_id=city_id).exists():
         raise ValidationError({"message_key": "bazar_already_exists"})
 
     try:
@@ -18,7 +18,6 @@ def create_bazar(*, name: str, city_id: int, address: str, total_places: int, us
         raise ValidationError({"message_key": "city_not_found"})
 
     bazar = Bazar.objects.create(
-        name=name,
         city=city,
         address=address,
         total_places=total_places,
@@ -29,11 +28,11 @@ def create_bazar(*, name: str, city_id: int, address: str, total_places: int, us
 
     return {
         "id": bazar.id,
-        "name": bazar.name,
         "city": bazar.city.name,
         "region": bazar.city.region.name,
         "address": bazar.address,
         "total_places": bazar.total_places,
+        **data,
     }
 
 

@@ -89,3 +89,59 @@ class Message:
         "uz-cyrl": "Базар муваффақиятли яратилди.",
         "ru": "Базар успешно создан."
     }
+
+    BAZAR_DELETED_SUCCESSFULLY = {
+        "en": "Bazar deleted successfully.",
+        "uz": "Bozar muvaffaqiyatli o'chirildi.",
+        "uz-cyrl": "Бозар муваффақиятли ўчирилди.",
+        "ru": "Базар успешно удален."
+    }
+
+    BAZAR_UPDATED_SUCCESSFULLY = {
+        "en": "Bazar updated successfully.",
+        "uz": "Bazar muvaffaqiyatli yangilandi.",
+        "uz-cyrl": "Базар муваффақиятли янгиланди.",
+        "ru": "Базар успешно обновлен."
+    }
+
+    CITY_CREATED_SUCCESSFULLY = {
+        "en": "City created successfully.",
+        "uz": "Shahar muvaffaqiyatli yaratildi.",
+        "uz-cyrl": "Шаҳар муваффақиятли яратилди.",
+        "ru": "Город успешно создан."
+    }
+
+    CITY_DELETED_SUCCESSFULLY = {
+        "en": "City deleted successfully.",
+        "uz": "Shahar muvaffaqiyatli o'chirildi.",
+        "uz-cyrl": "Шаҳар муваффақиятли ўчирилди.",
+        "ru": "Город успешно удален."
+    }
+
+    CITY_UPDATED_SUCCESSFULLY = {
+        "en": "City updated successfully.",
+        "uz": "Shahar muvaffaqiyatli yangilandi.",
+        "uz-cyrl": "Шаҳар муваффақиятли янгиланди.",
+        "ru": "Город успешно обновлен."
+    }
+
+    REGION_CREATED_SUCCESSFULLY = {
+        "en": "Region created successfully.",
+        "uz": "Hudud muvaffaqiyatli yaratildi.",
+        "uz-cyrl": "Ҳудуд муваффақиятли яратилди.",
+        "ru": "Регион успешно создан."
+    }
+
+    REGION_DELETED_SUCCESSFULLY = {
+        "en": "Region deleted successfully.",
+        "uz": "Hudud muvaffaqiyatli o'chirildi.",
+        "uz-cyrl": "Ҳудуд муваффақиятли ўчирилди.",
+        "ru": "Регион успешно удален."
+    }
+
+    REGION_UPDATED_SUCCESSFULLY = {
+        "en": "Region updated successfully.",
+        "uz": "Hudud muvaffaqiyatli yangilandi.",
+        "uz-cyrl": "Ҳудуд муваффақиятли янгиланди.",
+        "ru": "Регион успешно обновлен."
+    }

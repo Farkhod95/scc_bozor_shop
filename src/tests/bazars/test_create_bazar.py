@@ -32,7 +32,7 @@ class TestCreateBazarAPI(APITestCase):
         self.city = City.objects.get(id=1)
 
         self.valid_payload = {
-            "name": "Yangi Bazar",
+            "name_uz": "Yangi Bazar",
             "city_id": self.city.id,
             "address": "Toshkent ko'chasi 12",
             "total_places": 50,
@@ -50,13 +50,13 @@ class TestCreateBazarAPI(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         data = response.json()["data"]
 
-        self.assertEqual(data["name"], "Yangi Bazar")
+        self.assertEqual(data["name_uz"], "Yangi Bazar")
         self.assertEqual(data["city"], self.city.name)
         self.assertEqual(data["total_places"], 50)
 
     def test_create_bazar_duplicate_name(self):
         Bazar.objects.create(
-            name="Yangi Bazar",
+            name_uz="Yangi Bazar",
             city=self.city,
             address="Test address",
             total_places=20

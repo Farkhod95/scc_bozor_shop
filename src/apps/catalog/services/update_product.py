@@ -1,43 +1,34 @@
-from decimal import Decimal
 from typing import Dict, Any
 from rest_framework.exceptions import ValidationError, NotFound
-
 from apps.catalog.models import Product, Category
 
 
-def update_product(*, product_id: int, name: str | None = None, unit: str | None = None, category_id: int | None = None, updated_by=None) -> Dict[str, Any]:
-    try:
-        obj = Product.objects.get(id=product_id)
-    except Product.DoesNotExist:
-        raise NotFound({"message_key": "Product not found"})
-
-    updates: dict[str, Any] = {}
-
-    if name is not None:
-        updates["name"] = name
-
-    if unit is not None:
-        updates["unit"] = unit
+def update_product(*, product_id: int, category_id: int | None = None, updated_by=None, **fields) -> Dict[str, Any]:
+    obj = Product.objects.filter(id=product_id).first()
+    if not obj:
+        raise NotFound({"message_key": "product_not_found"})
 
     if category_id is not None:
-        try:
-            category = Category.objects.get(id=category_id)
-        except Category.DoesNotExist:
+        category = Category.objects.filter(id=category_id).first()
+        if not category:
             raise ValidationError({"message_key": "category_does_not_exist"})
-        updates["category"] = category
+        fields["category"] = category
 
     if updated_by is not None:
-        updates["updated_by"] = updated_by
+        fields["updated_by"] = updated_by
 
-    if updates:
-        for key, value in updates.items():
+    for key, value in fields.items():
+        if value is not None:
             setattr(obj, key, value)
-        obj.save()
+    obj.save()
 
     return {
         "id": obj.id,
         "category": obj.category_id,
-        "name": obj.name,
+        "name_uz": obj.name_uz,
+        "name_ru": obj.name_ru,
+        "name_en": obj.name_en,
+        "name_uz_cyrl": obj.name_uz_cyrl,
         "unit": str(obj.unit),
         "created_at": obj.created_at,
     }

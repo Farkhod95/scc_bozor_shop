@@ -30,7 +30,7 @@ class ListBazarAPIView(ListAPIView, ResponseController):
     pagination_class = CustomPagination
 
     @extend_schema(
-        tags=["Bazar"],
+        tags=["Bazars"],
         summary="List bazars",
         description="Return a list of bazars with optional city filter.",
         parameters=[ListBazarQuerySerializer],

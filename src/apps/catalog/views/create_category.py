@@ -14,12 +14,12 @@ class CreateCategorySerializer(serializers.Serializer):
     title_uz = serializers.CharField(max_length=255)
     title_ru = serializers.CharField(max_length=255, required=False, allow_blank=True)
     title_en = serializers.CharField(max_length=255, required=False, allow_blank=True)
-    title_kr = serializers.CharField(max_length=255, required=False, allow_blank=True)
+    title_uz_cyrl = serializers.CharField(max_length=255, required=False, allow_blank=True)
 
-    description_uz = serializers.CharField(required=False, allow_blank=True, allow_null=True)
+    description_uz = serializers.CharField()
     description_ru = serializers.CharField(required=False, allow_blank=True, allow_null=True)
     description_en = serializers.CharField(required=False, allow_blank=True, allow_null=True)
-    description_kr = serializers.CharField(required=False, allow_blank=True, allow_null=True)
+    description_uz_cyrl = serializers.CharField(required=False, allow_blank=True, allow_null=True)
 
 
 class CreateCategoryAPIView(CreateAPIView, ResponseController):

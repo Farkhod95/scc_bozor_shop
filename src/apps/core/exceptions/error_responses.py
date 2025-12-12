@@ -88,4 +88,11 @@ ERROR_MESSAGES = {
         "uz-cyrl": "Кўрсатилган шаҳар топилмади.",
         "ru": "Указанный город не найден.",
     },
+
+    "region_not_found": {
+        "en": "The specified region was not found.",
+        "uz": "Ko'rsatilgan hudud topilmadi.",
+        "uz-cyrl": "Кўрсатилган ҳудуд топилмади.",
+        "ru": "Указанный регион не найден.",
+    },
 }

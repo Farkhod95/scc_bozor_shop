@@ -19,6 +19,7 @@ urlpatterns = [
     path("api/catalog/", include("apps.catalog.urls")),
     path("api/bazars/", include("apps.bazars.urls")),
     path("api/uploads/", include("apps.uploads.urls")),
+    path("api/locations/", include("apps.locations.v1.urls")),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

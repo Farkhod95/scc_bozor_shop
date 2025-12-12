@@ -25,7 +25,7 @@ class DeleteCategoryAPIView(DestroyAPIView, ResponseController):
                 examples=[
                     OpenApiExample(
                         "Not Found Example",
-                        value={"message_key": "category_not_found"},
+                        value={"detail": "Category not found"},
                         status_codes=[404],
                     )
                 ]

@@ -11,8 +11,15 @@ from apps.core.services.responses import Message
 
 
 class UpdateCategorySerializer(serializers.Serializer):
-    title = serializers.CharField(required=False, allow_blank=True)
-    description = serializers.CharField(required=False, allow_blank=True, allow_null=True)
+    title_uz = serializers.CharField(max_length=255, required=False, allow_blank=True)
+    title_ru = serializers.CharField(max_length=255, required=False, allow_blank=True)
+    title_en = serializers.CharField(max_length=255, required=False, allow_blank=True)
+    title_uz_cyrl = serializers.CharField(max_length=255, required=False, allow_blank=True)
+
+    description_uz = serializers.CharField(required=False, allow_blank=True, allow_null=True)
+    description_ru = serializers.CharField(required=False, allow_blank=True, allow_null=True)
+    description_en = serializers.CharField(required=False, allow_blank=True, allow_null=True)
+    description_uz_cyrl = serializers.CharField(required=False, allow_blank=True, allow_null=True)
 
 
 class UpdateCategoryAPIView(UpdateAPIView, ResponseController):
@@ -38,8 +45,14 @@ class UpdateCategoryAPIView(UpdateAPIView, ResponseController):
                             "message": "Category updated successfully.",
                             "data": {
                                 "id": 1,
-                                "title": "Updated Category",
-                                "description": "Updated description",
+                                "title_uz": "Updated Category",
+                                "title_ru": "Обновленная категория",
+                                "title_en": "Updated Category",
+                                "title_uz_cyrl": "Янгиланган категория",
+                                "description_uz": "Updated description",
+                                "description_ru": "Обновленное описание",
+                                "description_en": "Updated description",
+                                "description_uz_cyrl": "Янгиланган тавсиф",
                                 "created_at": "2025-01-01T12:00:00Z",
                             },
                         },

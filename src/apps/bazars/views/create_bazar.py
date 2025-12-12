@@ -11,7 +11,10 @@ from apps.core.services.responses import Message
 
 
 class CreateBazarSerializer(serializers.Serializer):
-    name = serializers.CharField()
+    name_uz = serializers.CharField()
+    name_ru = serializers.CharField(required=False)
+    name_en = serializers.CharField(required=False)
+    name_uz_cyrl = serializers.CharField(required=False)
     city_id = serializers.IntegerField()
     address = serializers.CharField()
     total_places = serializers.IntegerField()
@@ -23,7 +26,7 @@ class CreateBazarAPIView(CreateAPIView, ResponseController):
     serializer_class = CreateBazarSerializer
 
     @extend_schema(
-        tags=["Bazar"],
+        tags=["Bazars"],
         summary="Create Bazar",
         description="Create a new bazar using service layer.",
         responses={
