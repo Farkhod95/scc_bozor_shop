@@ -6,7 +6,7 @@ from apps.core.utils.translations import translate_response
 
 def get_bazar_detail(*, bazar_id: int, user, lang: str) -> dict:
     try:
-        obj = Bazar.objects.get(id=bazar_id)
+        obj = Bazar.objects.select_related("city", "city__region").get(id=bazar_id)
     except Bazar.DoesNotExist:
         raise NotFound({"message_key": "category_not_found"})
 
@@ -19,6 +19,12 @@ def get_bazar_detail(*, bazar_id: int, user, lang: str) -> dict:
         is_admin=is_admin
     )
 
-    data["created_at"] = obj.created_at
+    data.update({
+        "city_id": obj.city.id,
+        "city": obj.city.name,
+        "region": obj.city.region.name,
+        "total_places": obj.total_places,
+        "created_at": obj.created_at
+    })
 
     return data

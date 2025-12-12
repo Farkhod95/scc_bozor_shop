@@ -84,6 +84,11 @@ class ListBazarAPIView(ListAPIView, ResponseController):
         filters = {k: v for k, v in query_serializer.validated_data.items() if k != "search"}
         search = query_serializer.validated_data.get("search")
 
-        data = list_bazar(filters=filters, search=search)
+        data = list_bazar(
+            user=request.user,
+            lang=request.lang,
+            filters=filters,
+            search=search,
+        )
         page = self.paginate_queryset(data)
         return self.get_paginated_response(page)
