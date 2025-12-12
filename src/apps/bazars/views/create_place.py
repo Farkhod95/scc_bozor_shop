@@ -5,42 +5,40 @@ from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 from apps.core.auth.authentication import JWTAuthentication
 from apps.core.auth.permissions import IsSuperAdmin, IsAuthenticated, IsAdmin
 from apps.core.services.docs import common_responses
-from apps.bazars.services.create_bazar_admin import create_bazar_admin
+from apps.bazars.services.create_place import create_places
 from apps.core.services.response_controller import ResponseController
 from apps.core.services.responses import Message
 
 
-class CreateBazarAdminSerializer(serializers.Serializer):
+class CreatePlaceSerializer(serializers.Serializer):
     bazar_id = serializers.IntegerField()
-    user_id = serializers.IntegerField()
+    count = serializers.IntegerField(min_value=1, default=1, help_text="Number of places to create")
 
 
-class CreateBazarAdminAPIView(CreateAPIView, ResponseController):
-    serializer_class = CreateBazarAdminSerializer
+class CreatePlaceAPIView(CreateAPIView, ResponseController):
+    serializer_class = CreatePlaceSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, IsSuperAdmin]
+    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsAdmin)]
 
     @extend_schema(
-        tags=["Bazar Admins"],
-        summary="Assign user as Bazar Admin",
-        description="Assign a user as an admin for a specific bazar.",
-        request=CreateBazarAdminSerializer,
+        tags=["Places"],
+        summary="Create Places for a Bazar",
+        description="Automatically generate place numbers for a bazar and create them.",
+        request=CreatePlaceSerializer,
         responses={
             **common_responses,
             status.HTTP_201_CREATED: OpenApiResponse(
-                response=CreateBazarAdminSerializer,
-                description="Bazar admin created successfully.",
+                response=CreatePlaceSerializer,
+                description="Places created successfully",
                 examples=[
                     OpenApiExample(
                         "Success Example",
                         value={
-                            "message": "Bazar admin created successfully.",
-                            "data": {
-                                "id": 1,
-                                "bazar_id": 1,
-                                "user_id": 2,
-                                "assigned_at": "2025-12-12T10:00:00Z",
-                            }
+                            "message": "Places created successfully",
+                            "data": [
+                                {"id": 1, "bazar_id": 1, "number": 1, "is_active": True},
+                                {"id": 2, "bazar_id": 1, "number": 2, "is_active": True}
+                            ]
                         }
                     )
                 ]
@@ -51,12 +49,12 @@ class CreateBazarAdminAPIView(CreateAPIView, ResponseController):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        data = create_bazar_admin(
+        data = create_places(
             **serializer.validated_data
         )
 
         return self.success_response(
-            message=Message.BAZAR_ADMIN_CREATED_SUCCESSFULLY,
+            message=Message.PLACE_CREATED_SUCCESSFULLY,
             data=data,
             status=status.HTTP_201_CREATED
         )

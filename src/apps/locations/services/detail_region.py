@@ -21,6 +21,7 @@ def get_region_detail(*, region_id: int, user, lang: str) -> Dict[str, Any]:
 
     data.update({
         "id": obj.id,
+        "code": obj.code,
         "created_at": obj.created_at,
     })
 

@@ -25,5 +25,6 @@ def update_region(*, region_id: int, updated_by=None, **fields) -> Dict[str, Any
         "name_ru": obj.name_ru,
         "name_en": obj.name_en,
         "name_uz_cyrl": obj.name_uz_cyrl,
+        "code": obj.code,
         "created_at": obj.created_at,
     }

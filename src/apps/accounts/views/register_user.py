@@ -25,7 +25,8 @@ class RegisterResponseSerializer(serializers.Serializer):
 
 
 class RegisterUserAPIView(CreateAPIView, ResponseController):
-    permission_classes = (AllowAny,)
+    authentication_classes = []
+    permission_classes = []
     serializer_class = RegisterRequestSerializer
 
     @extend_schema(

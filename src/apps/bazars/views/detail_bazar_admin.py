@@ -23,7 +23,7 @@ class DetailBazarAdminSerializer(serializers.Serializer):
 class DetailBazarAdminAPIView(RetrieveAPIView, ResponseController):
     serializer_class = DetailBazarAdminSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsAdmin)]
+    permission_classes = [IsAuthenticated, IsSuperAdmin]
     lookup_url_kwarg = "bazar_admin_id"
 
     @extend_schema(

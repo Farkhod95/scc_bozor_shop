@@ -4,14 +4,13 @@ from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.bazars.services.detail_bazar import get_bazar_detail
 from apps.core.auth.authentication import JWTAuthentication
-from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin, IsAdmin
 from apps.core.services.response_controller import ResponseController
 from apps.core.services.docs import common_responses
 
 
 class DetailBazarAPIView(RetrieveAPIView, ResponseController):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = []
 
     @extend_schema(
         tags=["Bazars"],

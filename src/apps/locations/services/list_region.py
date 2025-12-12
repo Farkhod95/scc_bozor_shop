@@ -25,6 +25,7 @@ def list_region(user, lang: str, filters=None, search=None) -> Iterable[Dict[str
 
         region_data.update({
             "id": obj.id,
+            "code": obj.code,
             "created_at": obj.created_at,
         })
 

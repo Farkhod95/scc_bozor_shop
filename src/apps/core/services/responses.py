@@ -173,3 +173,52 @@ class Message:
         "uz-cyrl": "Базар админи муваффақиятли янгиланди.",
         "ru": "Администратор базара успешно обновлен."
     }
+
+    PLACE_CREATED_SUCCESSFULLY = {
+        "en": "Places created successfully.",
+        "uz": "Joylar muvaffaqiyatli yaratildi.",
+        "uz-cyrl": "Жойлар муваффақиятли яратилди.",
+        "ru": "Места успешно созданы."
+    }
+
+    PLACE_DELETED_SUCCESSFULLY = {
+        "en": "Place deleted successfully.",
+        "uz": "Joy muvaffaqiyatli o'chirildi.",
+        "uz-cyrl": "Жой муваффақиятли ўчирилди.",
+        "ru": "Место успешно удалено."
+    }
+
+    QR_CODE_CREATED_SUCCESSFULLY = {
+        "en": "QR code created successfully.",
+        "uz": "QR kod muvaffaqiyatli yaratildi.",
+        "uz-cyrl": "QR код муваффақиятли яратилди.",
+        "ru": "QR-код успешно создан."
+    }
+
+    QR_CODE_UPDATED_SUCCESSFULLY = {
+        "en": "QR code updated successfully.",
+        "uz": "QR kod muvaffaqiyatli yangilandi.",
+        "uz-cyrl": "QR код муваффақиятли янгиланди.",
+        "ru": "QR-код успешно обновлен."
+    }
+
+    PLACE_PRODUCT_CREATED_SUCCESSFULLY = {
+        "en": "Place product created successfully.",
+        "uz": "Joy mahsuloti muvaffaqiyatli yaratildi.",
+        "uz-cyrl": "Жой маҳсулоти муваффақиятли яратилди.",
+        "ru": "Продукт места успешно создан."
+    }
+
+    PLACE_PRODUCT_UPDATED_SUCCESSFULLY = {
+        "en": "Place product updated successfully.",
+        "uz": "Joy mahsuloti muvaffaqiyatli yangilandi.",
+        "uz-cyrl": "Жой маҳсулоти муваффақиятли янгиланди.",
+        "ru": "Продукт места успешно обновлен."
+    }
+
+    PLACE_PRODUCT_DELETED_SUCCESSFULLY = {
+        "en": "Place product deleted successfully.",
+        "uz": "Joy mahsuloti muvaffaqiyatli o'chirildi.",
+        "uz-cyrl": "Жой маҳсулоти муваффақиятли ўчирилди.",
+        "ru": "Продукт места успешно удален."
+    }

@@ -130,4 +130,38 @@ ERROR_MESSAGES = {
         "uz-cyrl": "Кўрсатилган фойдаланувчи аллақачон ушбу бозорнинг админи.",
         "ru": "Указанный пользователь уже является администратором этого базара.",
     },
+
+    "qr_exists": {
+        "en": "A QR code already exists for this place.",
+        "uz": "Ushbu joy uchun QR kod allaqachon mavjud.",
+        "uz-cyrl": "Ушбу жой учун QR код аллақачон мавжуд.",
+        "ru": "QR-код для этого места уже существует.",
+    },
+
+    "place_not_found": {
+        "en": "The specified place was not found.",
+        "uz": "Ko'rsatilgan joy topilmadi.",
+        "uz-cyrl": "Кўрсатилган жой топилмади.",
+        "ru": "Указанное место не найдено.",
+    },
+
+    "qr_not_found": {
+        "en": "The specified QR code was not found.",
+        "uz": "Ko'rsatilgan QR kod topilmadi.",
+        "uz-cyrl": "Кўрсатилган QR код топилмади.",
+        "ru": "Указанный QR-код не найден.",
+    },
+
+    "product_already_exists_in_place": {
+        "en": "This product already exists in the specified place.",
+        "uz": "Ushbu mahsulot ko'rsatilgan joyda allaqachon mavjud.",
+        "uz-cyrl": "Ушбу маҳсулот кўрсатилган жойда аллақачон мавжуд.",
+        "ru": "Этот продукт уже существует в указанном месте.",
+    },
+    "place_product_not_found": {
+        "en": "The specified place product was not found.",
+        "uz": "Ko'rsatilgan joy mahsuloti topilmadi.",
+        "uz-cyrl": "Кўрсатилган жой маҳсулоти топилмади.",
+        "ru": "Указанный продукт места не найден.",
+    },
 }

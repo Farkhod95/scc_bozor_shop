@@ -4,7 +4,7 @@ from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.locations.services.create_region import create_region
 from apps.core.auth.authentication import JWTAuthentication
-from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin, IsAdmin
+from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin
 from apps.core.services.response_controller import ResponseController
 from apps.core.services.docs import common_responses
 from apps.core.services.responses import Message
@@ -15,12 +15,13 @@ class CreateRegionSerializer(serializers.Serializer):
     name_ru = serializers.CharField(max_length=255, required=False, allow_blank=True)
     name_en = serializers.CharField(max_length=255, required=False, allow_blank=True)
     name_uz_cyrl = serializers.CharField(max_length=255, required=False, allow_blank=True)
+    code = serializers.CharField(max_length=10)
 
 
 class CreateRegionAPIView(CreateAPIView, ResponseController):
     serializer_class = CreateRegionSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsAdmin)]
+    permission_classes = [IsAuthenticated, IsSuperAdmin]
 
     @extend_schema(
         tags=["Regions"],

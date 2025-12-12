@@ -1,33 +1,32 @@
-from rest_framework import status
+from rest_framework import serializers, status
 from rest_framework.generics import DestroyAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
+from apps.bazars.services.delete_place_product import delete_place_product
 from apps.core.auth.authentication import JWTAuthentication
-from apps.core.auth.permissions import IsSuperAdmin, IsAuthenticated, IsAdmin
+from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin, IsAdmin
 from apps.core.services.docs import common_responses
-from apps.bazars.services.delete_bazar_admin import delete_bazar_admin
 from apps.core.services.response_controller import ResponseController
 from apps.core.services.responses import Message
 
 
-class DeleteBazarAdminAPIView(DestroyAPIView, ResponseController):
+class DeletePlaceProductAPIView(DestroyAPIView, ResponseController):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, IsSuperAdmin]
-    lookup_url_kwarg = "bazar_admin_id"
+    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsAdmin)]
 
     @extend_schema(
-        tags=["Bazar Admins"],
-        summary="Delete a Bazar Admin",
-        description="Delete a specific Bazar Admin by ID.",
+        tags=["PlaceProduct"],
+        summary="Delete PlaceProduct",
+        description="Delete a specific PlaceProduct by its ID.",
         responses={
             **common_responses,
             status.HTTP_200_OK: OpenApiResponse(
-                description="Bazar admin deleted successfully.",
+                description="PlaceProduct deleted successfully",
                 examples=[
                     OpenApiExample(
                         "Success Example",
                         value={
-                            "message": "Bazar admin deleted successfully.",
+                            "message": "PlaceProduct deleted successfully",
                             "data": None
                         }
                     )
@@ -36,9 +35,13 @@ class DeleteBazarAdminAPIView(DestroyAPIView, ResponseController):
         },
     )
     def delete(self, request, *args, **kwargs):
-        bazar_admin_id = kwargs.get("pk")
-        delete_bazar_admin(bazar_admin_id)
+        place_product_id = kwargs.get("pk")
+
+        delete_place_product(
+            place_product_id=place_product_id
+        )
+
         return self.success_response(
-            message=Message.BAZAR_ADMIN_DELETED_SUCCESSFULLY,
+            message=Message.PLACE_PRODUCT_DELETED_SUCCESSFULLY,
             status=status.HTTP_200_OK
         )

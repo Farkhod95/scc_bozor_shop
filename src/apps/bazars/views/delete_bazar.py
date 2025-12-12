@@ -12,7 +12,7 @@ from apps.core.services.responses import Message
 
 class DeleteBazarAPIView(DestroyAPIView, ResponseController):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsAdmin)]
+    permission_classes = [IsAuthenticated, IsSuperAdmin]
 
     @extend_schema(
         tags=["Bazars"],

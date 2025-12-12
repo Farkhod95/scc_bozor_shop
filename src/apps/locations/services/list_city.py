@@ -23,6 +23,7 @@ def list_city(user, lang: str, filters=None, search=None) -> Iterable[Dict[str, 
         city_data.update({
             "id": obj.id,
             "region_id": obj.region.id,
+            "code": obj.code,
             "region_name": (
                 translate_response(
                     obj=obj.region,

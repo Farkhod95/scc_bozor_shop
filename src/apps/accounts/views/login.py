@@ -20,6 +20,8 @@ class LoginResponseSerializer(serializers.Serializer):
 
 class LoginAPIView(CreateAPIView, ResponseController):
     serializer_class = LoginSerializer
+    authentication_classes = []
+    permission_classes = []
 
     @extend_schema(
         tags=["Authentication"],

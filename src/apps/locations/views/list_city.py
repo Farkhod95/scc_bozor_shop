@@ -4,7 +4,6 @@ from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.locations.services.list_city import list_city
 from apps.core.auth.authentication import JWTAuthentication
-from apps.core.auth.permissions import IsAuthenticated
 from apps.core.services.response_controller import ResponseController
 from apps.core.services.docs import common_responses
 from apps.core.utils.pagination import CustomPagination
@@ -12,6 +11,7 @@ from apps.core.utils.pagination import CustomPagination
 
 class ListCityQuerySerializer(serializers.Serializer):
     search = serializers.CharField(required=False)
+    region_id = serializers.IntegerField(required=False)
 
 
 class ListCitySerializer(serializers.Serializer):
@@ -25,7 +25,7 @@ class ListCitySerializer(serializers.Serializer):
 class ListCityAPIView(ListAPIView, ResponseController):
     serializer_class = ListCitySerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = []
     pagination_class = CustomPagination
 
     @extend_schema(

@@ -10,6 +10,21 @@ from .detail_bazar_admin import DetailBazarAdminAPIView
 from .delete_bazar_admin import DeleteBazarAdminAPIView
 from .update_bazar_admin import UpdateBazarAdminAPIView
 
+from .create_place import CreatePlaceAPIView
+from .list_place import ListPlaceAPIView
+from .detail_place import DetailPlaceAPIView
+from .delete_place import DeletePlaceAPIView
+
+from .create_qrcode import CreateQRCodeAPIView
+from .update_qrcode import UpdateQRCodeAPIView
+from .get_place_by_qr import GetPlaceByQRAPIView
+
+from .create_place_product import CreatePlaceProductAPIView
+from .update_place_product import UpdatePlaceProductAPIView
+from .list_place_product import ListPlaceProductAPIView
+from .delete_place_product import DeletePlaceProductAPIView
+
+
 __all__ = [
     "ListBazarAPIView",
     "CreateBazarAPIView",
@@ -22,4 +37,18 @@ __all__ = [
     "DetailBazarAdminAPIView",
     "DeleteBazarAdminAPIView",
     "UpdateBazarAdminAPIView",
+
+    "CreatePlaceAPIView",
+    "ListPlaceAPIView",
+    "DetailPlaceAPIView",
+    "DeletePlaceAPIView",
+
+    "CreateQRCodeAPIView",
+    "UpdateQRCodeAPIView",
+    "GetPlaceByQRAPIView",
+
+    "CreatePlaceProductAPIView",
+    "UpdatePlaceProductAPIView",
+    "ListPlaceProductAPIView",
+    "DeletePlaceProductAPIView",
 ]

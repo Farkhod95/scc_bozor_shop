@@ -17,4 +17,22 @@ urlpatterns = [
     path("bazar-admin/<int:pk>/detail/", DetailBazarAdminAPIView.as_view(), name="detail-bazar-admin"),
     path("bazar-admin/<int:pk>/delete/", DeleteBazarAdminAPIView.as_view(), name="delete-bazar-admin"),
     path("bazar-admin/<int:pk>/update/", UpdateBazarAdminAPIView.as_view(), name="update-bazar-admin"),
+
+    # Places
+    path("place/create/", CreatePlaceAPIView.as_view(), name="create-place"),
+    path("place/list/", ListPlaceAPIView.as_view(), name="list-places"),
+    path("place/<int:pk>/detail/", DetailPlaceAPIView.as_view(), name="detail-place"),
+    path("place/<int:place_id>/delete/", DeletePlaceAPIView.as_view(), name="delete-place"),
+    path("place/by-qr/", GetPlaceByQRAPIView.as_view(), name="get-place-by-qr"),
+
+
+    # QR Codes
+    path("qrcode/create/", CreateQRCodeAPIView.as_view(), name="create-qrcode"),
+    path("qrcode/<int:pk>/update/", UpdateQRCodeAPIView.as_view(), name="update-qrcode"),
+
+    # Place Products
+    path("place-product/create/", CreatePlaceProductAPIView.as_view(), name="create-place-product"),
+    path("place-product/<int:pk>/update/", UpdatePlaceProductAPIView.as_view(), name="update-place-product"),
+    path("place-product/list/", ListPlaceProductAPIView.as_view(), name="list-place-products"),
+    path("place-product/<int:pk>/delete/", DeletePlaceProductAPIView.as_view(), name="delete-place-product"),
 ]

@@ -5,7 +5,6 @@ from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 from apps.bazars.services.list_bazar import list_bazar
 from apps.core.services.response_controller import ResponseController
 from apps.core.auth.authentication import JWTAuthentication
-from apps.core.auth.permissions import IsAuthenticated
 from apps.core.services.docs import common_responses
 from apps.core.utils.pagination import CustomPagination
 
@@ -26,7 +25,7 @@ class ListBazarItemSerializer(serializers.Serializer):
 
 class ListBazarAPIView(ListAPIView, ResponseController):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = []
     pagination_class = CustomPagination
 
     @extend_schema(

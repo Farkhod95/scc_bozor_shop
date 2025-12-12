@@ -4,14 +4,13 @@ from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.locations.services.detail_city import get_city_detail
 from apps.core.auth.authentication import JWTAuthentication
-from apps.core.auth.permissions import IsAuthenticated
 from apps.core.services.response_controller import ResponseController
 from apps.core.services.docs import common_responses
 
 
 class DetailCityAPIView(RetrieveAPIView, ResponseController):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = []
 
     @extend_schema(
         tags=["Cities"],

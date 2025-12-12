@@ -3,7 +3,6 @@ from rest_framework.generics import ListAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse
 
 from apps.core.auth.authentication import JWTAuthentication
-from apps.core.auth.permissions import IsAuthenticated
 from apps.core.utils.pagination import CustomPagination
 from apps.core.services.response_controller import ResponseController
 from apps.core.services.docs import common_responses
@@ -16,7 +15,7 @@ class ListRegionQuerySerializer(serializers.Serializer):
 
 class ListRegionAPIView(ListAPIView, ResponseController):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = []
     pagination_class = CustomPagination
 
     @extend_schema(
