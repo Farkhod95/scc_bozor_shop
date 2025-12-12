@@ -36,7 +36,6 @@ class DeleteUserAPIView(GenericAPIView, ResponseController):
         delete_user(user_id)
 
         return self.success_response(
-            data=None,
             message=Message.USER_DELETED_SUCCESSFULLY,
             status=status.HTTP_200_OK,
         )

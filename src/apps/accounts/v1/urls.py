@@ -11,6 +11,7 @@ urlpatterns = [
     # Authentication
     path("auth/login/", LoginAPIView.as_view(), name="login"),
     path("auth/register/", RegisterUserAPIView.as_view(), name="register"),
+    path("auth/refresh-token/", RefreshTokenAPIView.as_view(), name="refresh-token"),
 
     # Profile
     path("users/me/", UserProfileAPIView.as_view(), name="user-profile"),

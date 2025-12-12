@@ -42,6 +42,5 @@ class DeleteRegionAPIView(DestroyAPIView, ResponseController):
 
         return self.success_response(
             message=Message.REGION_DELETED_SUCCESSFULLY,
-            data=None,
             status=status.HTTP_204_NO_CONTENT
         )

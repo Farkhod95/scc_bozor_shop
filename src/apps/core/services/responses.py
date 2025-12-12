@@ -20,6 +20,13 @@ class Message:
         "ru": "Пользователь успешно зарегистрирован."
     }
 
+    ACCESS_TOKEN_REFRESHED = {
+        "en": "Access token refreshed successfully.",
+        "uz": "Kirish tokeni muvaffaqiyatli yangilandi.",
+        "uz-cyrl": "Кириш токени муваффақиятли янгиланди.",
+        "ru": "Токен доступа успешно обновлен."
+    }
+
     USER_CREATED_SUCCESSFULLY = {
         "en": "User created successfully.",
         "uz": "Foydalanuvchi muvaffaqiyatli yaratildi.",
@@ -144,4 +151,25 @@ class Message:
         "uz": "Hudud muvaffaqiyatli yangilandi.",
         "uz-cyrl": "Ҳудуд муваффақиятли янгиланди.",
         "ru": "Регион успешно обновлен."
+    }
+
+    BAZAR_ADMIN_CREATED_SUCCESSFULLY = {
+        "en": "Bazar admin created successfully.",
+        "uz": "Bazar admini muvaffaqiyatli yaratildi.",
+        "uz-cyrl": "Базар админи муваффақиятли яратилди.",
+        "ru": "Администратор базара успешно создан."
+    }
+
+    BAZAR_ADMIN_DELETED_SUCCESSFULLY = {
+        "en": "Bazar admin deleted successfully.",
+        "uz": "Bazar admini muvaffaqiyatli o'chirildi.",
+        "uz-cyrl": "Базар админи муваффақиятли ўчирилди.",
+        "ru": "Администратор базара успешно удален."
+    }
+
+    BAZAR_ADMIN_UPDATED_SUCCESSFULLY = {
+        "en": "Bazar admin updated successfully.",
+        "uz": "Bazar admini muvaffaqiyatli yangilandi.",
+        "uz-cyrl": "Базар админи муваффақиятли янгиланди.",
+        "ru": "Администратор базара успешно обновлен."
     }

@@ -1,6 +1,8 @@
 import datetime
 import jwt
 from django.conf import settings
+from rest_framework.exceptions import AuthenticationFailed
+
 
 class JWTService:
     ACCESS_LIFETIME = datetime.timedelta(hours=1)
@@ -30,3 +32,15 @@ class JWTService:
             raise ValueError("Token expired")
         except jwt.InvalidTokenError:
             raise ValueError("Invalid token")
+
+
+    @classmethod
+    def refresh_access_token(cls, refresh_token: str) -> dict:
+        payload = cls.decode(refresh_token)
+
+        if payload.get("type") != "refresh":
+            raise ValueError("Token is not a refresh token")
+
+        user_id = payload.get("user_id")
+        new_access = cls._generate({"user_id": user_id, "type": "access"}, cls.ACCESS_LIFETIME)
+        return {"access": new_access}

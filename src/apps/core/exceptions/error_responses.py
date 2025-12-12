@@ -27,6 +27,20 @@ ERROR_MESSAGES = {
         "ru": "Запрашиваемый ресурс не найден.",
     },
 
+    "invalid_refresh_token": {
+        "en": "The refresh token is invalid or has expired.",
+        "uz": "Yangi kirish tokeni noto'g'ri yoki muddati o'tgan.",
+        "uz-cyrl": "Янги кириш токени нотўғри ёки муддати ўтган.",
+        "ru": "Токен обновления недействителен или истёк.",
+    },
+
+    "invalid_token_type": {
+        "en": "The provided token is not a refresh token.",
+        "uz": "Taqdim etilgan token yangi kirish tokeni emas.",
+        "uz-cyrl": "Тақдим этилган токен янги кириш токени эмас.",
+        "ru": "Предоставленный токен не является токеном обновления.",
+    },
+
     "username_or_password_incorrect": {
         "en": "Username or password is incorrect.",
         "uz": "Foydalanuvchi nomi yoki parol noto'g'ri.",
@@ -94,5 +108,26 @@ ERROR_MESSAGES = {
         "uz": "Ko'rsatilgan hudud topilmadi.",
         "uz-cyrl": "Кўрсатилган ҳудуд топилмади.",
         "ru": "Указанный регион не найден.",
+    },
+
+    "bazar_not_found": {
+        "en": "The specified bazar was not found.",
+        "uz": "Ko'rsatilgan bozor topilmadi.",
+        "uz-cyrl": "Кўрсатилган бозор топилмади.",
+        "ru": "Указанный базар не найден.",
+    },
+
+    "bazar_admin_not_found": {
+        "en": "The specified bazar admin was not found.",
+        "uz": "Ko'rsatilgan bozor admini topilmadi.",
+        "uz-cyrl": "Кўрсатилган бозор админи топилмади.",
+        "ru": "Указанный администратор базара не найден.",
+    },
+
+    "user_already_admin": {
+        "en": "The specified user is already an admin of this bazar.",
+        "uz": "Ko'rsatilgan foydalanuvchi allaqachon ushbu bozorning admini.",
+        "uz-cyrl": "Кўрсатилган фойдаланувчи аллақачон ушбу бозорнинг админи.",
+        "ru": "Указанный пользователь уже является администратором этого базара.",
     },
 }
