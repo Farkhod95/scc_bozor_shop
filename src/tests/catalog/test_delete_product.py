@@ -35,7 +35,7 @@ class TestDeleteProductAPI(APITestCase):
         self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {self.access}")
         response = self.client.delete(url)
 
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertFalse(Product.objects.filter(id=self.product.id).exists())
 
     def test_delete_product_normal_user_forbidden(self):

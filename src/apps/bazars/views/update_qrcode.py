@@ -11,7 +11,7 @@ from apps.core.services.responses import Message
 
 
 class UpdateQRCodeSerializer(serializers.Serializer):
-    place_id = serializers.IntegerField()
+    place_id = serializers.IntegerField(required=False)
     qr_text = serializers.CharField(max_length=255, required=False)
     valid = serializers.BooleanField(required=False)
 
@@ -50,12 +50,14 @@ class UpdateQRCodeAPIView(UpdateAPIView, ResponseController):
         }
     )
     def patch(self, request, *args, **kwargs):
+        qrcode_id = kwargs.get("pk")
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
         data = update_qrcode(
             **serializer.validated_data,
             updated_by=request.user,
+            qrcode_id=qrcode_id
         )
 
         return self.success_response(

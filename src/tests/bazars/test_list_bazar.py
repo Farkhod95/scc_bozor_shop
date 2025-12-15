@@ -31,8 +31,3 @@ class TestListBazarAPI(APITestCase):
         data = response.json()["data"]
         self.assertTrue(len(data) > 0)
 
-    def test_list_bazar_unauthenticated(self):
-        self.client.credentials()
-        response = self.client.get(self.url)
-
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)

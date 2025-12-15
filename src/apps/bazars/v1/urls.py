@@ -1,7 +1,7 @@
 from django.urls import path
 from apps.bazars.views import *
 
-app_name = "catalog"
+app_name = "bazar"
 
 urlpatterns = [
     # Bazars

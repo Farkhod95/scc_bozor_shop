@@ -34,7 +34,7 @@ class DetailPlaceSerializer(serializers.Serializer):
 class DetailPlaceAPIView(RetrieveAPIView, ResponseController):
     serializer_class = DetailPlaceSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsAdmin)]
+    permission_classes = []
     lookup_url_kwarg = "place_id"
 
     @extend_schema(

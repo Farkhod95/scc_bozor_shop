@@ -11,7 +11,6 @@ from apps.core.services.responses import Message
 
 
 class UpdatePlaceProductSerializer(serializers.Serializer):
-    place_product_id = serializers.IntegerField()
     price = serializers.DecimalField(max_digits=10, decimal_places=2, required=False)
     quantity = serializers.IntegerField(required=False, min_value=1)
 
@@ -50,11 +49,13 @@ class UpdatePlaceProductAPIView(UpdateAPIView, ResponseController):
         },
     )
     def patch(self, request, *args, **kwargs):
+        place_product_id = kwargs.get("pk")
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
         data = update_place_product(
             **serializer.validated_data,
+            place_product_id=place_product_id,
             updated_by=request.user
         )
 

@@ -1,0 +1,14 @@
+[
+  {
+    "model": "bazars.qrcode",
+    "pk": 1,
+    "fields": {
+      "place": 1,
+      "qr_text": "fnwoef923bwr02b9w982ygt834bw9r3",
+      "generate_at": "2025-12-04T16:00:00Z",
+      "valid": true,
+      "created_at": "2025-12-04T16:00:00Z",
+      "updated_at": "2025-12-04T16:00:00Z"
+    }
+  }
+]

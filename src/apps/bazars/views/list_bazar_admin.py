@@ -7,6 +7,7 @@ from apps.core.auth.permissions import IsSuperAdmin, IsAuthenticated
 from apps.core.services.docs import common_responses
 from apps.bazars.services.list_bazar_admin import list_bazar_admins
 from apps.core.services.response_controller import ResponseController
+from apps.core.utils.pagination import CustomPagination
 
 
 class ListBazarAdminSerializer(serializers.Serializer):
@@ -23,6 +24,7 @@ class ListBazarAdminAPIView(ListAPIView, ResponseController):
     serializer_class = ListBazarAdminSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated, IsSuperAdmin]
+    pagination_class = CustomPagination
 
     @extend_schema(
         tags=["Bazar Admins"],
