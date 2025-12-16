@@ -35,6 +35,8 @@ class DetailSubcategoryAPIView(RetrieveAPIView, ResponseController):
                         "id": 1,
                         "title": "Fruits",
                         "description": "Fresh fruit subcategory",
+                        "category_id": 3,
+                        "category_name": "Fruits",
                         "photo": "file/mathematics.jpg",
                         "created_at": "2025-01-15T12:00:30Z"
                     }

@@ -21,6 +21,7 @@ class CreateSubcategorySerializer(serializers.Serializer):
     description_en = serializers.CharField(required=False, allow_blank=True, allow_null=True)
     description_uz_cyrl = serializers.CharField(required=False, allow_blank=True, allow_null=True)
 
+    category_id = serializers.IntegerField()
     photo_id = serializers.IntegerField()
 
 
@@ -49,6 +50,7 @@ class CreateSubcategoryAPIView(CreateAPIView, ResponseController):
                                 "title": "Mathematics",
                                 "description": "All math related courses",
                                 "photo": "file/mathematics.jpg",
+                                "category": 3,
                             }
                         }
                     )

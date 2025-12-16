@@ -1,15 +1,22 @@
 from typing import Dict, Any
 from rest_framework.exceptions import NotFound, ValidationError
 
-from apps.catalog.models import Subcategory
+from apps.catalog.models import Subcategory, Category
 from apps.uploads.models import File
 
 
-def update_subcategory(*, subcategory_id: int, updated_by=None, **fields) -> Dict[str, Any]:
+def update_subcategory(*, subcategory_id: int, category_id: int | None = None, updated_by=None, **fields) -> Dict[str, Any]:
     try:
         obj = Subcategory.objects.get(id=subcategory_id)
     except Subcategory.DoesNotExist:
         raise NotFound({"message_key": "subcategory_not_found"})
+
+
+    if category_id is not None:
+        category = Category.objects.filter(id=category_id).first()
+        if not category:
+            raise ValidationError({"message_key": "category_does_not_exist"})
+        fields["category"] = category
 
     photo = fields.pop("photo_id", None)
     if photo:

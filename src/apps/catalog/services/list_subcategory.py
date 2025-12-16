@@ -5,7 +5,7 @@ from apps.core.utils.translations import translate_response, expand_translated_f
 
 
 def list_subcategory(user, lang: str, filters=None, search=None) -> Iterable[Dict[str, Any]]:
-    subcategories = Subcategory.objects.select_related("photo").all().order_by("-id")
+    subcategories = Subcategory.objects.select_related("photo", "category").all().order_by("-id")
     is_admin = user.is_staff
     result = []
 
@@ -24,6 +24,15 @@ def list_subcategory(user, lang: str, filters=None, search=None) -> Iterable[Dic
 
         subcategory_data.update({
             "id": obj.id,
+            "category_id": obj.category.id,
+            "category_name": (
+                translate_response(
+                    obj=obj.category,
+                    fields=["title"],
+                    lang=lang,
+                    is_admin=is_admin
+                )["title"]
+            ),
             "created_at": obj.created_at,
             "photo": obj.photo.file.url if obj.photo else None,
         })

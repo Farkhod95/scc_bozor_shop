@@ -13,6 +13,7 @@ from apps.core.utils.pagination import CustomPagination
 
 class ListSubcategoryQuerySerializer(serializers.Serializer):
     search = serializers.CharField(required=False)
+    category_id = serializers.IntegerField(required=False)
 
 
 class ListSubcategorySerializer(serializers.Serializer):
@@ -51,6 +52,8 @@ class ListSubcategoryAPIView(ListAPIView, ResponseController):
                                     "title": "Fruits",
                                     "description": "All fruits items",
                                     "photo": "file/mathematics.jpg",
+                                    "category_id": 3,
+                                    "category_name": "Fruits",
                                     "created_at": "2025-12-05T10:00:00Z"
                                 }
                             ]

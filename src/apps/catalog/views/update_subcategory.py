@@ -22,7 +22,7 @@ class UpdateSubcategorySerializer(serializers.Serializer):
     description_uz_cyrl = serializers.CharField(required=False, allow_blank=True, allow_null=True)
 
     photo_id = serializers.IntegerField(required=False)
-
+    category_id = serializers.IntegerField(required=False)
 
 
 class UpdateSubcategoryAPIView(UpdateAPIView, ResponseController):
@@ -57,6 +57,7 @@ class UpdateSubcategoryAPIView(UpdateAPIView, ResponseController):
                                 "description_en": "Updated description",
                                 "description_uz_cyrl": "Янгиланган тавсиф",
                                 "photo": "file/mathematics.jpg",
+                                "category": 1,
                                 "created_at": "2025-01-01T12:00:00Z",
                             },
                         },

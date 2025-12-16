@@ -14,6 +14,7 @@ class ListBazarQuerySerializer(serializers.Serializer):
     search = serializers.CharField(required=False)
     unit = serializers.CharField(required=False)
     category_id = serializers.IntegerField(required=False)
+    subcategory_id = serializers.IntegerField(required=False)
 
 
 class ListProductSerializer(serializers.Serializer):

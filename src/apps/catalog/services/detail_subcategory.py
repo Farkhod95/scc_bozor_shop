@@ -5,7 +5,7 @@ from apps.core.utils.translations import translate_response
 
 def get_subcategory_detail(*, subcategory_id: int, user, lang: str) -> dict:
     try:
-        obj = Subcategory.objects.get(id=subcategory_id)
+        obj = Subcategory.objects.select_related("category").get(id=subcategory_id)
     except Subcategory.DoesNotExist:
         raise NotFound({"message_key": "subcategory_not_found"})
 
@@ -17,8 +17,18 @@ def get_subcategory_detail(*, subcategory_id: int, user, lang: str) -> dict:
         lang=lang,
         is_admin=is_admin
     )
-
-    data["created_at"] = obj.created_at
-    data["photo"] = obj.photo.file.url if obj.photo else None
+    data.update({
+        "category_id": obj.category_id,
+        "category_name": (
+            translate_response(
+                obj=obj.category,
+                fields=["title"],
+                lang=lang,
+                is_admin=is_admin
+            )["title"]
+        ),
+        "created_at": obj.created_at,
+        "photo": obj.photo.file.url if obj.photo else None
+    })
 
     return data
