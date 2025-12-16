@@ -55,6 +55,13 @@ class Message:
         "ru": "Категория успешно создана."
     }
 
+    SUBCATEGORY_CREATED_SUCCESSFULLY = {
+        "en": "Subcategory created successfully.",
+        "uz": "Subkategoriya muvaffaqiyatli yaratildi.",
+        "uz-cyrl": "Субкатегория муваффақиятли яратилди.",
+        "ru": "Субкатегория успешно создана."
+    }
+
     CATEGORY_UPDATED_SUCCESSFULLY = {
         "en": "Category updated successfully.",
         "uz": "Kategoriya muvaffaqiyatli yangilandi.",
@@ -62,11 +69,25 @@ class Message:
         "ru": "Категория успешно обновлена."
     }
 
+    SUBCATEGORY_UPDATED_SUCCESSFULLY = {
+        "en": "Subcategory updated successfully.",
+        "uz": "Subkategoriya muvaffaqiyatli yangilandi.",
+        "uz-cyrl": "Субкатегория муваффақиятли янгиланди.",
+        "ru": "Субкатегория успешно обновлена."
+    }
+
     CATEGORY_DELETED_SUCCESSFULLY = {
         "en": "Category deleted successfully.",
         "uz": "Kategoriya muvaffaqiyatli o'chirildi.",
         "uz-cyrl": "Категория муваффақиятли ўчирилди.",
         "ru": "Категория успешно удалена."
+    }
+
+    SUBCATEGORY_DELETED_SUCCESSFULLY = {
+        "en": "Subcategory deleted successfully.",
+        "uz": "Subkategoriya muvaffaqiyatli o'chirildi.",
+        "uz-cyrl": "Субкатегория муваффақиятли ўчирилди.",
+        "ru": "Субкатегория успешно удалена."
     }
 
     PRODUCT_CREATED_SUCCESSFULLY = {

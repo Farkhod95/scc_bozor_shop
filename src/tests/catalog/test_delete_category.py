@@ -11,6 +11,7 @@ User = get_user_model()
 class TestDeleteCategoryAPI(APITestCase):
     fixtures = [
         "tests/catalog/fixtures/users.json",
+        "tests/catalog/fixtures/files.json",
         "tests/catalog/fixtures/categories.json",
     ]
 

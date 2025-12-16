@@ -11,7 +11,9 @@ User = get_user_model()
 class TestProductsListAPI(APITestCase):
     fixtures = [
         "tests/catalog/fixtures/users.json",
+        "tests/catalog/fixtures/files.json",
         "tests/catalog/fixtures/categories.json",
+        "tests/catalog/fixtures/subcategories.json",
         "tests/catalog/fixtures/products.json",
     ]
 

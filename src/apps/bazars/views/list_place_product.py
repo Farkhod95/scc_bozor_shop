@@ -43,6 +43,7 @@ class ListPlaceProductAPIView(ListAPIView, ResponseController):
                                     "place_number": 12,
                                     "product_id": 5,
                                     "product_name": "Apple",
+                                    "product_photo": "file/mathematics.jpg",
                                     "price": "100.00",
                                     "quantity": 10
                                 }

@@ -3,7 +3,7 @@ from rest_framework.test import APITestCase
 from django.contrib.auth import get_user_model
 
 from apps.core.auth.jwt import JWTService
-from apps.catalog.models import Product, Category
+from apps.catalog.models import Product, Category, Subcategory
 
 User = get_user_model()
 
@@ -11,7 +11,9 @@ User = get_user_model()
 class TestCreateProductAPI(APITestCase):
     fixtures = [
         "tests/catalog/fixtures/users.json",
+        "tests/catalog/fixtures/files.json",
         "tests/catalog/fixtures/categories.json",
+        "tests/catalog/fixtures/subcategories.json",
         "tests/catalog/fixtures/products.json",
     ]
 
@@ -28,11 +30,14 @@ class TestCreateProductAPI(APITestCase):
         self.url = "/api/catalog/v1/product/create/"
 
         self.category = Category.objects.get(id=1)
+        self.subcategory = Subcategory.objects.get(id=1)
 
         self.valid_payload = {
             "name_uz": "New Product",
             "unit": "kg",
+            "photo_id": 1,
             "category_id": self.category.id,
+            "subcategory_id": self.subcategory.id,
         }
 
         self.invalid_payload = {
@@ -75,6 +80,7 @@ class TestCreateProductAPI(APITestCase):
             "name": "Product X",
             "unit": "kg",
             "category_id": 9999,
+            "subcategory_id": 9999,
         }
 
         response = self.client.post(self.url, payload, format="json")

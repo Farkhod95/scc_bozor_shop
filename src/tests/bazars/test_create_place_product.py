@@ -16,6 +16,8 @@ class TestCreatePlaceProductAPI(APITestCase):
         "tests/bazars/fixtures/cities.json",
         "tests/bazars/fixtures/bazars.json",
         "tests/bazars/fixtures/places.json",
+        "tests/catalog/fixtures/files.json",
+        "tests/catalog/fixtures/subcategories.json",
         "tests/catalog/fixtures/categories.json",
         "tests/catalog/fixtures/products.json",
     ]

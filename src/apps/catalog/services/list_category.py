@@ -5,7 +5,7 @@ from apps.core.utils.translations import translate_response, expand_translated_f
 
 
 def list_category(user, lang: str, filters=None, search=None) -> Iterable[Dict[str, Any]]:
-    categories = Category.objects.all().order_by("-id")
+    categories = Category.objects.select_related("photo").all().order_by("-id")
     is_admin = user.is_staff
     result = []
 
@@ -25,6 +25,7 @@ def list_category(user, lang: str, filters=None, search=None) -> Iterable[Dict[s
         category_data.update({
             "id": obj.id,
             "created_at": obj.created_at,
+            "photo": obj.photo.file.url if obj.photo else None
         })
 
         result.append(category_data)

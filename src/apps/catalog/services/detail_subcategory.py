@@ -1,13 +1,13 @@
 from rest_framework.exceptions import NotFound
-from apps.catalog.models import Category
+from apps.catalog.models import Subcategory
 from apps.core.utils.translations import translate_response
 
 
-def get_category_detail(*, category_id: int, user, lang: str) -> dict:
+def get_subcategory_detail(*, subcategory_id: int, user, lang: str) -> dict:
     try:
-        obj = Category.objects.select_related('photo').get(id=category_id)
-    except Category.DoesNotExist:
-        raise NotFound({"message_key": "category_not_found"})
+        obj = Subcategory.objects.get(id=subcategory_id)
+    except Subcategory.DoesNotExist:
+        raise NotFound({"message_key": "subcategory_not_found"})
 
     is_admin = user.is_staff
 

@@ -78,6 +78,12 @@ ERROR_MESSAGES = {
         "uz-cyrl": "Кўрсатилган категория топилмади.",
         "ru": "Указанная категория не найдена.",
     },
+    "subcategory_not_found": {
+        "en": "The specified subcategory was not found.",
+        "uz": "Ko'rsatilgan subkategoriya topilmadi.",
+        "uz-cyrl": "Кўрсатилган субкатегория топилмади.",
+        "ru": "Указанная субкатегория не найдена.",
+    },
     "product_not_found": {
         "en": "The specified product was not found.",
         "uz": "Ko'rsatilgan mahsulot topilmadi.",
@@ -89,6 +95,12 @@ ERROR_MESSAGES = {
         "uz": "Kategoriya mavjud emas.",
         "uz-cyrl": "Категория мавжуд эмас.",
         "ru": "Категория не существует.",
+    },
+    "category_does_not_exist_does_not_exist": {
+        "en": "Subcategory does not exist.",
+        "uz": "Subkategoriya mavjud emas.",
+        "uz-cyrl": "Субкатегория мавжуд эмас.",
+        "ru": "Субкатегория не существует.",
     },
     "bazar_already_exists": {
         "en": "A bazar with this name already exists in the specified city.",

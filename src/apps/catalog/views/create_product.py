@@ -13,6 +13,7 @@ from apps.core.services.model_status import UnitType
 
 class CreateProductSerializer(serializers.Serializer):
     category_id = serializers.IntegerField()
+    subcategory_id = serializers.IntegerField()
 
     name_uz = serializers.CharField(max_length=255)
     name_ru = serializers.CharField(max_length=255, required=False, allow_blank=True)
@@ -20,6 +21,8 @@ class CreateProductSerializer(serializers.Serializer):
     name_uz_cyrl = serializers.CharField(max_length=255, required=False, allow_blank=True)
 
     unit = serializers.ChoiceField(choices=UnitType)
+    photo_id = serializers.IntegerField()
+
 
 class CreateProductAPIView(CreateAPIView, ResponseController):
     serializer_class = CreateProductSerializer
@@ -44,8 +47,10 @@ class CreateProductAPIView(CreateAPIView, ResponseController):
                             "data": {
                                 "id": 1,
                                 "category": 3,
+                                "subcategory": 2,
                                 "name": "Laptop",
                                 "unit": "pcs",
+                                "photo": "file/mathematics.jpg",
                                 "created_at": "2025-12-05T10:30:00Z"
                             }
                         }

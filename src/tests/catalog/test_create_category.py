@@ -11,6 +11,7 @@ User = get_user_model()
 class TestCreateCategoryAPI(APITestCase):
     fixtures = [
         "tests/catalog/fixtures/users.json",
+        "tests/catalog/fixtures/files.json",
         "tests/catalog/fixtures/categories.json",
     ]
 
@@ -27,7 +28,8 @@ class TestCreateCategoryAPI(APITestCase):
 
         self.valid_payload = {
             "title_uz": "Electronics",
-            "description_uz": "All tech products"
+            "description_uz": "All tech products",
+            "photo_id": 1,
         }
 
         self.invalid_payload = {

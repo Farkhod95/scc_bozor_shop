@@ -1,8 +1,11 @@
 *.sqlite3
 /backups
 
-#PyCharm
+# PyCharm
 .idea/
 
 # Visual Studio Code
 .vscode/
+
+# Media
+src/media/

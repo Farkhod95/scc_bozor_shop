@@ -18,6 +18,7 @@ class ListCategorySerializer(serializers.Serializer):
     id = serializers.IntegerField()
     title = serializers.CharField()
     description = serializers.CharField(allow_null=True)
+    photo = serializers.URLField()
     created_at = serializers.DateTimeField()
 
 
@@ -49,6 +50,7 @@ class ListCategoryAPIView(ListAPIView, ResponseController):
                                     "id": 1,
                                     "title": "Fruits",
                                     "description": "All fruits items",
+                                    "photo": "file/mathematics.jpg",
                                     "created_at": "2025-12-05T10:00:00Z"
                                 }
                             ]

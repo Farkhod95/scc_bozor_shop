@@ -2,7 +2,7 @@ from rest_framework import status, serializers
 from rest_framework.generics import UpdateAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
-from apps.catalog.services.update_category import update_category
+from apps.catalog.services.update_subcategory import update_subcategory
 from apps.core.auth.authentication import JWTAuthentication
 from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin, IsAdmin
 from apps.core.services.docs import common_responses
@@ -10,7 +10,7 @@ from apps.core.services.response_controller import ResponseController
 from apps.core.services.responses import Message
 
 
-class UpdateCategorySerializer(serializers.Serializer):
+class UpdateSubcategorySerializer(serializers.Serializer):
     title_uz = serializers.CharField(max_length=255, required=False, allow_blank=True)
     title_ru = serializers.CharField(max_length=255, required=False, allow_blank=True)
     title_en = serializers.CharField(max_length=255, required=False, allow_blank=True)
@@ -24,32 +24,33 @@ class UpdateCategorySerializer(serializers.Serializer):
     photo_id = serializers.IntegerField(required=False)
 
 
-class UpdateCategoryAPIView(UpdateAPIView, ResponseController):
+
+class UpdateSubcategoryAPIView(UpdateAPIView, ResponseController):
     http_method_names = ["patch"]
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated, (IsSuperAdmin | IsAdmin)]
-    serializer_class = UpdateCategorySerializer
+    serializer_class = UpdateSubcategorySerializer
 
     @extend_schema(
-        tags=["Categories"],
-        summary="Update category",
-        description="Updates an existing category. Only provided fields will be updated.",
-        request=UpdateCategorySerializer,
+        tags=["Subcategories"],
+        summary="Update subcategory",
+        description="Updates an existing subcategory. Only provided fields will be updated.",
+        request=UpdateSubcategorySerializer,
         responses={
             **common_responses,
             status.HTTP_200_OK: OpenApiResponse(
-                description="Category updated successfully.",
+                description="Subcategory updated successfully.",
                 examples=[
                     OpenApiExample(
                         name="Success Example",
                         value={
                             "success": True,
-                            "message": "Category updated successfully.",
+                            "message": "Subcategory updated successfully.",
                             "data": {
                                 "id": 1,
-                                "title_uz": "Updated Category",
+                                "title_uz": "Updated Subcategory",
                                 "title_ru": "Обновленная категория",
-                                "title_en": "Updated Category",
+                                "title_en": "Updated Subcategory",
                                 "title_uz_cyrl": "Янгиланган категория",
                                 "description_uz": "Updated description",
                                 "description_ru": "Обновленное описание",
@@ -64,23 +65,23 @@ class UpdateCategoryAPIView(UpdateAPIView, ResponseController):
                 ],
             ),
             status.HTTP_404_NOT_FOUND: OpenApiResponse(
-                description="Category not found."
+                description="Subcategory not found."
             ),
         },
     )
     def patch(self, request, *args, **kwargs):
-        category_id = kwargs.get("pk")
+        subcategory_id = kwargs.get("pk")
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        data = update_category(
-            category_id=category_id,
+        data = update_subcategory(
+            subcategory_id=subcategory_id,
             updated_by=request.user,
             **serializer.validated_data,
         )
 
         return self.success_response(
-            message=Message.CATEGORY_UPDATED_SUCCESSFULLY,
+            message=Message.SUBCATEGORY_UPDATED_SUCCESSFULLY,
             data=data,
             status=status.HTTP_200_OK,
         )

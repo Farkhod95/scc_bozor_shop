@@ -62,7 +62,12 @@ class DetailPlaceAPIView(RetrieveAPIView, ResponseController):
                                     "valid": True
                                 },
                                 "products": [
-                                    {"id": 1, "name": "Product1", "price": "100.00", "quantity": 2}
+                                    {
+                                        "id": 1,
+                                        "name": "Product1",
+                                        "price": "100.00", "quantity": 2,
+                                        "photo": "file/mathematics.jpg",
+                                    }
                                 ]
                             }
                         }

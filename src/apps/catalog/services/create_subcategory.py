@@ -1,20 +1,18 @@
 from django.db import transaction
 from rest_framework.exceptions import ValidationError
 
-from apps.catalog.models import Category
+from apps.catalog.models import Subcategory
 from apps.uploads.models import File
 
 
 @transaction.atomic
-def create_category(*, created_by=None, **data):
+def create_subcategory(*, created_by=None, **data):
     try:
         photo = File.objects.get(id=data.pop("photo_id"))
     except File.DoesNotExist:
         raise ValidationError({"message_key": "file_not_found"})
 
-    obj = Category.objects.create(created_by=created_by, photo=photo, **data)
-
-
+    obj = Subcategory.objects.create(created_by=created_by, photo=photo, **data)
     return {
         "id": obj.id,
         **data,

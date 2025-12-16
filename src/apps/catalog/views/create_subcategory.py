@@ -5,12 +5,12 @@ from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 from apps.core.auth.authentication import JWTAuthentication
 from apps.core.auth.permissions import IsSuperAdmin, IsAuthenticated, IsAdmin
 from apps.core.services.docs import common_responses
-from apps.catalog.services.create_category import create_category
+from apps.catalog.services.create_subcategory import create_subcategory
 from apps.core.services.response_controller import ResponseController
 from apps.core.services.responses import Message
 
 
-class CreateCategorySerializer(serializers.Serializer):
+class CreateSubcategorySerializer(serializers.Serializer):
     title_uz = serializers.CharField(max_length=255)
     title_ru = serializers.CharField(max_length=255, required=False, allow_blank=True)
     title_en = serializers.CharField(max_length=255, required=False, allow_blank=True)
@@ -24,31 +24,31 @@ class CreateCategorySerializer(serializers.Serializer):
     photo_id = serializers.IntegerField()
 
 
-class CreateCategoryAPIView(CreateAPIView, ResponseController):
-    serializer_class = CreateCategorySerializer
+class CreateSubcategoryAPIView(CreateAPIView, ResponseController):
+    serializer_class = CreateSubcategorySerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated, (IsSuperAdmin | IsAdmin)]
 
     @extend_schema(
-        tags=["Categories"],
-        summary="Create a new category",
-        description="Create a new category with a title and optional description.",
-        request=CreateCategorySerializer,
+        tags=["Subcategories"],
+        summary="Create a new subcategory",
+        description="Create a new subcategory with a title and optional description.",
+        request=CreateSubcategorySerializer,
         responses={
             **common_responses,
             status.HTTP_201_CREATED: OpenApiResponse(
-                response=CreateCategorySerializer,
-                description="Category created successfully.",
+                response=CreateSubcategorySerializer,
+                description="Subcategory created successfully.",
                 examples=[
                     OpenApiExample(
                         "Success Example",
                         value={
-                            "message": "Category created successfully.",
+                            "message": "Subcategory created successfully.",
                             "data": {
                                 "id": 1,
                                 "title": "Mathematics",
-                                "photo": "file/mathematics.jpg",
                                 "description": "All math related courses",
+                                "photo": "file/mathematics.jpg",
                             }
                         }
                     )
@@ -60,13 +60,13 @@ class CreateCategoryAPIView(CreateAPIView, ResponseController):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        data = create_category(
+        data = create_subcategory(
             **serializer.validated_data,
             created_by=request.user,
         )
 
         return self.success_response(
-            message=Message.CATEGORY_CREATED_SUCCESSFULLY,
+            message=Message.SUBCATEGORY_CREATED_SUCCESSFULLY,
             data=data,
             status=status.HTTP_201_CREATED
         )

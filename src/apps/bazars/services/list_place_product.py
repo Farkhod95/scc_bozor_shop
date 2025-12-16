@@ -4,7 +4,7 @@ from apps.core.utils.translations import translate_response
 
 
 def list_place_product(user, lang: str, bazar_id: int | None = None,) -> List[Dict[str, Any]]:
-    queryset = PlaceProduct.objects.select_related('place', 'product')
+    queryset = PlaceProduct.objects.select_related('place', 'product', 'product__photo')
 
     if bazar_id is not None:
         queryset = queryset.filter(place__bazar_id=bazar_id)
@@ -16,6 +16,7 @@ def list_place_product(user, lang: str, bazar_id: int | None = None,) -> List[Di
             "place_id": pp.place.id,
             "place_number": pp.place.number,
             "product_id": pp.product.id,
+            "product_photo": pp.product.photo.file.url if pp.product.photo else None,
             "product_name": (
                 translate_response(
                     obj=pp.product,

@@ -18,7 +18,7 @@ class UpdateProductSerializer(serializers.Serializer):
     name_uz_cyrl = serializers.CharField(required=False, allow_blank=True)
     unit = serializers.ChoiceField(choices=UnitType, required=False)
     category_id = serializers.IntegerField(required=False)
-
+    photo_id = serializers.IntegerField(required=False)
 
 class UpdateProductAPIView(UpdateAPIView, ResponseController):
     http_method_names = ["patch"]
@@ -46,6 +46,7 @@ class UpdateProductAPIView(UpdateAPIView, ResponseController):
                                 "category": 1,
                                 "name": "Updated Product",
                                 "unit": "kg",
+                                "photo": "file/mathematics.jpg",
                                 "created_at": "2025-01-12T09:30:00Z",
                             },
                         },

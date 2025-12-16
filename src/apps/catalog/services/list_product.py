@@ -5,7 +5,7 @@ from apps.core.utils.translations import translate_response, expand_translated_f
 
 
 def list_products(user, lang: str, filters=None, search=None) -> Iterable[Dict[str, Any]]:
-    products = Product.objects.select_related("category").all().order_by("-id")
+    products = Product.objects.select_related("category", "subcategory", "photo").all().order_by("-id")
     is_admin = user.is_staff
     result = []
 
@@ -35,6 +35,16 @@ def list_products(user, lang: str, filters=None, search=None) -> Iterable[Dict[s
                     is_admin=is_admin
                 )["title"]
             ),
+            "subcategory_id": obj.subcategory_id,
+            "subcategory_name": (
+                translate_response(
+                    obj=obj.subcategory,
+                    fields=["title"],
+                    lang=lang,
+                    is_admin=is_admin
+                )["title"]
+            ),
+            "photo": obj.photo.file.url if obj.photo else None,
             "created_at": obj.created_at,
         })
 

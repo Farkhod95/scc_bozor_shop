@@ -10,6 +10,7 @@ User = get_user_model()
 class TestCategoryDetailAPI(APITestCase):
     fixtures = [
         "tests/catalog/fixtures/users.json",
+        "tests/catalog/fixtures/files.json",
         "tests/catalog/fixtures/categories.json",
     ]
 

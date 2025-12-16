@@ -1,6 +1,7 @@
 from typing import Dict, Any
 from rest_framework.exceptions import ValidationError, NotFound
 from apps.catalog.models import Product, Category
+from apps.uploads.models import File
 
 
 def update_product(*, product_id: int, category_id: int | None = None, updated_by=None, **fields) -> Dict[str, Any]:
@@ -16,6 +17,15 @@ def update_product(*, product_id: int, category_id: int | None = None, updated_b
 
     if updated_by is not None:
         fields["updated_by"] = updated_by
+
+    photo = fields.pop("photo_id", None)
+    if photo:
+        try:
+            photo = File.objects.get(id=fields.pop("photo_id"))
+            obj.photo = photo
+        except File.DoesNotExist:
+            raise ValidationError({"message_key": "file_not_found"})
+
 
     for key, value in fields.items():
         if value is not None:

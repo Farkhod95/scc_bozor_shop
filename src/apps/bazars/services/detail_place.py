@@ -6,7 +6,7 @@ from apps.core.utils.translations import translate_response
 
 def detail_place(place_id: int, lang) -> Dict:
     try:
-        place = Place.objects.select_related("qrcode").prefetch_related('products').get(id=place_id)
+        place = Place.objects.select_related("qrcode").prefetch_related('products', 'products__photo').get(id=place_id)
     except Place.DoesNotExist:
         raise NotFound({"message_key": "place_not_found", "message": "Place not found"})
 
@@ -36,7 +36,8 @@ def detail_place(place_id: int, lang) -> Dict:
             ),
             "product_unit": pp.product.unit,
             "price": pp.price,
-            "quantity": pp.quantity
+            "quantity": pp.quantity,
+            "photo": pp.photo.file.url if pp.photo else None,
         })
 
     return {

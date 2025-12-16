@@ -29,9 +29,13 @@ class DetailProductAPIView(RetrieveAPIView, ResponseController):
                             "success": True,
                             "data": {
                                 "id": 1,
-                                "category": 3,
-                                "name": "Apple",
+                                "category_id": 3,
+                                "category_name": "Fruits",
+                                "subcategory_id": 2,
+                                "subcategory_name": "Apple",
+                                "name": " Red apple",
                                 "unit": "kg",
+                                "photo": "file/mathematics.jpg",
                                 "created_at": "2025-01-15T12:00:30Z"
                             }
                         },
