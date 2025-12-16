@@ -21,7 +21,7 @@ class UpdateCategorySerializer(serializers.Serializer):
     description_en = serializers.CharField(required=False, allow_blank=True, allow_null=True)
     description_uz_cyrl = serializers.CharField(required=False, allow_blank=True, allow_null=True)
 
-    photo_id = serializers.IntegerField(required=False)
+    photo_id = serializers.IntegerField(required=False, allow_null=True)
 
 
 class UpdateCategoryAPIView(UpdateAPIView, ResponseController):

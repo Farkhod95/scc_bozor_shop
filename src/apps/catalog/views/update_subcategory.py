@@ -21,8 +21,8 @@ class UpdateSubcategorySerializer(serializers.Serializer):
     description_en = serializers.CharField(required=False, allow_blank=True, allow_null=True)
     description_uz_cyrl = serializers.CharField(required=False, allow_blank=True, allow_null=True)
 
-    photo_id = serializers.IntegerField(required=False)
-    category_id = serializers.IntegerField(required=False)
+    photo_id = serializers.IntegerField(required=False, allow_null=True)
+    category_id = serializers.IntegerField(required=False, allow_null=True)
 
 
 class UpdateSubcategoryAPIView(UpdateAPIView, ResponseController):
