@@ -243,3 +243,23 @@ class Message:
         "uz-cyrl": "Жой маҳсулоти муваффақиятли ўчирилди.",
         "ru": "Продукт места успешно удален."
     }
+
+    BAZAR_IMAGE_CREATED_SUCCESSFULLY = {
+        "en": "Bazar image created successfully.",
+        "uz": "Bozor rasmi muvaffaqiyatli yaratildi.",
+        "uz-cyrl": "Бозор расми муваффақиятли яратилди.",
+        "ru": "Изображение базара успешно создано."
+    }
+
+    BAZAR_IMAGE_DELETED_SUCCESSFULLY = {
+        "en": "Bazar image deleted successfully.",
+        "uz": "Bozor rasmi muvaffaqiyatli o'chirildi.",
+        "uz-cyrl": "Бозор расми муваффақиятли ўчирилди.",
+        "ru": "Изображение базара успешно удалено."
+    }
+    BAZAR_IMAGE_UPDATED_SUCCESSFULLY = {
+        "en": "Bazar image updated successfully.",
+        "uz": "Bozor rasmi muvaffaqiyatli yangilandi.",
+        "uz-cyrl": "Бозор расми муваффақиятли янгиланди.",
+        "ru": "Изображение базара успешно обновлено."
+    }

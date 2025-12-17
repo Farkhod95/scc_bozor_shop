@@ -183,4 +183,10 @@ ERROR_MESSAGES = {
         "uz-cyrl": "Кўрсатилган жой маҳсулоти топилмади.",
         "ru": "Указанный продукт места не найден.",
     },
+    "bazar_image_not_found": {
+        "en": "The specified bazar image was not found.",
+        "uz": "Ko'rsatilgan bozor rasmi topilmadi.",
+        "uz-cyrl": "Кўрсатилган бозор расми топилмади.",
+        "ru": "Указанное изображение базара не найдено."
+    }
 }

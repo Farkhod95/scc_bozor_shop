@@ -1,10 +1,16 @@
 from django.contrib import admin
-from apps.bazars.models import Bazar, BazarAdmin, Place, PlacePriceHistory, QRCode
+from apps.bazars.models import Bazar, BazarAdmin, Place, PlacePriceHistory, QRCode, BazarImage
 from apps.bazars.models.place_product import PlaceProduct
+
+
+class BazarImageInline(admin.TabularInline):
+    model = BazarImage
+    extra = 1
 
 
 @admin.register(Bazar)
 class BazarAdminPanel(admin.ModelAdmin):
+    inlines = [BazarImageInline]
     list_display = ("id", "name", "city", "address", "total_places")
     search_fields = ("name", "address")
     list_filter = ("city",)
@@ -14,7 +20,6 @@ class BazarAdminUserPanel(admin.ModelAdmin):
     list_display = ("id", "bazar", "user", "assigned_at")
     search_fields = ("user__username", "bazar__name")
     list_filter = ("assigned_at",)
-
 
 
 class PlaceProductInline(admin.TabularInline):

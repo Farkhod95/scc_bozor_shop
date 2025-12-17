@@ -24,6 +24,11 @@ from .update_place_product import UpdatePlaceProductAPIView
 from .list_place_product import ListPlaceProductAPIView
 from .delete_place_product import DeletePlaceProductAPIView
 
+from .create_bazar_image import CreateBazarImageAPIView
+from .delete_bazar_image import DeleteBazarImageAPIView
+from .list_bazar_images import ListBazarImageAPIView
+from .update_bazar_image import UpdateBazarImageAPIView
+
 
 __all__ = [
     "ListBazarAPIView",
@@ -51,4 +56,9 @@ __all__ = [
     "UpdatePlaceProductAPIView",
     "ListPlaceProductAPIView",
     "DeletePlaceProductAPIView",
+
+    "CreateBazarImageAPIView",
+    "DeleteBazarImageAPIView",
+    "ListBazarImageAPIView",
+    "UpdateBazarImageAPIView",
 ]
