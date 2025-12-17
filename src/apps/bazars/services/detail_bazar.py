@@ -24,6 +24,7 @@ def get_bazar_detail(*, bazar_id: int, user, lang: str) -> dict:
         "city": obj.city.name,
         "region": obj.city.region.name,
         "total_places": obj.total_places,
+        "address": obj.address,
         "created_at": obj.created_at
     })
 

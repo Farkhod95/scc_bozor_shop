@@ -19,6 +19,10 @@ class ListBazarAdminSerializer(serializers.Serializer):
     assigned_at = serializers.DateTimeField()
 
 
+class ListBazarAdminQuerySerializer(serializers.Serializer):
+    search = serializers.CharField(required=False)
+    bazar_id = serializers.IntegerField(required=False)
+
 
 class ListBazarAdminAPIView(ListAPIView, ResponseController):
     serializer_class = ListBazarAdminSerializer
@@ -30,6 +34,7 @@ class ListBazarAdminAPIView(ListAPIView, ResponseController):
         tags=["Bazar Admins"],
         summary="List all Bazar Admins",
         description="Retrieve a list of all Bazar Admins with bazar and user information.",
+        parameters=[ListBazarAdminQuerySerializer],
         responses={
             **common_responses,
             status.HTTP_200_OK: OpenApiResponse(
@@ -57,6 +62,15 @@ class ListBazarAdminAPIView(ListAPIView, ResponseController):
         },
     )
     def get(self, request, *args, **kwargs):
-        data = list_bazar_admins()
+        query_serializer = ListBazarAdminQuerySerializer(data=request.query_params)
+        query_serializer.is_valid(raise_exception=True)
+
+        filters = {k: v for k, v in query_serializer.validated_data.items() if k != "search"}
+        search = query_serializer.validated_data.get("search")
+
+        data = list_bazar_admins(
+            filters=filters,
+            search=search,
+        )
         page = self.paginate_queryset(data)
         return self.get_paginated_response(page)
