@@ -18,6 +18,8 @@ def list_bazar_admins(filters=None, search=None) -> Iterable[Dict]:
             "bazar_name": getattr(admin.bazar, "name_uz", None),
             "user_id": admin.user.id,
             "username": admin.user.username,
+            "first_name": admin.user.first_name,
+            "last_name": admin.user.last_name,
             "assigned_at": admin.assigned_at
         })
     return result
