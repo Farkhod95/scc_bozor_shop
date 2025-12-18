@@ -14,8 +14,8 @@ urlpatterns = [
     # Bazar
     path("bazar/<int:pk>/images", ListBazarImageAPIView.as_view(), name="list-bazar-images"),
     path("bazar-image/create/", CreateBazarImageAPIView.as_view(), name="create-bazar-image"),
-    path("bazar-images/<int:image_id>/delete/", DeleteBazarImageAPIView.as_view(), name="delete-bazar-image"),
-    path("bazar-images/<int:image_id>/update/", UpdateBazarImageAPIView.as_view(), name="update-bazar-image"),
+    path("bazar-image/<int:image_id>/delete/", DeleteBazarImageAPIView.as_view(), name="delete-bazar-image"),
+    path("bazar-image/<int:image_id>/update/", UpdateBazarImageAPIView.as_view(), name="update-bazar-image"),
 
     # Bazar Admins
     path("bazar-admin/create/", CreateBazarAdminAPIView.as_view(), name="create-bazar-admin"),
