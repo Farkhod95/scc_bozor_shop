@@ -26,9 +26,3 @@ def delete_bazar_image(*, image_id: int):
         if new_main:
             new_main.is_main = True
             new_main.save(update_fields=["is_main"])
-
-    return {
-        "id": image_id,
-        "bazar_id": bazar.id,
-        "was_main": was_main,
-    }

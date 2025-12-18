@@ -27,11 +27,6 @@ class DeleteBazarImageAPIView(DestroyAPIView, ResponseController):
                         "Success Example",
                         value={
                             "message": "Bazar image deleted successfully.",
-                            "data": {
-                                "id": 5,
-                                "bazar_id": 3,
-                                "was_main": True
-                            }
                         }
                     )
                 ]
@@ -41,9 +36,8 @@ class DeleteBazarImageAPIView(DestroyAPIView, ResponseController):
     def delete(self, request, *args, **kwargs):
         image_id = kwargs.get("image_id")
 
-        data = delete_bazar_image(image_id=image_id)
+        delete_bazar_image(image_id=image_id)
         return self.success_response(
             message=Message.BAZAR_IMAGE_DELETED_SUCCESSFULLY,
-            data=data,
             status=status.HTTP_200_OK
         )
