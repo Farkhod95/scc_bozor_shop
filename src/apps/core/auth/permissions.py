@@ -37,3 +37,14 @@ class IsSuperAdmin(BasePermission):
             and request.user.is_authenticated
             and request.user.role == UserType.SUPERADMIN
         )
+
+
+class IsBazarAdmin(BasePermission):
+
+    def has_permission(self, request, view):
+        return (
+            request.user.is_authenticated
+            and request.user.role == UserType.ADMIN
+            and hasattr(request.user, "bazaradmin")
+            and request.user.bazaradmin.exists()
+        )

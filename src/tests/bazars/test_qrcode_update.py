@@ -14,6 +14,7 @@ class TestUpdateQRCodeAPI(APITestCase):
         "tests/bazars/fixtures/regions.json",
         "tests/bazars/fixtures/cities.json",
         "tests/bazars/fixtures/bazars.json",
+        "tests/bazars/fixtures/bazar_admins.json",
         "tests/bazars/fixtures/places.json",
         "tests/bazars/fixtures/qrcodes.json",
     ]

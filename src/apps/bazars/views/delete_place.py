@@ -3,7 +3,7 @@ from rest_framework.generics import DestroyAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.core.auth.authentication import JWTAuthentication
-from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin, IsAdmin
+from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin, IsBazarAdmin
 from apps.core.services.docs import common_responses
 from apps.bazars.services.delete_place import delete_place
 from apps.core.services.response_controller import ResponseController
@@ -12,7 +12,7 @@ from apps.core.services.responses import Message
 
 class DeletePlaceAPIView(DestroyAPIView, ResponseController):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsAdmin)]
+    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsBazarAdmin)]
     lookup_url_kwarg = "place_id"
 
     @extend_schema(
@@ -37,7 +37,7 @@ class DeletePlaceAPIView(DestroyAPIView, ResponseController):
     )
     def delete(self, request, *args, **kwargs):
         place_id = kwargs.get(self.lookup_url_kwarg)
-        delete_place(place_id=int(place_id))
+        delete_place(request.user, place_id=int(place_id))
         return self.success_response(
             message=Message.PLACE_DELETED_SUCCESSFULLY,
             status=status.HTTP_200_OK

@@ -3,7 +3,7 @@ from rest_framework.generics import CreateAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.core.auth.authentication import JWTAuthentication
-from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin, IsAdmin
+from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin, IsBazarAdmin
 from apps.core.services.docs import common_responses
 from apps.bazars.services.create_qrcode import create_qrcode
 from apps.core.services.response_controller import ResponseController
@@ -18,7 +18,7 @@ class CreateQRCodeSerializer(serializers.Serializer):
 class CreateQRCodeAPIView(CreateAPIView, ResponseController):
     serializer_class = CreateQRCodeSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsAdmin)]
+    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsBazarAdmin)]
 
     @extend_schema(
         tags=["QR Codes"],
@@ -54,6 +54,7 @@ class CreateQRCodeAPIView(CreateAPIView, ResponseController):
 
         data = create_qrcode(
             **serializer.validated_data,
+            user=request.user,
             created_by=request.user,
         )
 

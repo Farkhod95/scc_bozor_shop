@@ -28,7 +28,7 @@ class TestUpdateBazarAdminAPI(APITestCase):
         normal_tokens = JWTService.create_tokens(self.normal_user.id)
         self.normal_access = normal_tokens["access"]
 
-        self.bazar_admin = BazarAdmin.objects.get(id=1)
+        self.bazar_admin = BazarAdmin.objects.get(id=2)
         self.new_bazar = Bazar.objects.exclude(id=self.bazar_admin.bazar_id).first()
 
         self.base_url = "/api/bazars/v1/bazar-admin/"

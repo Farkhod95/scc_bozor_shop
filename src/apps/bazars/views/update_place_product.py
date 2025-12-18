@@ -4,7 +4,7 @@ from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.bazars.services.update_place_product import update_place_product
 from apps.core.auth.authentication import JWTAuthentication
-from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin, IsAdmin
+from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin, IsBazarAdmin
 from apps.core.services.docs import common_responses
 from apps.core.services.response_controller import ResponseController
 from apps.core.services.responses import Message
@@ -19,7 +19,7 @@ class UpdatePlaceProductAPIView(UpdateAPIView, ResponseController):
     http_method_names = ["patch"]
     serializer_class = UpdatePlaceProductSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsAdmin)]
+    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsBazarAdmin)]
 
     @extend_schema(
         tags=["PlaceProduct"],
@@ -55,12 +55,13 @@ class UpdatePlaceProductAPIView(UpdateAPIView, ResponseController):
 
         data = update_place_product(
             **serializer.validated_data,
+            user=request.user,
             place_product_id=place_product_id,
             updated_by=request.user
         )
 
         return self.success_response(
-            message=Message.CATEGORY_CREATED_SUCCESSFULLY,
+            message=Message.PLACE_PRODUCT_UPDATED_SUCCESSFULLY,
             data=data,
             status=status.HTTP_200_OK
         )

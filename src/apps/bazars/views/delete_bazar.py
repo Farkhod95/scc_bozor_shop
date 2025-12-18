@@ -4,7 +4,7 @@ from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.bazars.services.delete_bazar import delete_bazar
 from apps.core.auth.authentication import JWTAuthentication
-from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin, IsAdmin
+from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin
 from apps.core.services.response_controller import ResponseController
 from apps.core.services.docs import common_responses
 from apps.core.services.responses import Message

@@ -1,13 +1,16 @@
 from typing import List, Dict
 from rest_framework.exceptions import NotFound
 from apps.bazars.models import Bazar, Place
+from apps.core.services.validate_bazar_admin import validate_bazar_admin
 
 
-def create_places(*, bazar_id: int, count: int = 1) -> List[Dict]:
+def create_places(*, user, bazar_id: int, count: int = 1) -> List[Dict]:
     try:
         bazar = Bazar.objects.get(id=bazar_id)
     except Bazar.DoesNotExist:
         raise NotFound({"message_key": "bazar_not_found", "message": "Bazar not found"})
+
+    validate_bazar_admin(user, bazar_id)
 
     created_places = []
     last_number = Place.objects.filter(bazar=bazar).order_by("-number").first()

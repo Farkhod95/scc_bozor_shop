@@ -3,10 +3,12 @@ from typing import Dict, Any
 from rest_framework.exceptions import NotFound, ValidationError
 
 from apps.bazars.models import PlaceProduct, PlacePriceHistory
+from apps.core.services.validate_bazar_admin import validate_bazar_admin
 
 
 def update_place_product(
     *,
+    user,
     place_product_id: int,
     price: Decimal | None = None,
     quantity: int | None = None,
@@ -17,6 +19,8 @@ def update_place_product(
         pp = PlaceProduct.objects.select_related('product', 'place').get(id=place_product_id)
     except PlaceProduct.DoesNotExist:
         raise NotFound({"message_key": "place_product_not_found"})
+
+    validate_bazar_admin(user, pp.place.bazar_id)
 
     if price is not None and pp.price != price:
         PlacePriceHistory.objects.create(

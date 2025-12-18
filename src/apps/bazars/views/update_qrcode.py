@@ -3,7 +3,7 @@ from rest_framework.generics import UpdateAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.core.auth.authentication import JWTAuthentication
-from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin, IsAdmin
+from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin, IsBazarAdmin
 from apps.core.services.docs import common_responses
 from apps.bazars.services.update_qrcode import update_qrcode
 from apps.core.services.response_controller import ResponseController
@@ -20,7 +20,7 @@ class UpdateQRCodeAPIView(UpdateAPIView, ResponseController):
     http_method_names = ["patch"]
     serializer_class = UpdateQRCodeSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsAdmin)]
+    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsBazarAdmin)]
 
     @extend_schema(
         tags=["QR Codes"],
@@ -56,6 +56,7 @@ class UpdateQRCodeAPIView(UpdateAPIView, ResponseController):
 
         data = update_qrcode(
             **serializer.validated_data,
+            user=request.user,
             updated_by=request.user,
             qrcode_id=qrcode_id
         )

@@ -4,10 +4,12 @@ from rest_framework.exceptions import ValidationError, NotFound
 
 from apps.catalog.models import Product
 from apps.bazars.models import Place, PlaceProduct
+from apps.core.services.validate_bazar_admin import validate_bazar_admin
 
 
 def create_place_product(
     *,
+    user,
     place_id: int,
     product_id: int,
     price: Decimal,
@@ -19,6 +21,8 @@ def create_place_product(
         place = Place.objects.get(id=place_id)
     except Place.DoesNotExist:
         raise NotFound({"message_key": "place_not_found"})
+
+    validate_bazar_admin(user, place.bazar_id)
 
     try:
         product = Product.objects.get(id=product_id)
