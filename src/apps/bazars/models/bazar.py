@@ -8,6 +8,8 @@ class Bazar(BaseModel):
     city = models.ForeignKey('locations.City', on_delete=models.CASCADE)
     address = models.CharField(max_length=255, null=True)
     total_places = models.IntegerField(default=0)
+    lat = models.FloatField(null=True, blank=True)
+    lng = models.FloatField(null=True, blank=True)
 
     def __str__(self):
         return self.name

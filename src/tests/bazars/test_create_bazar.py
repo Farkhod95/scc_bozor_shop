@@ -36,6 +36,8 @@ class TestCreateBazarAPI(APITestCase):
             "city_id": self.city.id,
             "address": "Toshkent ko'chasi 12",
             "total_places": 50,
+            "lat": 41.2995,
+            "lng": 69.2401,
         }
 
         self.invalid_payload = {

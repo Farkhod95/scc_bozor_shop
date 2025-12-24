@@ -18,6 +18,8 @@ class CreateBazarSerializer(serializers.Serializer):
     city_id = serializers.IntegerField()
     address = serializers.CharField()
     total_places = serializers.IntegerField()
+    lat = serializers.FloatField(required=False)
+    lng = serializers.FloatField(required=False)
 
 
 class CreateBazarAPIView(CreateAPIView, ResponseController):

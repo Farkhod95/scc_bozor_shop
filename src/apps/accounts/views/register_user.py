@@ -1,6 +1,5 @@
 from rest_framework import status, serializers
 from rest_framework.generics import CreateAPIView
-from rest_framework.permissions import AllowAny
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.accounts.services.register_user import register_user
@@ -53,7 +52,7 @@ class RegisterUserAPIView(CreateAPIView, ResponseController):
                     "last_name": "Valiyev",
                     "email": "ali01@gmail.com",
                     "phone_number": "+998901234567",
-                    "profile_image": "http://example.com/media/profile_images/ali01.jpg",
+                    "profile_image": "1",
                 },
             ),
             OpenApiExample(

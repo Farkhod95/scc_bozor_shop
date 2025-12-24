@@ -18,6 +18,8 @@ class UpdateBazarSerializer(serializers.Serializer):
     name_uz_cyrl = serializers.CharField(required=False)
     city_id = serializers.IntegerField(required=False)
     address = serializers.CharField(required=False)
+    lat = serializers.FloatField(required=False)
+    lng = serializers.FloatField(required=False)
 
 
 class UpdateBazarView(UpdateAPIView, ResponseController):

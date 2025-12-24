@@ -9,7 +9,7 @@ services:
     networks:
       - test_net
     ports:
-      - "5432:5432"
+      - "5434:5432"
 
   bazarweb:
     container_name: bazarweb

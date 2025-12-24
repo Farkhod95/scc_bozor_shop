@@ -1,4 +1,5 @@
 from typing import Dict, Any
+
 from django.shortcuts import get_object_or_404
 from rest_framework.exceptions import ValidationError
 from apps.bazars.models import Bazar
@@ -29,5 +30,7 @@ def update_bazar(*, bazar_id: int, updated_by=None, **fields) -> Dict[str, Any]:
         "city_id": bazar.city_id,
         "address": bazar.address,
         "total_places": bazar.total_places,
+        "lat": bazar.lat,
+        "lng": bazar.lng,
         "created_at": bazar.created_at,
     }
