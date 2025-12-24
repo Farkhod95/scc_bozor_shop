@@ -14,7 +14,9 @@ User = get_user_model()
 def register_user(**validated_data) -> dict:
     user = _create_user(**validated_data)
 
-    access, refresh = JWTService.create_tokens(user.id)
+    tokens = JWTService.create_tokens(user.id)
+    access = tokens['access']
+    refresh = tokens['refresh']
 
     return {
         "access": access,
