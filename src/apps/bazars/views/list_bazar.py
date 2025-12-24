@@ -61,6 +61,14 @@ class ListBazarAPIView(ListAPIView, ResponseController):
                                     "region": "Region 1",
                                     "address": "123 Main St",
                                     "total_places": 150,
+                                    "lat": 35.6892,
+                                    "lng": 51.3890,
+                                    "distance": 2.5,
+                                    "main_image": "http://example.com/media/main_image.jpg",
+                                    "images": [
+                                        {"id": 1, "url": "http://example.com/media/image1.jpg", "is_main": True},
+                                        {"id": 2, "url": "http://example.com/media/image2.jpg", "is_main": False},
+                                    ],
                                 },
                                 {
                                     "id": 2,
@@ -69,6 +77,13 @@ class ListBazarAPIView(ListAPIView, ResponseController):
                                     "region": "Region 2",
                                     "address": "456 Side St",
                                     "total_places": 100,
+                                    "lat": 35.6892,
+                                    "lng": 51.3890,
+                                    "distance": 5.0,
+                                    "main_image": "http://example.com/media/main_image2.jpg",
+                                    "images": [
+                                        {"id": 3, "url": "http://example.com/media/image3.jpg", "is_main": True},
+                                    ],
                                 },
                             ],
                         },
@@ -81,7 +96,11 @@ class ListBazarAPIView(ListAPIView, ResponseController):
         query_serializer = ListBazarQuerySerializer(data=request.query_params)
         query_serializer.is_valid(raise_exception=True)
 
-        filters = {k: v for k, v in query_serializer.validated_data.items() if k != "search"}
+        lat = query_serializer.validated_data.get("lat")
+        lng = query_serializer.validated_data.get("lng")
+
+        filters = {k: v for k, v in query_serializer.validated_data.items()
+                   if k not in ["search", "lat", "lng"]}
         search = query_serializer.validated_data.get("search")
 
         data = list_bazar(
@@ -89,6 +108,8 @@ class ListBazarAPIView(ListAPIView, ResponseController):
             lang=request.lang,
             filters=filters,
             search=search,
+            user_coords={'lat': lat, 'lng': lng} if lat and lng else None
         )
+
         page = self.paginate_queryset(data)
         return self.get_paginated_response(page)

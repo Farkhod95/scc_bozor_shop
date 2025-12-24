@@ -34,6 +34,25 @@ class DetailBazarAPIView(RetrieveAPIView, ResponseController):
                         "id": 1,
                         "title": "Fruits",
                         "description": "Fresh fruit bazar",
+                        "address": "123 Market St",
+                        "city_id": 2,
+                        "city": "New York",
+                        "region": "NY",
+                        "total_places": 150,
+                        "lat": 40.7128,
+                        "lng": -74.0060,
+                        "images": [
+                            {
+                                "id": 10,
+                                "url": "http://example.com/images/bazar1.jpg",
+                                "is_main": True
+                            },
+                            {
+                                "id": 11,
+                                "url": "http://example.com/images/bazar2.jpg",
+                                "is_main": False
+                            }
+                        ],
                         "created_at": "2025-01-15T12:00:30Z"
                     }
                 },
