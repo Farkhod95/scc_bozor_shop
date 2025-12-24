@@ -1,6 +1,5 @@
 from typing import Dict, Any
 from django.db import transaction
-from django.contrib.gis.geos import Point
 from rest_framework.exceptions import ValidationError
 
 from apps.bazars.models import Bazar, Place
