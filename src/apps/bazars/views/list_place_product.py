@@ -26,16 +26,26 @@ class ListPlaceProductAPIView(ListAPIView, ResponseController):
         summary="List PlaceProducts",
         description="List all PlaceProducts or filter by bazar_id.",
         parameters=[ListPlaceProductSerializer],
-        request=ListPlaceProductSerializer,
         responses={
             **common_responses,
             status.HTTP_200_OK: OpenApiResponse(
+                response=ListPlaceProductSerializer,
                 description="PlaceProducts retrieved successfully",
                 examples=[
                     OpenApiExample(
                         "Success Example",
                         value={
-                            "message": "PlaceProducts retrieved successfully",
+                            "message": "OK",
+                            "links": {
+                                "next": "http://example.com/?page=2",
+                                "previous": None,
+                            },
+                            "pagination": {
+                                "current_page": 1,
+                                "total_pages": 5,
+                                "page_size": 10,
+                                "total_items": 50,
+                            },
                             "data": [
                                 {
                                     "id": 1,
@@ -47,7 +57,7 @@ class ListPlaceProductAPIView(ListAPIView, ResponseController):
                                     "price": "100.00",
                                     "quantity": 10
                                 }
-                            ]
+                            ],
                         }
                     )
                 ]

@@ -43,7 +43,17 @@ class ListCityAPIView(ListAPIView, ResponseController):
                         "Success Example",
                         value={
                             "success": True,
-                            "message": "Cities retrieved successfully.",
+                            "message": "OK",
+                            "links": {
+                                "next": "http://example.com/?page=2",
+                                "previous": None
+                            },
+                            "pagination": {
+                                "current_page": 1,
+                                "total_pages": 5,
+                                "page_size": 10,
+                                "total_items": 50
+                            },
                             "data": [
                                 {
                                     "id": 5,

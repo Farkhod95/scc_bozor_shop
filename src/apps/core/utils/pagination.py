@@ -22,3 +22,14 @@ class CustomPagination(PageNumberPagination):
             },
             "data": data,
         })
+
+    def get_paginated_response_schema(self, schema):
+        """
+        Override this method to provide custom schema for drf-spectacular
+        """
+        return {
+            'data': {
+                'type': 'array',
+                'items': schema,
+            },
+        }

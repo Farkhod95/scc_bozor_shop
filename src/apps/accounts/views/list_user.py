@@ -7,7 +7,6 @@ from apps.core.auth.permissions import IsSuperAdmin, IsAuthenticated
 from apps.core.auth.authentication import JWTAuthentication
 from apps.core.services.docs import common_responses
 from apps.core.services.response_controller import ResponseController
-from apps.core.services.responses import Message
 from apps.core.utils.pagination import CustomPagination
 
 

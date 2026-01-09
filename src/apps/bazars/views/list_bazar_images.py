@@ -33,20 +33,28 @@ class ListBazarImageAPIView(ListAPIView, ResponseController):
                     OpenApiExample(
                         "Success Example",
                         value={
-                            "message": "Success",
+                            "message": "OK",
+                            "links": {
+                                "next": None,
+                                "previous": None,
+                            },
+                            "pagination": {
+                                "current_page": 1,
+                                "total_pages": 1,
+                                "page_size": 10,
+                                "total_items": 1,
+                            },
                             "data": [
                                 {
                                     "id": 1,
-                                    "image": "/media/uploads/bazar1.jpg",
-                                    "is_main": True
-                                },
-                                {
-                                    "id": 2,
-                                    "image": "/media/uploads/bazar2.jpg",
-                                    "is_main": False
+                                    "bazar_id": 1,
+                                    "bazar_name": "Central Bazar",
+                                    "user_id": 2,
+                                    "username": "admin_user",
+                                    "assigned_at": "2025-12-12T10:00:00Z"
                                 }
-                            ]
-                        }
+                            ],
+                        },
                     )
                 ]
             ),

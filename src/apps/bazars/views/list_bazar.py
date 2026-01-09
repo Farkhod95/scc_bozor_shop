@@ -12,6 +12,8 @@ from apps.core.utils.pagination import CustomPagination
 class ListBazarQuerySerializer(serializers.Serializer):
     search = serializers.CharField(required=False)
     city_id = serializers.IntegerField(required=False)
+    lat = serializers.FloatField(required=False)
+    lng = serializers.FloatField(required=False)
 
 
 class ListBazarItemSerializer(serializers.Serializer):
@@ -21,6 +23,12 @@ class ListBazarItemSerializer(serializers.Serializer):
     region = serializers.CharField()
     address = serializers.CharField()
     total_places = serializers.IntegerField()
+    lat = serializers.FloatField()
+    lng = serializers.FloatField()
+    distance = serializers.FloatField(required=False)
+    main_image = serializers.URLField(required=False)
+    images = serializers.ListField(required=False)
+
 
 
 class ListBazarAPIView(ListAPIView, ResponseController):

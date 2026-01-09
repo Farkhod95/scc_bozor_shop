@@ -47,7 +47,17 @@ class ListPlaceAPIView(ListAPIView, ResponseController):
                     OpenApiExample(
                         "Success Example",
                         value={
-                            "message": "Places retrieved successfully",
+                            "message": "OK",
+                            "links": {
+                                "next": "http://example.com/?page=2",
+                                "previous": None,
+                            },
+                            "pagination": {
+                                "current_page": 1,
+                                "total_pages": 1,
+                                "page_size": 10,
+                                "total_items": 1,
+                            },
                             "data": [
                                 {
                                     "id": 1,
@@ -57,9 +67,9 @@ class ListPlaceAPIView(ListAPIView, ResponseController):
                                         "qr_text": "QR123",
                                         "generate_at": "2025-12-12T10:00:00Z",
                                         "valid": True
-                                    },
+                                    }
                                 }
-                            ]
+                            ],
                         }
                     )
                 ]

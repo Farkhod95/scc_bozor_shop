@@ -1,6 +1,6 @@
 from rest_framework import status, serializers
 from rest_framework.generics import ListAPIView
-from drf_spectacular.utils import extend_schema, OpenApiResponse
+from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.core.auth.authentication import JWTAuthentication
 from apps.core.utils.pagination import CustomPagination
@@ -27,6 +27,33 @@ class ListRegionAPIView(ListAPIView, ResponseController):
             **common_responses,
             status.HTTP_200_OK: OpenApiResponse(
                 description="Regions retrieved successfully.",
+                response=ListRegionQuerySerializer,
+                examples=[
+                    OpenApiExample(
+                        name="Success",
+                        value={
+                            "success": True,
+                            "message": "OK",
+                            "links": {
+                                "next": "http://example.com/?page=2",
+                                "previous": None
+                            },
+                            "pagination": {
+                                "current_page": 1,
+                                "total_pages": 5,
+                                "page_size": 10,
+                                "total_items": 50
+                            },
+                            "data": [
+                                {
+                                    "id": 1,
+                                    "code": "UZ-NG",
+                                    "created_at": "2025-12-11T12:00:00Z"
+                                }
+                            ]
+                        }
+                    )
+                ]
             ),
         },
     )

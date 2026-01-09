@@ -45,15 +45,23 @@ class ListSubcategoryAPIView(ListAPIView, ResponseController):
                         "Success Example",
                         value={
                             "success": True,
-                            "message": "Subcategories retrieved successfully.",
+                            "message": "OK",
+                            "links": {
+                                "next": "http://example.com/?page=2",
+                                "previous": None
+                            },
+                            "pagination": {
+                                "current_page": 1,
+                                "total_pages": 5,
+                                "page_size": 10,
+                                "total_items": 50
+                            },
                             "data": [
                                 {
                                     "id": 1,
                                     "title": "Fruits",
                                     "description": "All fruits items",
                                     "photo": "file/mathematics.jpg",
-                                    "category_id": 3,
-                                    "category_name": "Fruits",
                                     "created_at": "2025-12-05T10:00:00Z"
                                 }
                             ]

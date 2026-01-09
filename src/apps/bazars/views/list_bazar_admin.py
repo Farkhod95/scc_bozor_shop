@@ -44,7 +44,17 @@ class ListBazarAdminAPIView(ListAPIView, ResponseController):
                     OpenApiExample(
                         "Success Example",
                         value={
-                            "message": "Bazar admins retrieved successfully.",
+                            "message": "OK",
+                            "links": {
+                                "next": "http://example.com/?page=2",
+                                "previous": None,
+                            },
+                            "pagination": {
+                                "current_page": 1,
+                                "total_pages": 5,
+                                "page_size": 10,
+                                "total_items": 50,
+                            },
                             "data": [
                                 {
                                     "id": 1,
@@ -54,7 +64,7 @@ class ListBazarAdminAPIView(ListAPIView, ResponseController):
                                     "username": "admin_user",
                                     "assigned_at": "2025-12-12T10:00:00Z"
                                 }
-                            ]
+                            ],
                         }
                     )
                 ]
