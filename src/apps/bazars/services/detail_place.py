@@ -26,7 +26,7 @@ def detail_place(place_id: int, lang) -> Dict:
     for pp in place.products.all():
         products.append({
             "id": pp.id,
-            "product.id": pp.product.id,
+            "product_id": pp.product.id,
             "name": (
                 translate_response(
                     obj=pp.product,
