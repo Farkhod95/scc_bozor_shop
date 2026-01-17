@@ -73,7 +73,14 @@ MIDDLEWARE = [
 ]
 
 
-CORS_ALLOW_ALL_ORIGINS = True
+# settings.py
+CORS_ALLOWED_ORIGINS = [
+    "http://bozor.scc.uz",
+    "https://bozor.scc.uz",
+    "http://10.10.20.50:3033",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://www.api-bozor.scc.uz",
