@@ -75,6 +75,14 @@ MIDDLEWARE = [
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://www.api-bozor.scc.uz",
+    "https://api-bozor.scc.uz",
+]
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+
 
 ROOT_URLCONF = "config.urls"
 
