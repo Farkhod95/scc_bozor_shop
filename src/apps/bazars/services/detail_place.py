@@ -37,7 +37,7 @@ def detail_place(place_id: int, lang) -> Dict:
             "product_unit": pp.product.unit,
             "price": pp.price,
             "quantity": pp.quantity,
-            "photo": pp.photo.file.url if pp.photo else None,
+            "photo": pp.product.photo.file.url if pp.product.photo else None,
         })
 
     return {
