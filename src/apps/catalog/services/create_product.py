@@ -19,7 +19,7 @@ def create_product(*, created_by=None, **data) -> Dict[str, Any]:
     try:
         subcategory = Subcategory.objects.get(id=data.pop("subcategory_id"))
     except Subcategory.DoesNotExist:
-        raise ValidationError({"message_key": "category_does_not_exist"})
+        subcategory = None
 
     try:
         photo = File.objects.get(id=data.pop("photo_id"))
