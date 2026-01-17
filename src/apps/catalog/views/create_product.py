@@ -13,7 +13,7 @@ from apps.core.services.model_status import UnitType
 
 class CreateProductSerializer(serializers.Serializer):
     category_id = serializers.IntegerField()
-    subcategory_id = serializers.IntegerField(required=False, default=None)
+    subcategory_id = serializers.IntegerField(required=False)
 
     name_uz = serializers.CharField(max_length=255)
     name_ru = serializers.CharField(max_length=255, required=False, allow_blank=True)
