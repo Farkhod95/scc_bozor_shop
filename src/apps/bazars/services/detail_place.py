@@ -6,7 +6,7 @@ from apps.core.utils.translations import translate_response
 
 def detail_place(place_id: int, lang) -> Dict:
     try:
-        place = Place.objects.select_related("qrcode").prefetch_related('products', 'products__photo').get(id=place_id)
+        place = Place.objects.select_related("qrcode").prefetch_related('products', 'products__product', 'products__product__photo').get(id=place_id)
     except Place.DoesNotExist:
         raise NotFound({"message_key": "place_not_found", "message": "Place not found"})
 
