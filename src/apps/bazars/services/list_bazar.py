@@ -48,6 +48,8 @@ def list_bazar(user, lang: str, filters=None, search=None, user_coords=None):
             "address": obj.address,
             "lat": obj.lat,
             "lng": obj.lng,
+            "average_rating": obj.average_rating,
+            "review_count": obj.review_count,
             "distance": distance,
             "main_image": main_image_url,
             "images": images_data

@@ -36,6 +36,8 @@ def get_bazar_detail(*, bazar_id: int, user, lang: str) -> dict:
         "address": obj.address,
         "lat": obj.lat,
         "lng": obj.lng,
+        "average_rating": obj.average_rating,
+        "review_count": obj.review_count,
         "images": images_list,
         "created_at": obj.created_at
     })

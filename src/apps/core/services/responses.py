@@ -263,3 +263,10 @@ class Message:
         "uz-cyrl": "Бозор расми муваффақиятли янгиланди.",
         "ru": "Изображение базара успешно обновлено."
     }
+
+    REVIEW_CREATED = {
+        "en": "Review created successfully.",
+        "uz": "Sharh muvaffaqiyatli yaratildi.",
+        "uz-cyrl": "Шарҳ муваффақиятли яратилди.",
+        "ru": "Отзыв успешно создан."
+    }

@@ -5,6 +5,7 @@ from .place_price_history import PlacePriceHistory
 from .place_product import PlaceProduct
 from .qr_code import QRCode
 from .bazar_image import BazarImage
+from .bazar_review import BazarReview
 
 __all__ = [
     "Bazar",
@@ -14,4 +15,5 @@ __all__ = [
     "PlaceProduct",
     "QRCode",
     "BazarImage",
+    "BazarReview",
 ]
