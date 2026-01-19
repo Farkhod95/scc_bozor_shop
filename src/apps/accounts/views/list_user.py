@@ -21,6 +21,7 @@ class ListUserSerializer(serializers.Serializer):
     last_name = serializers.CharField()
     email = serializers.EmailField()
     phone_number = serializers.CharField()
+    role = serializers.IntegerField()
     profile_image = serializers.CharField(allow_null=True)
 
 
