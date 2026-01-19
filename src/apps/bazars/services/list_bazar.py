@@ -63,7 +63,7 @@ def list_bazar(user, lang: str, filters=None, search=None, user_coords=None):
                         "id": m.id,
                         "username": m.username,
                         "phone": m.phone_number,
-                        "full_name": m.get_full_name(),
+                        "full_name": f"{m.first_name} {m.last_name}",
                     } for m in managers
                 ]
             })
@@ -77,6 +77,9 @@ def list_bazar(user, lang: str, filters=None, search=None, user_coords=None):
 
 def _get_user_bazars(user):
     queryset = Bazar.objects.select_related("city", "city__region")
+
+    if not user:
+        return queryset.all()
 
     if user.role == UserType.MANAGER:
         return queryset.filter(manager=user).distinct()
