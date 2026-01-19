@@ -44,6 +44,7 @@ def list_bazar(user, lang: str, filters=None, search=None, user_coords=None):
             "id": obj.id,
             "city_id": obj.city.id,
             "city": obj.city.name,
+            "region_id": obj.city.region.id,
             "region": obj.city.region.name,
             "total_places": obj.total_places,
             "address": obj.address,
@@ -78,7 +79,7 @@ def list_bazar(user, lang: str, filters=None, search=None, user_coords=None):
 def _get_user_bazars(user):
     queryset = Bazar.objects.select_related("city", "city__region")
 
-    if not user:
+    if not user or not user.is_authenticated:
         return queryset.all()
 
     if user.role == UserType.MANAGER:

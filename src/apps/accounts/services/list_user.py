@@ -17,6 +17,7 @@ def list_users(filters, search):
             "last_name": u.last_name,
             "email": u.email,
             "phone_number": u.phone_number,
+            "role": u.role,
             "profile_image": u.profile_image.file.url if u.profile_image else None,
         }
         for u in queryset
