@@ -12,6 +12,7 @@ from apps.core.utils.pagination import CustomPagination
 class ListBazarQuerySerializer(serializers.Serializer):
     search = serializers.CharField(required=False)
     city_id = serializers.IntegerField(required=False)
+    region_id = serializers.IntegerField(required=False)
     lat = serializers.FloatField(required=False)
     lng = serializers.FloatField(required=False)
 
@@ -107,8 +108,14 @@ class ListBazarAPIView(ListAPIView, ResponseController):
         lat = query_serializer.validated_data.get("lat")
         lng = query_serializer.validated_data.get("lng")
 
-        filters = {k: v for k, v in query_serializer.validated_data.items()
-                   if k not in ["search", "lat", "lng"]}
+        filters = {}
+        for k, v in query_serializer.validated_data.items():
+            if k in ["search", "lat", "lng"]:
+                continue
+            if k == "region_id":
+                filters["city__region_id"] = v
+            else:
+                filters[k] = v
         search = query_serializer.validated_data.get("search")
 
         data = list_bazar(
