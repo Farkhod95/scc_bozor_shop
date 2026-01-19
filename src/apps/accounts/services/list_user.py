@@ -1,11 +1,14 @@
 from django.contrib.auth import get_user_model
 
+from apps.core.services.model_status import UserType
 from apps.core.utils.dynamic_filters import apply_filters_and_search
 
 User = get_user_model()
 
-def list_users(filters, search):
-    queryset = User.objects.all()
+def list_users(user, filters, search):
+    queryset = User.objects.select_related("profile_image").all()
+    if user.role == UserType.MANAGER:
+        queryset = queryset.filter(created_by=user)
     search_fields = ["username", "first_name", "last_name", "email"]
     queryset = apply_filters_and_search(queryset, filters=filters, search=search, search_fields=search_fields)
 

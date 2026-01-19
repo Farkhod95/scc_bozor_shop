@@ -82,7 +82,7 @@ class ListUserAPIView(GenericAPIView, ResponseController):
         filters = {k: v for k, v in query_serializer.validated_data.items() if k != "search"}
         search = query_serializer.validated_data.get("search")
 
-        data = list_users(filters=filters, search=search)
+        data = list_users(request.user, filters=filters, search=search)
 
         page = self.paginate_queryset(data)
         serializer = self.get_serializer(page, many=True)

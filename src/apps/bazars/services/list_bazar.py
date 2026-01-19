@@ -83,7 +83,7 @@ def _get_user_bazars(user):
         return queryset.all()
 
     if user.role == UserType.MANAGER:
-        return queryset.filter(manager=user).distinct()
+        return queryset.filter(managers=user).distinct()
 
     if user.role == UserType.ADMIN:
         return queryset.filter(bazaradmin__user=user)
