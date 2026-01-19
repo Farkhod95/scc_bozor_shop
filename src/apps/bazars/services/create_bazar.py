@@ -3,6 +3,7 @@ from django.db import transaction
 from rest_framework.exceptions import ValidationError
 
 from apps.bazars.models import Bazar, Place
+from apps.accounts.models import User
 from apps.locations.models import City
 
 
@@ -16,6 +17,9 @@ def create_bazar(*, city_id: int, address: str, total_places: int, user, **data)
     except City.DoesNotExist:
         raise ValidationError({"message_key": "city_not_found"})
 
+    manager_ids = data.pop("manager_ids", [])
+    managers = User.objects.filter(id__in=manager_ids)
+
     bazar = Bazar.objects.create(
         city=city,
         address=address,
@@ -24,17 +28,20 @@ def create_bazar(*, city_id: int, address: str, total_places: int, user, **data)
         **data
     )
 
+    if managers.exists():
+        bazar.managers.set(managers)
+
     _create_places_for_bazar(bazar, total_places)
 
     return {
         "id": bazar.id,
         "city": bazar.city.name,
+        "managers": list(managers.values_list('username', flat=True)),
         "region": bazar.city.region.name,
         "address": bazar.address,
         "total_places": bazar.total_places,
         **data,
     }
-
 
 
 def _create_places_for_bazar(bazar: Bazar, total_places: int) -> None:

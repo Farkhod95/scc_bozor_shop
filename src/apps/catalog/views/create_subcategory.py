@@ -3,7 +3,7 @@ from rest_framework.generics import CreateAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.core.auth.authentication import JWTAuthentication
-from apps.core.auth.permissions import IsSuperAdmin, IsAuthenticated, IsAdmin
+from apps.core.auth.permissions import IsSuperAdmin, IsAuthenticated, IsAdmin, IsManager
 from apps.core.services.docs import common_responses
 from apps.catalog.services.create_subcategory import create_subcategory
 from apps.core.services.response_controller import ResponseController
@@ -28,7 +28,7 @@ class CreateSubcategorySerializer(serializers.Serializer):
 class CreateSubcategoryAPIView(CreateAPIView, ResponseController):
     serializer_class = CreateSubcategorySerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsAdmin)]
+    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsManager | IsAdmin)]
 
     @extend_schema(
         tags=["Subcategories"],

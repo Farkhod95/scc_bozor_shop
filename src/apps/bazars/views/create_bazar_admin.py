@@ -3,7 +3,7 @@ from rest_framework.generics import CreateAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.core.auth.authentication import JWTAuthentication
-from apps.core.auth.permissions import IsSuperAdmin, IsAuthenticated, IsAdmin
+from apps.core.auth.permissions import IsSuperAdmin, IsAuthenticated, IsAdmin, IsManager
 from apps.core.services.docs import common_responses
 from apps.bazars.services.create_bazar_admin import create_bazar_admin
 from apps.core.services.response_controller import ResponseController
@@ -18,7 +18,7 @@ class CreateBazarAdminSerializer(serializers.Serializer):
 class CreateBazarAdminAPIView(CreateAPIView, ResponseController):
     serializer_class = CreateBazarAdminSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, IsSuperAdmin]
+    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsManager)]
 
     @extend_schema(
         tags=["Bazar Admins"],

@@ -3,7 +3,7 @@ from rest_framework.generics import RetrieveAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.core.auth.authentication import JWTAuthentication
-from apps.core.auth.permissions import IsSuperAdmin, IsAuthenticated, IsAdmin
+from apps.core.auth.permissions import IsSuperAdmin, IsAuthenticated, IsAdmin, IsManager
 from apps.core.services.docs import common_responses
 from apps.bazars.services.detail_bazar_admin import detail_bazar_admin
 from apps.core.services.response_controller import ResponseController
@@ -23,7 +23,7 @@ class DetailBazarAdminSerializer(serializers.Serializer):
 class DetailBazarAdminAPIView(RetrieveAPIView, ResponseController):
     serializer_class = DetailBazarAdminSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, IsSuperAdmin]
+    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsManager)]
     lookup_url_kwarg = "bazar_admin_id"
 
     @extend_schema(

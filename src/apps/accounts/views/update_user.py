@@ -3,7 +3,7 @@ from rest_framework.generics import UpdateAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.accounts.services.update_user import update_user
-from apps.core.auth.permissions import IsSuperAdmin, IsAuthenticated
+from apps.core.auth.permissions import IsSuperAdmin, IsAuthenticated, IsManager
 from apps.core.auth.authentication import JWTAuthentication
 from apps.core.services.docs import common_responses
 from apps.core.services.response_controller import ResponseController
@@ -23,7 +23,7 @@ class UpdateUserSerializer(serializers.Serializer):
 class UpdateUserAPIView(UpdateAPIView, ResponseController):
     http_method_names = ["patch"]
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, IsSuperAdmin]
+    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsManager)]
     serializer_class = UpdateUserSerializer
 
     @extend_schema(

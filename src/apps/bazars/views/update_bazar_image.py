@@ -3,7 +3,7 @@ from rest_framework.generics import UpdateAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.core.auth.authentication import JWTAuthentication
-from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin
+from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin, IsManager
 from apps.core.services.docs import common_responses
 from apps.core.services.response_controller import ResponseController
 from apps.core.services.responses import Message
@@ -18,7 +18,7 @@ class UpdateBazarImageSerializer(serializers.Serializer):
 class UpdateBazarImageAPIView(UpdateAPIView, ResponseController):
     serializer_class = UpdateBazarImageSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, IsSuperAdmin]
+    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsManager)]
     http_method_names = ["patch"]
 
     @extend_schema(

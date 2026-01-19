@@ -3,9 +3,10 @@ from rest_framework.generics import CreateAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.accounts.services.create_user import create_user
-from apps.core.auth.permissions import IsSuperAdmin, IsAuthenticated
+from apps.core.auth.permissions import IsSuperAdmin, IsAuthenticated, IsManager
 from apps.core.auth.authentication import JWTAuthentication
 from apps.core.services.docs import common_responses
+from apps.core.services.model_status import UserType
 from apps.core.services.response_controller import ResponseController
 from apps.core.services.responses import Message
 
@@ -18,11 +19,12 @@ class CreateUserSerializer(serializers.Serializer):
     last_name = serializers.CharField(required=False, allow_blank=True)
     phone_number = serializers.CharField(required=False, allow_blank=True)
     profile_image = serializers.IntegerField(required=False, allow_null=True)
+    role = serializers.ChoiceField(required=False, choices=UserType.choices, default=UserType.ADMIN)
 
 
 class CreateUserAPIView(CreateAPIView, ResponseController):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, IsSuperAdmin]
+    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsManager)]
     serializer_class = CreateUserSerializer
 
     @extend_schema(
@@ -56,7 +58,7 @@ class CreateUserAPIView(CreateAPIView, ResponseController):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        data = create_user(**serializer.validated_data)
+        data = create_user(user=request.user, **serializer.validated_data)
 
         return self.success_response(
             data=data,

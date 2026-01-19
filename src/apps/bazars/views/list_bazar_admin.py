@@ -3,7 +3,7 @@ from rest_framework.generics import ListAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.core.auth.authentication import JWTAuthentication
-from apps.core.auth.permissions import IsSuperAdmin, IsAuthenticated
+from apps.core.auth.permissions import IsSuperAdmin, IsAuthenticated, IsManager
 from apps.core.services.docs import common_responses
 from apps.bazars.services.list_bazar_admin import list_bazar_admins
 from apps.core.services.response_controller import ResponseController
@@ -27,7 +27,7 @@ class ListBazarAdminQuerySerializer(serializers.Serializer):
 class ListBazarAdminAPIView(ListAPIView, ResponseController):
     serializer_class = ListBazarAdminSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, IsSuperAdmin]
+    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsManager)]
     pagination_class = CustomPagination
 
     @extend_schema(

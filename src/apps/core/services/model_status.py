@@ -9,6 +9,7 @@ class LanguageType(models.TextChoices):
 
 class UserType(models.TextChoices):
     SUPERADMIN = "superadmin", "Superadmin"
+    MANAGER = "manager", "Manager"
     ADMIN = "admin", "Admin"
     USER = "user", "User"
 

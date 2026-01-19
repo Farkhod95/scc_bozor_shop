@@ -31,7 +31,8 @@ class TestCreateUserAPI(APITestCase):
             "first_name": "Ali",
             "last_name": "Valiyev",
             "phone_number": "+998901234567",
-            "profile_image": None
+            "profile_image": None,
+            "role": "admin"
         }
 
         self.invalid_payload = {

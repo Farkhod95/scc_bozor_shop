@@ -3,7 +3,7 @@ from rest_framework.generics import UpdateAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.core.auth.authentication import JWTAuthentication
-from apps.core.auth.permissions import IsSuperAdmin, IsAuthenticated
+from apps.core.auth.permissions import IsSuperAdmin, IsAuthenticated, IsManager
 from apps.core.services.docs import common_responses
 from apps.bazars.services.update_bazar_admin import update_bazar_admin
 from apps.core.services.response_controller import ResponseController
@@ -18,7 +18,7 @@ class UpdateBazarAdminAPIView(UpdateAPIView, ResponseController):
     http_method_names = ["patch"]
     serializer_class = UpdateBazarAdminSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, IsSuperAdmin]
+    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsManager)]
     lookup_url_kwarg = "bazar_admin_id"
 
     @extend_schema(

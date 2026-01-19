@@ -4,7 +4,7 @@ from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.catalog.services.create_product import create_product
 from apps.core.auth.authentication import JWTAuthentication
-from apps.core.auth.permissions import IsSuperAdmin, IsAuthenticated, IsAdmin
+from apps.core.auth.permissions import IsSuperAdmin, IsAuthenticated, IsAdmin, IsManager
 from apps.core.services.response_controller import ResponseController
 from apps.core.services.docs import common_responses
 from apps.core.services.responses import Message
@@ -27,7 +27,7 @@ class CreateProductSerializer(serializers.Serializer):
 class CreateProductAPIView(CreateAPIView, ResponseController):
     serializer_class = CreateProductSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsAdmin)]
+    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsManager | IsAdmin)]
 
     @extend_schema(
         tags=["Products"],

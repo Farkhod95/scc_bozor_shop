@@ -3,7 +3,7 @@ from rest_framework.generics import GenericAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.accounts.services.detail_user import detail_user
-from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin
+from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin, IsManager
 from apps.core.auth.authentication import JWTAuthentication
 from apps.core.services.response_controller import ResponseController
 from apps.core.services.docs import common_responses
@@ -23,7 +23,7 @@ class UserDetailSerializer(serializers.Serializer):
 
 class UserDetailAPIView(GenericAPIView, ResponseController):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, IsSuperAdmin]
+    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsManager)]
     serializer_class = UserDetailSerializer
 
     @extend_schema(

@@ -41,5 +41,17 @@ def get_bazar_detail(*, bazar_id: int, user, lang: str) -> dict:
         "images": images_list,
         "created_at": obj.created_at
     })
+    if user.is_superuser:
+        managers = obj.managers.all()
+        data.update({
+            "managers": [
+                {
+                    "id": m.id,
+                    "username": m.username,
+                    "phone": m.phone_number,
+                    "full_name": m.get_full_name(),
+                } for m in managers
+            ]
+        })
 
     return data

@@ -6,6 +6,7 @@ from apps.core.models import BaseModel
 
 class Bazar(BaseModel):
     name = models.CharField(max_length=255, null=True)
+    managers = models.ManyToManyField("accounts.User", null=True)
     city = models.ForeignKey('locations.City', on_delete=models.CASCADE)
     address = models.CharField(max_length=255, null=True)
     total_places = models.IntegerField(default=0)

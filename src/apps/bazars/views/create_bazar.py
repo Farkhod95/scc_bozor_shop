@@ -15,6 +15,7 @@ class CreateBazarSerializer(serializers.Serializer):
     name_ru = serializers.CharField(required=False)
     name_en = serializers.CharField(required=False)
     name_uz_cyrl = serializers.CharField(required=False)
+    manager_ids = serializers.ListField(child=serializers.IntegerField(), required=False)
     city_id = serializers.IntegerField()
     address = serializers.CharField()
     total_places = serializers.IntegerField()

@@ -5,7 +5,7 @@ from apps.bazars.services.update_bazar import update_bazar
 from rest_framework import serializers
 
 from apps.core.auth.authentication import JWTAuthentication
-from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin
+from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin, IsManager
 from apps.core.services.docs import common_responses
 from apps.core.services.response_controller import ResponseController
 from apps.core.services.responses import Message
@@ -25,7 +25,7 @@ class UpdateBazarSerializer(serializers.Serializer):
 class UpdateBazarView(UpdateAPIView, ResponseController):
     http_method_names = ["patch"]
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, IsSuperAdmin]
+    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsManager)]
     serializer_class = UpdateBazarSerializer
 
     @extend_schema(

@@ -3,7 +3,7 @@ from rest_framework.generics import CreateAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.core.auth.authentication import JWTAuthentication
-from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin
+from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin, IsManager
 from apps.core.services.docs import common_responses
 from apps.core.services.response_controller import ResponseController
 from apps.core.services.responses import Message
@@ -19,7 +19,7 @@ class CreateBazarImageSerializer(serializers.Serializer):
 class CreateBazarImageAPIView(CreateAPIView, ResponseController):
     serializer_class = CreateBazarImageSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, IsSuperAdmin]
+    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsManager)]
 
     @extend_schema(
         tags=["Bazar Images"],

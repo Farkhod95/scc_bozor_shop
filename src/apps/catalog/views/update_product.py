@@ -4,7 +4,7 @@ from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.catalog.services.update_product import update_product
 from apps.core.auth.authentication import JWTAuthentication
-from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin, IsAdmin
+from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin, IsAdmin, IsManager
 from apps.core.services.docs import common_responses
 from apps.core.services.model_status import UnitType
 from apps.core.services.response_controller import ResponseController
@@ -23,7 +23,7 @@ class UpdateProductSerializer(serializers.Serializer):
 class UpdateProductAPIView(UpdateAPIView, ResponseController):
     http_method_names = ["patch"]
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsAdmin)]
+    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsManager | IsAdmin)]
     serializer_class = UpdateProductSerializer
 
     @extend_schema(

@@ -3,7 +3,7 @@ from rest_framework.generics import DestroyAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.core.auth.authentication import JWTAuthentication
-from apps.core.auth.permissions import IsSuperAdmin, IsAuthenticated, IsAdmin
+from apps.core.auth.permissions import IsSuperAdmin, IsAuthenticated, IsAdmin, IsManager
 from apps.core.services.docs import common_responses
 from apps.bazars.services.delete_bazar_admin import delete_bazar_admin
 from apps.core.services.response_controller import ResponseController
@@ -12,7 +12,7 @@ from apps.core.services.responses import Message
 
 class DeleteBazarAdminAPIView(DestroyAPIView, ResponseController):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, IsSuperAdmin]
+    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsManager)]
     lookup_url_kwarg = "bazar_admin_id"
 
     @extend_schema(

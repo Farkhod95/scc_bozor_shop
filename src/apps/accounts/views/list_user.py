@@ -3,7 +3,7 @@ from rest_framework.generics import GenericAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.accounts.services.list_user import list_users
-from apps.core.auth.permissions import IsSuperAdmin, IsAuthenticated
+from apps.core.auth.permissions import IsSuperAdmin, IsAuthenticated, IsManager
 from apps.core.auth.authentication import JWTAuthentication
 from apps.core.services.docs import common_responses
 from apps.core.services.response_controller import ResponseController
@@ -26,7 +26,7 @@ class ListUserSerializer(serializers.Serializer):
 
 class ListUserAPIView(GenericAPIView, ResponseController):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, IsSuperAdmin]
+    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsManager)]
     serializer_class = ListUserSerializer
     pagination_class = CustomPagination
 

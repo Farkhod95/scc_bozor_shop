@@ -4,7 +4,7 @@ from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.catalog.services.update_category import update_category
 from apps.core.auth.authentication import JWTAuthentication
-from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin, IsAdmin
+from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin, IsAdmin, IsManager
 from apps.core.services.docs import common_responses
 from apps.core.services.response_controller import ResponseController
 from apps.core.services.responses import Message
@@ -27,7 +27,7 @@ class UpdateCategorySerializer(serializers.Serializer):
 class UpdateCategoryAPIView(UpdateAPIView, ResponseController):
     http_method_names = ["patch"]
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsAdmin)]
+    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsManager | IsAdmin)]
     serializer_class = UpdateCategorySerializer
 
     @extend_schema(

@@ -1,11 +1,12 @@
-from apps.bazars.models import Bazar
+from apps.bazars.models import Bazar, BazarAdmin
+from apps.core.services.model_status import UserType
 from apps.core.utils.dynamic_filters import apply_filters_and_search
 from apps.core.utils.translations import expand_translated_fields, translate_response
 from geopy.distance import geodesic
 
 
 def list_bazar(user, lang: str, filters=None, search=None, user_coords=None):
-    queryset = Bazar.objects.select_related("city", "city__region").all()
+    queryset = _get_user_bazars(user)
 
     search_fields = ["name", "address"]
     search_fields = expand_translated_fields(Bazar, search_fields)
@@ -54,9 +55,33 @@ def list_bazar(user, lang: str, filters=None, search=None, user_coords=None):
             "main_image": main_image_url,
             "images": images_data
         })
+        if user.is_superuser:
+            managers = obj.managers.all()
+            data.update({
+                "managers": [
+                    {
+                        "id": m.id,
+                        "username": m.username,
+                        "phone": m.phone_number,
+                        "full_name": m.get_full_name(),
+                    } for m in managers
+                ]
+            })
+
         result.append(data)
 
     if user_coords:
         result.sort(key=lambda x: x['distance'] if x['distance'] is not None else float('inf'))
 
     return result
+
+def _get_user_bazars(user):
+    queryset = Bazar.objects.select_related("city", "city__region")
+
+    if user.role == UserType.MANAGER:
+        return queryset.filter(manager=user).distinct()
+
+    if user.role == UserType.ADMIN:
+        return queryset.filter(bazaradmin__user=user)
+
+    return queryset.all()

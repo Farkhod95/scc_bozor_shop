@@ -4,7 +4,7 @@ from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.bazars.services.delete_place_product import delete_place_product
 from apps.core.auth.authentication import JWTAuthentication
-from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin, IsBazarAdmin
+from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin, IsBazarAdmin, IsManager
 from apps.core.services.docs import common_responses
 from apps.core.services.response_controller import ResponseController
 from apps.core.services.responses import Message
@@ -12,7 +12,7 @@ from apps.core.services.responses import Message
 
 class DeletePlaceProductAPIView(DestroyAPIView, ResponseController):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsBazarAdmin)]
+    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsBazarAdmin | IsManager)]
 
     @extend_schema(
         tags=["PlaceProduct"],

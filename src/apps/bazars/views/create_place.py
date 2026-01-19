@@ -3,7 +3,7 @@ from rest_framework.generics import CreateAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.core.auth.authentication import JWTAuthentication
-from apps.core.auth.permissions import IsSuperAdmin, IsAuthenticated, IsBazarAdmin
+from apps.core.auth.permissions import IsSuperAdmin, IsAuthenticated, IsBazarAdmin, IsManager
 from apps.core.services.docs import common_responses
 from apps.bazars.services.create_place import create_places
 from apps.core.services.response_controller import ResponseController
@@ -18,7 +18,7 @@ class CreatePlaceSerializer(serializers.Serializer):
 class CreatePlaceAPIView(CreateAPIView, ResponseController):
     serializer_class = CreatePlaceSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsBazarAdmin)]
+    permission_classes = [IsAuthenticated, (IsSuperAdmin | IsBazarAdmin| IsManager)]
 
     @extend_schema(
         tags=["Places"],

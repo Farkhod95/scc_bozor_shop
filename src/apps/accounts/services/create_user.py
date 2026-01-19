@@ -10,7 +10,7 @@ User = get_user_model()
 
 
 @transaction.atomic
-def create_user(**validated_data) -> dict:
+def create_user(user, **validated_data) -> dict:
     username = validated_data.get("username")
     if User.objects.filter(username=username).exists():
         raise ValidationError({"message_key": "username_already_taken"})
@@ -25,11 +25,16 @@ def create_user(**validated_data) -> dict:
         except File.DoesNotExist:
             raise ValidationError({"message_key": "file_not_found"})
 
+    role = validated_data.pop("role", None)
+
+    if role and role != UserType.ADMIN and not user.is_superuser:
+        raise ValidationError({"message_key": "permission_denied"})
+
     user = User.objects.create(
         **validated_data,
         password=make_password(password),
         profile_image=profile_image,
-        role=UserType.ADMIN,
+        role=role or UserType.ADMIN,
         is_staff=True,
     )
 

@@ -17,7 +17,7 @@ class TestListBazarAPI(APITestCase):
     ]
 
     def setUp(self):
-        self.user = User.objects.get(id=2)
+        self.user = User.objects.get(id=1)
         tokens = JWTService.create_tokens(self.user.id)
         self.access = tokens["access"]
 
