@@ -36,7 +36,7 @@ def register_user(**validated_data) -> dict:
 def _create_user(**validated_data) -> User:
     username = validated_data.get("username")
 
-    if User.objects.filter(username=username).exists():
+    if User.objects.all_with_deleted().filter(username=username).exists():
         raise ValidationError({"message_key": "username_already_taken"})
 
     password = validated_data.pop("password")
