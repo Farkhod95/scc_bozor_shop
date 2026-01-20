@@ -6,7 +6,7 @@ from apps.core.utils.dynamic_filters import apply_filters_and_search
 
 
 def list_bazar_admins(user, filters=None, search=None) -> Iterable[Dict]:
-    queryset = BazarAdmin.objects.select_related("bazar", "user").order_by("-assigned_at")
+    queryset = BazarAdmin.objects.select_related("bazar", "user").order_by("-assigned_at").all()
 
     if user.role == UserType.MANAGER:
         queryset = queryset.filter(bazar__manager=user)

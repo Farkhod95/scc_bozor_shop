@@ -6,7 +6,7 @@ class LanguageMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
         lang = request.headers.get('Accept-Language') or request.GET.get('lang') or 'en'
-        lang = lang.lower()
+        lang = lang.lower().replace('-', '_')
 
         if lang not in self.SUPPORTED_LANGUAGES:
             lang = 'en'

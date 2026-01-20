@@ -188,5 +188,11 @@ ERROR_MESSAGES = {
         "uz": "Ko'rsatilgan bozor rasmi topilmadi.",
         "uz-cyrl": "Кўрсатилган бозор расми топилмади.",
         "ru": "Указанное изображение базара не найдено."
+    },
+    "not_bazar_admin": {
+        "en": "You are not a bazar admin.",
+        "uz": "Siz bozor admin emasiz.",
+        "uz-cyrl": "Сиз бозор админ эмассиз.",
+        "ru": "Вы не являетесь администратором базара."
     }
 }
