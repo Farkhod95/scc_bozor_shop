@@ -12,9 +12,8 @@ User = get_user_model()
 @transaction.atomic
 def create_user(user, **validated_data) -> dict:
     username = validated_data.get("username")
-    if User.objects.filter(username=username).exists():
+    if User.objects.all_with_deleted().filter(username=username).exists():
         raise ValidationError({"message_key": "username_already_taken"})
-
     password = validated_data.pop("password")
     profile_image_id = validated_data.pop("profile_image", None)
 
