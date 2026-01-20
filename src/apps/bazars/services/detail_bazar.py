@@ -49,7 +49,7 @@ def get_bazar_detail(*, bazar_id: int, user, lang: str) -> dict:
                     "id": m.id,
                     "username": m.username,
                     "phone": m.phone_number,
-                    "full_name": m.get_full_name(),
+                    "full_name": f"{m.firt_name} {m.last_name}",
                 } for m in managers
             ]
         })

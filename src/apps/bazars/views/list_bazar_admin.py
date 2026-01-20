@@ -79,6 +79,7 @@ class ListBazarAdminAPIView(ListAPIView, ResponseController):
         search = query_serializer.validated_data.get("search")
 
         data = list_bazar_admins(
+            user=request.user,
             filters=filters,
             search=search,
         )
