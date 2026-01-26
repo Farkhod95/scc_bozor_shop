@@ -73,6 +73,8 @@ class ListBazarAPIView(ListAPIView, ResponseController):
                                     "lat": 35.6892,
                                     "lng": 51.3890,
                                     "distance": 2.5,
+                                    "average_rating": 4.5,
+                                    "review_count": 10,
                                     "main_image": "http://example.com/media/main_image.jpg",
                                     "images": [
                                         {"id": 1, "url": "http://example.com/media/image1.jpg", "is_main": True},
@@ -89,6 +91,8 @@ class ListBazarAPIView(ListAPIView, ResponseController):
                                     "lat": 35.6892,
                                     "lng": 51.3890,
                                     "distance": 5.0,
+                                    "average_rating": 3.5,
+                                    "review_count": 5,
                                     "main_image": "http://example.com/media/main_image2.jpg",
                                     "images": [
                                         {"id": 3, "url": "http://example.com/media/image3.jpg", "is_main": True},
