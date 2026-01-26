@@ -3,11 +3,14 @@ from apps.bazars.models import PlaceProduct
 from apps.core.utils.translations import translate_response
 
 
-def list_place_product(user, lang: str, bazar_id: int | None = None,) -> List[Dict[str, Any]]:
+def list_place_product(user, lang: str, bazar_id: int | None = None, product_id: int | None = None,) -> List[Dict[str, Any]]:
     queryset = PlaceProduct.objects.select_related('place', 'product', 'product__photo')
 
     if bazar_id is not None:
         queryset = queryset.filter(place__bazar_id=bazar_id)
+
+    if product_id is not None:
+        queryset = queryset.filter(product_id=product_id)
 
     data = []
     for pp in queryset:

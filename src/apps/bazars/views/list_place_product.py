@@ -12,6 +12,7 @@ from apps.core.utils.pagination import CustomPagination
 
 class ListPlaceProductSerializer(serializers.Serializer):
     bazar_id = serializers.IntegerField(required=False)
+    product_id = serializers.IntegerField(required=False)
 
 
 class ListPlaceProductAPIView(ListAPIView, ResponseController):
@@ -66,10 +67,11 @@ class ListPlaceProductAPIView(ListAPIView, ResponseController):
     )
     def get(self, request, *args, **kwargs):
         bazar_id = request.query_params.get("bazar_id")
-        if bazar_id is not None:
-            bazar_id = int(bazar_id)
+        product_id = request.query_params.get("product_id")
+        bazar_id = int(bazar_id) if bazar_id is not None else None
+        product_id = int(product_id) if product_id is not None else None
 
-        data = list_place_product(request.user, request.lang,bazar_id=bazar_id)
+        data = list_place_product(request.user, request.lang,bazar_id=bazar_id, product_id=product_id)
         page = self.paginate_queryset(data)
         return self.get_paginated_response(page)
 
