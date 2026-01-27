@@ -270,3 +270,10 @@ class Message:
         "uz-cyrl": "Шарҳ муваффақиятли яратилди.",
         "ru": "Отзыв успешно создан."
     }
+
+    BAZAR_SECTION_CREATED_SUCCESSFULLY = {
+        "en": "Bazar section created successfully.",
+        "uz": "Bozor bo'limi muvaffaqiyatli yaratildi.",
+        "uz-cyrl": "Бозор бўлими муваффақиятли яратилди.",
+        "ru": "Раздел базара успешно создан."
+    }

@@ -38,8 +38,7 @@ def list_bazar(user, lang: str, filters=None, search=None, user_coords=None):
             })
             if img.is_main:
                 main_image_url = img_url
-
-
+        sections = obj.sections.all()
         data.update({
             "id": obj.id,
             "city_id": obj.city.id,
@@ -54,7 +53,14 @@ def list_bazar(user, lang: str, filters=None, search=None, user_coords=None):
             "review_count": obj.review_count,
             "distance": distance,
             "main_image": main_image_url,
-            "images": images_data
+            "images": images_data,
+            "section": [
+                {
+                    "id": s.id,
+                    "name": s.name,
+                    "svg": s.svg.file.url if s.svg and s.svg.file else None,
+                } for s in sections
+            ]
         })
         if user.is_superuser:
             managers = obj.managers.all()
@@ -77,7 +83,9 @@ def list_bazar(user, lang: str, filters=None, search=None, user_coords=None):
     return result
 
 def _get_user_bazars(user):
-    queryset = Bazar.objects.select_related("city", "city__region")
+    queryset = Bazar.objects.select_related("city", "city__region").prefetch_related(
+        "images", "managers"
+    )
 
     if not user or not user.is_authenticated:
         return queryset.all()

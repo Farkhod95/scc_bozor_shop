@@ -53,6 +53,13 @@ class DetailBazarAPIView(RetrieveAPIView, ResponseController):
                                 "is_main": False
                             }
                         ],
+                        "sections": [
+                            {
+                                "id": 1,
+                                "name": "Section 1",
+                                "svg": "http://example.com/media/section1.svg"
+                            },
+                        ],
                         "created_at": "2025-01-15T12:00:30Z"
                     }
                 },

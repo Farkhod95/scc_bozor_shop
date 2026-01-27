@@ -4,9 +4,9 @@ from apps.bazars.models import Place, QRCode
 from apps.core.utils.translations import translate_response
 
 
-def detail_place(place_id: int, lang) -> Dict:
+def detail_place(slug: str, lang) -> Dict:
     try:
-        place = Place.objects.select_related("qrcode").prefetch_related('products', 'products__product', 'products__product__photo').get(id=place_id)
+        place = Place.objects.select_related("qrcode").prefetch_related('products', 'products__product', 'products__product__photo').get(slug=slug)
     except Place.DoesNotExist:
         raise NotFound({"message_key": "place_not_found", "message": "Place not found"})
 
@@ -43,6 +43,7 @@ def detail_place(place_id: int, lang) -> Dict:
 
     return {
         "id": place.id,
+        "slug": place.slug,
         "bazar_id": place.bazar.id,
         "number": place.number,
         "is_active": place.is_active,

@@ -80,6 +80,13 @@ class ListBazarAPIView(ListAPIView, ResponseController):
                                         {"id": 1, "url": "http://example.com/media/image1.jpg", "is_main": True},
                                         {"id": 2, "url": "http://example.com/media/image2.jpg", "is_main": False},
                                     ],
+                                    "sections": [
+                                        {
+                                            "id": 1,
+                                            "name": "Section 1",
+                                            "svg": "http://example.com/media/section1.svg"
+                                        },
+                                    ]
                                 },
                                 {
                                     "id": 2,
@@ -97,6 +104,13 @@ class ListBazarAPIView(ListAPIView, ResponseController):
                                     "images": [
                                         {"id": 3, "url": "http://example.com/media/image3.jpg", "is_main": True},
                                     ],
+                                    "sections": [
+                                        {
+                                            "id": 1,
+                                            "name": "Section 1",
+                                            "svg": "http://example.com/media/section1.svg"
+                                        },
+                                    ]
                                 },
                             ],
                         },

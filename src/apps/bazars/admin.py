@@ -1,5 +1,5 @@
 from django.contrib import admin
-from apps.bazars.models import Bazar, BazarAdmin, Place, PlacePriceHistory, QRCode, BazarImage
+from apps.bazars.models import Bazar, BazarAdmin, Place, PlacePriceHistory, QRCode, BazarImage, BazarSection
 from apps.bazars.models.place_product import PlaceProduct
 
 
@@ -21,6 +21,11 @@ class BazarAdminUserPanel(admin.ModelAdmin):
     search_fields = ("user__username", "bazar__name")
     list_filter = ("assigned_at",)
 
+@admin.register(BazarSection)
+class BazarSectionAdmin(admin.ModelAdmin):
+    list_display = ("id", "name", "svg", "bazar")
+    search_fields = ("name", "svg__file")
+    list_filter = ("bazar",)
 
 class PlaceProductInline(admin.TabularInline):
     model = PlaceProduct
@@ -30,10 +35,10 @@ class PlaceProductInline(admin.TabularInline):
 
 @admin.register(Place)
 class PlaceAdmin(admin.ModelAdmin):
-    list_display = ("id", "bazar", "number", "is_active")
-    search_fields = ("bazar__name", "number")
+    list_display = ("id", "bazar", "number", "slug", "is_active")
+    search_fields = ("bazar__name", "number", "slug")
     list_filter = ("bazar", "is_active")
-    inlines = [PlaceProductInline]  # Inline qo‘shildi
+    inlines = [PlaceProductInline]
 
 @admin.register(PlaceProduct)
 class PlaceProductAdmin(admin.ModelAdmin):

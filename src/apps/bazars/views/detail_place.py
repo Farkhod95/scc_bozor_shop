@@ -3,7 +3,6 @@ from rest_framework.generics import RetrieveAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.core.auth.authentication import JWTAuthentication
-from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin, IsAdmin
 from apps.core.services.docs import common_responses
 from apps.bazars.services.detail_place import detail_place
 from apps.core.services.response_controller import ResponseController
@@ -53,6 +52,7 @@ class DetailPlaceAPIView(RetrieveAPIView, ResponseController):
                             "message": "Place retrieved successfully",
                             "data": {
                                 "id": 1,
+                                "slug": "place-1",
                                 "bazar_id": 1,
                                 "number": 1,
                                 "is_active": True,
@@ -77,8 +77,8 @@ class DetailPlaceAPIView(RetrieveAPIView, ResponseController):
         },
     )
     def get(self, request, *args, **kwargs):
-        place_id = kwargs.get("pk")
-        data = detail_place(place_id=int(place_id), lang=request.lang)
+        slug = kwargs.get("pk")
+        data = detail_place(slug=slug, lang=request.lang)
         return self.success_response(
             data=data,
             status=status.HTTP_200_OK

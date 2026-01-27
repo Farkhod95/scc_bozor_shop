@@ -27,6 +27,7 @@ def get_bazar_detail(*, bazar_id: int, user, lang: str) -> dict:
             "is_main": img.is_main
         })
 
+    sections = obj.sections.all()
     data.update({
         "id": obj.id,
         "city_id": obj.city.id,
@@ -39,6 +40,13 @@ def get_bazar_detail(*, bazar_id: int, user, lang: str) -> dict:
         "average_rating": obj.average_rating,
         "review_count": obj.review_count,
         "images": images_list,
+        "section": [
+            {
+                "id": s.id,
+                "name": s.name,
+                "svg": s.svg.file.url if s.svg and s.svg.file else None,
+            } for s in sections
+        ],
         "created_at": obj.created_at
     })
     if user.is_superuser:

@@ -37,7 +37,7 @@ class TestDetailPlaceAPI(APITestCase):
         self.base_url = "/api/bazars/v1/place/"
 
     def test_detail_place_success_by_superadmin(self):
-        url = f"{self.base_url}{self.place.id}/detail/"
+        url = f"{self.base_url}{self.place.slug}/detail/"
 
         self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {self.super_access}")
         response = self.client.get(url)
@@ -51,7 +51,7 @@ class TestDetailPlaceAPI(APITestCase):
         self.assertEqual(data["is_active"], self.place.is_active)
 
     def test_detail_place_success_by_non_user(self):
-        url = f"{self.base_url}{self.place.id}/detail/"
+        url = f"{self.base_url}{self.place.slug}/detail/"
 
         self.client.credentials()
         response = self.client.get(url)

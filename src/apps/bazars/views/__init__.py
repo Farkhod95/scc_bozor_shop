@@ -29,6 +29,7 @@ from .delete_bazar_image import DeleteBazarImageAPIView
 from .list_bazar_images import ListBazarImageAPIView
 from .update_bazar_image import UpdateBazarImageAPIView
 
+from .create_bazar_section import CreateBazarSectionAPIView
 
 __all__ = [
     "ListBazarAPIView",
@@ -61,4 +62,6 @@ __all__ = [
     "DeleteBazarImageAPIView",
     "ListBazarImageAPIView",
     "UpdateBazarImageAPIView",
+
+    "CreateBazarSectionAPIView",
 ]

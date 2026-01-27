@@ -3,7 +3,6 @@ from rest_framework.generics import ListAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.core.auth.authentication import JWTAuthentication
-from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin, IsAdmin
 from apps.core.services.docs import common_responses
 from apps.bazars.services.list_place import list_places
 from apps.core.services.response_controller import ResponseController
@@ -11,7 +10,8 @@ from apps.core.utils.pagination import CustomPagination
 
 
 class ListPlaceRequestSerializer(serializers.Serializer):
-    bazar_id = serializers.IntegerField(required=True)
+    bazar_id = serializers.IntegerField(required=False)
+    section_id = serializers.IntegerField(required=False)
 
 
 class QRCodeSerializer(serializers.Serializer):
@@ -61,13 +61,14 @@ class ListPlaceAPIView(ListAPIView, ResponseController):
                             "data": [
                                 {
                                     "id": 1,
+                                    "slug": "place-1",
                                     "number": 1,
                                     "is_active": True,
                                     "qr_code": {
                                         "qr_text": "QR123",
                                         "generate_at": "2025-12-12T10:00:00Z",
                                         "valid": True
-                                    }
+                                    },
                                 }
                             ],
                         }
@@ -77,9 +78,10 @@ class ListPlaceAPIView(ListAPIView, ResponseController):
         },
     )
     def get(self, request, *args, **kwargs):
-        bazar_id = request.query_params.get("bazar_id")
+        bazar_id = request.query_params.get("bazar_id", None)
+        section_id = request.query_params.get("section_id", None)
 
-        data = list_places(bazar_id=int(bazar_id))
+        data = list_places(bazar_id=bazar_id, section_id=section_id)
 
         page = self.paginate_queryset(data)
         return self.get_paginated_response(page)

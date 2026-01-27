@@ -2,7 +2,7 @@ from typing import Dict, Any
 from django.db import transaction
 from rest_framework.exceptions import ValidationError
 
-from apps.bazars.models import Bazar, Place
+from apps.bazars.models import Bazar
 from apps.accounts.models import User
 from apps.locations.models import City
 
@@ -31,8 +31,6 @@ def create_bazar(*, city_id: int, address: str, total_places: int, user, **data)
     if managers.exists():
         bazar.managers.set(managers)
 
-    _create_places_for_bazar(bazar, total_places)
-
     return {
         "id": bazar.id,
         "city": bazar.city.name,
@@ -42,12 +40,4 @@ def create_bazar(*, city_id: int, address: str, total_places: int, user, **data)
         "total_places": bazar.total_places,
         **data,
     }
-
-
-def _create_places_for_bazar(bazar: Bazar, total_places: int) -> None:
-    for number in range(1, total_places + 1):
-        Place.objects.create(
-            bazar=bazar,
-            number=number,
-        )
 
