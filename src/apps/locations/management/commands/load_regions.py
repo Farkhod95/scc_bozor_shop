@@ -12,8 +12,8 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         translator = Translator()
 
-        regions_path = os.path.join(settings.BASE_DIR, 'regions.json')
-        districts_path = os.path.join(settings.BASE_DIR, 'districts.json')
+        regions_path = os.path.join(settings.BASE_DIR, 'fixtures/regions.json')
+        districts_path = os.path.join(settings.BASE_DIR, 'fixtures/districts.json')
 
         def translate_to_en(text_uz):
             try:
