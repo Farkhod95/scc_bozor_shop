@@ -8,6 +8,11 @@ from apps.core.auth.authentication import JWTAuthentication
 from apps.accounts.services.user_profile import get_profile_data
 from apps.core.services.responses import Message
 
+class BazarShortSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    name = serializers.CharField()
+
+
 class UserProfileSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=50)
     phone = serializers.CharField(max_length=50)
@@ -17,6 +22,7 @@ class UserProfileSerializer(serializers.Serializer):
     role = serializers.IntegerField()
     language = serializers.CharField(required=False)
     profile_image = serializers.URLField()
+    bazar = BazarShortSerializer(allow_null=True)
 
 
 class UserProfileAPIView(APIView, ResponseController):

@@ -25,7 +25,7 @@ class ListCategorySerializer(serializers.Serializer):
 class ListCategoryAPIView(ListAPIView, ResponseController):
     serializer_class = ListCategorySerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = []
     pagination_class = CustomPagination
 
 

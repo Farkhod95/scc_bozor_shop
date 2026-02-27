@@ -26,7 +26,7 @@ class ListSubcategorySerializer(serializers.Serializer):
 class ListSubcategoryAPIView(ListAPIView, ResponseController):
     serializer_class = ListSubcategorySerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = []
     pagination_class = CustomPagination
 
 

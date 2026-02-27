@@ -22,6 +22,8 @@ class QRCodeSerializer(serializers.Serializer):
 
 class ListPlaceSerializer(serializers.Serializer):
     id = serializers.IntegerField()
+    slug = serializers.SlugField(allow_null=True)
+    bazar_id = serializers.IntegerField()
     number = serializers.IntegerField()
     is_active = serializers.BooleanField()
     qr_code = QRCodeSerializer(allow_null=True)
@@ -62,6 +64,7 @@ class ListPlaceAPIView(ListAPIView, ResponseController):
                                 {
                                     "id": 1,
                                     "slug": "place-1",
+                                    "bazar_id": 1,
                                     "number": 1,
                                     "is_active": True,
                                     "qr_code": {
@@ -78,8 +81,11 @@ class ListPlaceAPIView(ListAPIView, ResponseController):
         },
     )
     def get(self, request, *args, **kwargs):
-        bazar_id = request.query_params.get("bazar_id", None)
-        section_id = request.query_params.get("section_id", None)
+        serializer = ListPlaceRequestSerializer(data=request.query_params)
+        serializer.is_valid(raise_exception=True)
+
+        bazar_id = serializer.validated_data.get("bazar_id")
+        section_id = serializer.validated_data.get("section_id")
 
         data = list_places(bazar_id=bazar_id, section_id=section_id)
 

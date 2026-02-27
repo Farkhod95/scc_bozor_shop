@@ -12,13 +12,14 @@ from apps.core.utils.pagination import CustomPagination
 
 class ListPlaceProductSerializer(serializers.Serializer):
     bazar_id = serializers.IntegerField(required=False)
+    section_id = serializers.IntegerField(required=False)
     product_id = serializers.IntegerField(required=False)
 
 
 class ListPlaceProductAPIView(ListAPIView, ResponseController):
     serializer_class = ListPlaceProductSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = []
     pagination_class = CustomPagination
 
 
@@ -50,6 +51,7 @@ class ListPlaceProductAPIView(ListAPIView, ResponseController):
                             "data": [
                                 {
                                     "id": 1,
+                                    "bazar_id": 1,
                                     "place_id": 3,
                                     "place_number": 12,
                                     "product_id": 5,
@@ -67,11 +69,13 @@ class ListPlaceProductAPIView(ListAPIView, ResponseController):
     )
     def get(self, request, *args, **kwargs):
         bazar_id = request.query_params.get("bazar_id")
+        section_id = request.query_params.get("section_id")
         product_id = request.query_params.get("product_id")
         bazar_id = int(bazar_id) if bazar_id is not None else None
+        section_id = int(section_id) if section_id is not None else None
         product_id = int(product_id) if product_id is not None else None
 
-        data = list_place_product(request.user, request.lang,bazar_id=bazar_id, product_id=product_id)
+        data = list_place_product(request.user, request.lang, bazar_id=bazar_id, section_id=section_id, product_id=product_id)
         page = self.paginate_queryset(data)
         return self.get_paginated_response(page)
 

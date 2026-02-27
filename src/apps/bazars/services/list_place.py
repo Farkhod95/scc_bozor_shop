@@ -25,9 +25,10 @@ def list_places(bazar_id, section_id) -> List[Dict]:
 
         result.append({
             "id": place.id,
+            "slug": place.slug,
+            "bazar_id": place.bazar_id,
             "number": place.number,
             "is_active": place.is_active,
-            "slug": place.slug,
             "qr_code": qr_data,
         })
 

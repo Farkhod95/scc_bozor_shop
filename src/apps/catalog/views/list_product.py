@@ -30,7 +30,7 @@ class ListProductSerializer(serializers.Serializer):
 class ListProductAPIView(ListAPIView, ResponseController):
     serializer_class = ListProductSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = []
     pagination_class = CustomPagination
 
     @extend_schema(
