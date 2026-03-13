@@ -29,7 +29,7 @@ class LoginAPIView(CreateAPIView, ResponseController):
         description="Authenticate a user and return tokens.",
         responses={
             status.HTTP_200_OK: OpenApiResponse(
-                response=LoginSerializer,
+                response=LoginResponseSerializer,
                 description="User logged in successfully.",
                 examples=[
                     OpenApiExample(
@@ -54,7 +54,6 @@ class LoginAPIView(CreateAPIView, ResponseController):
                 ],
             ),
             status.HTTP_400_BAD_REQUEST: OpenApiResponse(
-                response=LoginSerializer,
                 description="Username or password is incorrect.",
                 examples=[
                     OpenApiExample(

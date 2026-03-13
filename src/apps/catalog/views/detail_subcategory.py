@@ -20,35 +20,37 @@ class DetailSubcategoryAPIView(RetrieveAPIView, ResponseController):
         responses={
             **common_responses,
             status.HTTP_200_OK: OpenApiResponse(
-                description="Subcategory detail returned successfully."
+                description="Subcategory detail returned successfully.",
+                examples=[
+                    OpenApiExample(
+                        name="Success Example",
+                        value={
+                            "message": "OK",
+                            "data": {
+                                "id": 1,
+                                "title": "Olma",
+                                "description": "Yangi olma turi",
+                                "category_id": 3,
+                                "category_name": "Mevalar",
+                                "photo": "http://example.com/media/subcategories/olma.jpg",
+                                "created_at": "2025-01-15T12:00:30Z"
+                            }
+                        },
+                        status_codes=["200"],
+                    )
+                ]
             ),
             status.HTTP_404_NOT_FOUND: OpenApiResponse(
-                description="Subcategory not found."
+                description="Subcategory not found.",
+                examples=[
+                    OpenApiExample(
+                        name="Not Found",
+                        value={"detail": "Subcategory not found"},
+                        status_codes=["404"],
+                    )
+                ]
             ),
         },
-        examples=[
-            OpenApiExample(
-                name="Success Example",
-                value={
-                    "success": True,
-                    "data": {
-                        "id": 1,
-                        "title": "Fruits",
-                        "description": "Fresh fruit subcategory",
-                        "category_id": 3,
-                        "category_name": "Fruits",
-                        "photo": "file/mathematics.jpg",
-                        "created_at": "2025-01-15T12:00:30Z"
-                    }
-                },
-                status_codes=[200],
-            ),
-            OpenApiExample(
-                name="Not Found",
-                value={"detail": "Subcategory not found"},
-                status_codes=[404],
-            ),
-        ],
     )
     def get(self, request, *args, **kwargs):
         subcategory_id = kwargs.get("pk")

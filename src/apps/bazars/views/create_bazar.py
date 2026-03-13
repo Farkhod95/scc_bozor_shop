@@ -1,6 +1,6 @@
 from rest_framework import status, serializers
 from rest_framework.generics import CreateAPIView
-from drf_spectacular.utils import extend_schema, OpenApiResponse
+from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from apps.bazars.services.create_bazar import create_bazar
 from apps.core.services.response_controller import ResponseController
@@ -34,7 +34,29 @@ class CreateBazarAPIView(CreateAPIView, ResponseController):
         description="Create a new bazar using service layer.",
         responses={
             **common_responses,
-            status.HTTP_201_CREATED: OpenApiResponse(description="Bazar created successfully."),
+            status.HTTP_201_CREATED: OpenApiResponse(
+                description="Bazar created successfully.",
+                examples=[
+                    OpenApiExample(
+                        "Success Example",
+                        value={
+                            "message": "Bazar created successfully.",
+                            "data": {
+                                "id": 1,
+                                "name": "Markaziy Bozor",
+                                "city_id": 2,
+                                "city": "Toshkent",
+                                "region": "Toshkent viloyati",
+                                "address": "Mustaqillik ko'chasi 1",
+                                "total_places": 100,
+                                "lat": 41.2995,
+                                "lng": 69.2401,
+                                "created_at": "2025-01-15T12:00:00Z"
+                            }
+                        }
+                    )
+                ]
+            ),
         },
     )
     def post(self, request, *args, **kwargs):

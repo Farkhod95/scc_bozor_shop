@@ -1,6 +1,6 @@
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
-from drf_spectacular.utils import extend_schema, OpenApiResponse
+from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 from rest_framework import serializers
 
 from apps.bazars.services.create_review import create_review
@@ -28,7 +28,25 @@ class CreateReviewAPIView(CreateAPIView, ResponseController):
         description="Rate a bazar and leave a comment.",
         responses={
             **common_responses,
-            status.HTTP_201_CREATED: OpenApiResponse(description="Review created successfully."),
+            status.HTTP_201_CREATED: OpenApiResponse(
+                description="Review created successfully.",
+                examples=[
+                    OpenApiExample(
+                        "Success Example",
+                        value={
+                            "message": "Review created successfully.",
+                            "data": {
+                                "id": 1,
+                                "bazar_id": 3,
+                                "user_id": 12,
+                                "rating": 5,
+                                "comment": "Juda yaxshi bozor!",
+                                "created_at": "2025-01-15T12:00:00Z"
+                            }
+                        }
+                    )
+                ]
+            ),
         },
     )
     def post(self, request, *args, **kwargs):

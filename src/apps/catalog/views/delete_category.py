@@ -20,8 +20,17 @@ class DeleteCategoryAPIView(DestroyAPIView, ResponseController):
         description="Delete category by ID. Only SuperAdmin can delete categories.",
         responses={
             **common_responses,
-            status.HTTP_204_NO_CONTENT: OpenApiResponse(
+            status.HTTP_200_OK: OpenApiResponse(
                 description="Category deleted successfully.",
+                examples=[
+                    OpenApiExample(
+                        "Success Example",
+                        value={"message": "Category deleted successfully."},
+                    )
+                ]
+            ),
+            status.HTTP_404_NOT_FOUND: OpenApiResponse(
+                description="Category not found.",
                 examples=[
                     OpenApiExample(
                         "Not Found Example",
@@ -29,9 +38,6 @@ class DeleteCategoryAPIView(DestroyAPIView, ResponseController):
                         status_codes=[404],
                     )
                 ]
-            ),
-            status.HTTP_404_NOT_FOUND: OpenApiResponse(
-                description="Category not found."
             ),
         }
     )

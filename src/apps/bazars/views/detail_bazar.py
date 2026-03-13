@@ -19,58 +19,61 @@ class DetailBazarAPIView(RetrieveAPIView, ResponseController):
         responses={
             **common_responses,
             status.HTTP_200_OK: OpenApiResponse(
-                description="Bazar detail returned successfully."
+                description="Bazar detail returned successfully.",
+                examples=[
+                    OpenApiExample(
+                        name="Success Example",
+                        value={
+                            "message": "OK",
+                            "data": {
+                                "id": 1,
+                                "name": "Markaziy Bozor",
+                                "address": "Mustaqillik ko'chasi 1",
+                                "city_id": 2,
+                                "city": "Toshkent",
+                                "region": "Toshkent viloyati",
+                                "total_places": 150,
+                                "average_rating": 4.5,
+                                "review_count": 20,
+                                "lat": 41.2995,
+                                "lng": 69.2401,
+                                "images": [
+                                    {
+                                        "id": 10,
+                                        "url": "http://example.com/media/images/bazar1.jpg",
+                                        "is_main": True
+                                    },
+                                    {
+                                        "id": 11,
+                                        "url": "http://example.com/media/images/bazar2.jpg",
+                                        "is_main": False
+                                    }
+                                ],
+                                "sections": [
+                                    {
+                                        "id": 1,
+                                        "name": "A sektor",
+                                        "svg": "http://example.com/media/sections/a-sektor.svg"
+                                    }
+                                ],
+                                "created_at": "2025-01-15T12:00:30Z"
+                            }
+                        },
+                        status_codes=["200"],
+                    )
+                ]
             ),
             status.HTTP_404_NOT_FOUND: OpenApiResponse(
-                description="Bazar not found."
+                description="Bazar not found.",
+                examples=[
+                    OpenApiExample(
+                        name="Not Found",
+                        value={"detail": "Bazar not found"},
+                        status_codes=["404"],
+                    )
+                ]
             ),
         },
-        examples=[
-            OpenApiExample(
-                name="Success Example",
-                value={
-                    "success": True,
-                    "data": {
-                        "id": 1,
-                        "title": "Fruits",
-                        "description": "Fresh fruit bazar",
-                        "address": "123 Market St",
-                        "city_id": 2,
-                        "city": "New York",
-                        "region": "NY",
-                        "total_places": 150,
-                        "lat": 40.7128,
-                        "lng": -74.0060,
-                        "images": [
-                            {
-                                "id": 10,
-                                "url": "http://example.com/images/bazar1.jpg",
-                                "is_main": True
-                            },
-                            {
-                                "id": 11,
-                                "url": "http://example.com/images/bazar2.jpg",
-                                "is_main": False
-                            }
-                        ],
-                        "sections": [
-                            {
-                                "id": 1,
-                                "name": "Section 1",
-                                "svg": "http://example.com/media/section1.svg"
-                            },
-                        ],
-                        "created_at": "2025-01-15T12:00:30Z"
-                    }
-                },
-                status_codes=[200],
-            ),
-            OpenApiExample(
-                name="Not Found",
-                value={"detauk": "Bazar not found"},
-                status_codes=[404],
-            ),
-        ],
     )
     def get(self, request, *args, **kwargs):
         bazar_id = kwargs.get("pk")

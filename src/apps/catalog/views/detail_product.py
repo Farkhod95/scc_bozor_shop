@@ -33,7 +33,7 @@ class DetailProductAPIView(RetrieveAPIView, ResponseController):
                                 "category_name": "Fruits",
                                 "subcategory_id": 2,
                                 "subcategory_name": "Apple",
-                                "name": " Red apple",
+                                "name": "Red apple",
                                 "unit": "kg",
                                 "photo": "file/mathematics.jpg",
                                 "created_at": "2025-01-15T12:00:30Z"
@@ -44,7 +44,14 @@ class DetailProductAPIView(RetrieveAPIView, ResponseController):
                 ],
             ),
             status.HTTP_404_NOT_FOUND: OpenApiResponse(
-                description="Product not found."
+                description="Product not found.",
+                examples=[
+                    OpenApiExample(
+                        name="Not Found",
+                        value={"detail": "Product not found"},
+                        status_codes=["404"],
+                    )
+                ]
             ),
         }
     )

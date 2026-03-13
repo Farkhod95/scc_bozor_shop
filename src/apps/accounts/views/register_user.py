@@ -43,23 +43,25 @@ class RegisterUserAPIView(CreateAPIView, ResponseController):
         },
         examples=[
             OpenApiExample(
-                name="Success",
+                name="Request Example",
                 value={
-                    "id": 1,
                     "username": "ali01",
                     "password": "strongpassword",
                     "first_name": "Ali",
                     "last_name": "Valiyev",
                     "email": "ali01@gmail.com",
                     "phone_number": "+998901234567",
-                    "profile_image": "1",
+                    "profile_image": 1,
                 },
+                request_only=True,
             ),
             OpenApiExample(
-                "User disabled",
+                name="Username Already Taken",
                 value={
                     "detail": "This username is already taken."
                 },
+                response_only=True,
+                status_codes=["400"],
             ),
         ],
     )

@@ -29,6 +29,7 @@ class ListBazarImageAPIView(ListAPIView, ResponseController):
             **common_responses,
             status.HTTP_200_OK: OpenApiResponse(
                 response=BazarImageListSerializer(many=True),
+                description="Bazar images retrieved successfully.",
                 examples=[
                     OpenApiExample(
                         "Success Example",
@@ -47,11 +48,13 @@ class ListBazarImageAPIView(ListAPIView, ResponseController):
                             "data": [
                                 {
                                     "id": 1,
-                                    "bazar_id": 1,
-                                    "bazar_name": "Central Bazar",
-                                    "user_id": 2,
-                                    "username": "admin_user",
-                                    "assigned_at": "2025-12-12T10:00:00Z"
+                                    "image": "http://example.com/media/uploads/bazar1.jpg",
+                                    "is_main": True
+                                },
+                                {
+                                    "id": 2,
+                                    "image": "http://example.com/media/uploads/bazar2.jpg",
+                                    "is_main": False
                                 }
                             ],
                         },

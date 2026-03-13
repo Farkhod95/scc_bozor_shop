@@ -20,8 +20,17 @@ class DeleteProductAPIView(DestroyAPIView, ResponseController):
         description="Delete a product by its ID. Only SuperAdmin can delete products.",
         responses={
             **common_responses,
-            status.HTTP_204_NO_CONTENT: OpenApiResponse(
+            status.HTTP_200_OK: OpenApiResponse(
                 description="Product deleted successfully.",
+                examples=[
+                    OpenApiExample(
+                        "Success Example",
+                        value={"message": "Product deleted successfully."},
+                    )
+                ]
+            ),
+            status.HTTP_404_NOT_FOUND: OpenApiResponse(
+                description="Product not found.",
                 examples=[
                     OpenApiExample(
                         "Not Found Example",
@@ -29,9 +38,6 @@ class DeleteProductAPIView(DestroyAPIView, ResponseController):
                         status_codes=[404],
                     )
                 ]
-            ),
-            status.HTTP_404_NOT_FOUND: OpenApiResponse(
-                description="Product not found."
             ),
         },
     )

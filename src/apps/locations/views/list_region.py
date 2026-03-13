@@ -13,6 +13,13 @@ class ListRegionQuerySerializer(serializers.Serializer):
     search = serializers.CharField(required=False)
 
 
+class ListRegionSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    name = serializers.CharField()
+    code = serializers.CharField()
+    created_at = serializers.DateTimeField()
+
+
 class ListRegionAPIView(ListAPIView, ResponseController):
     authentication_classes = [JWTAuthentication]
     permission_classes = []
@@ -27,12 +34,11 @@ class ListRegionAPIView(ListAPIView, ResponseController):
             **common_responses,
             status.HTTP_200_OK: OpenApiResponse(
                 description="Regions retrieved successfully.",
-                response=ListRegionQuerySerializer,
+                response=ListRegionSerializer(many=True),
                 examples=[
                     OpenApiExample(
                         name="Success",
                         value={
-                            "success": True,
                             "message": "OK",
                             "links": {
                                 "next": "http://example.com/?page=2",
@@ -47,7 +53,14 @@ class ListRegionAPIView(ListAPIView, ResponseController):
                             "data": [
                                 {
                                     "id": 1,
+                                    "name": "Namangan",
                                     "code": "UZ-NG",
+                                    "created_at": "2025-12-11T12:00:00Z"
+                                },
+                                {
+                                    "id": 2,
+                                    "name": "Toshkent",
+                                    "code": "UZ-TK",
                                     "created_at": "2025-12-11T12:00:00Z"
                                 }
                             ]

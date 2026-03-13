@@ -20,8 +20,17 @@ class DeleteCityAPIView(DestroyAPIView, ResponseController):
         description="Delete city by ID. Only SuperAdmin or Admin can delete cities.",
         responses={
             **common_responses,
-            status.HTTP_204_NO_CONTENT: OpenApiResponse(
+            status.HTTP_200_OK: OpenApiResponse(
                 description="City deleted successfully.",
+                examples=[
+                    OpenApiExample(
+                        "Success Example",
+                        value={"message": "City deleted successfully."},
+                    )
+                ]
+            ),
+            status.HTTP_404_NOT_FOUND: OpenApiResponse(
+                description="City not found.",
                 examples=[
                     OpenApiExample(
                         "Not Found Example",
@@ -29,9 +38,6 @@ class DeleteCityAPIView(DestroyAPIView, ResponseController):
                         status_codes=[404],
                     )
                 ]
-            ),
-            status.HTTP_404_NOT_FOUND: OpenApiResponse(
-                description="City not found."
             ),
         }
     )

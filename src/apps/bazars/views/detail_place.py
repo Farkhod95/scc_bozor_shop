@@ -23,6 +23,7 @@ class QRCodeSerializer(serializers.Serializer):
 
 class DetailPlaceSerializer(serializers.Serializer):
     id = serializers.IntegerField()
+    slug = serializers.SlugField(allow_null=True)
     bazar_id = serializers.IntegerField()
     number = serializers.IntegerField()
     is_active = serializers.BooleanField()

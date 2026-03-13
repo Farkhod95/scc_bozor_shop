@@ -19,33 +19,35 @@ class DetailCityAPIView(RetrieveAPIView, ResponseController):
         responses={
             **common_responses,
             status.HTTP_200_OK: OpenApiResponse(
-                description="City detail returned successfully."
+                description="City detail returned successfully.",
+                examples=[
+                    OpenApiExample(
+                        name="Success Example",
+                        value={
+                            "message": "OK",
+                            "data": {
+                                "id": 5,
+                                "name": "Namangan",
+                                "code": "NM",
+                                "region_id": 1,
+                                "created_at": "2025-12-11T12:00:00Z"
+                            }
+                        },
+                        status_codes=["200"],
+                    )
+                ]
             ),
             status.HTTP_404_NOT_FOUND: OpenApiResponse(
-                description="City not found."
+                description="City not found.",
+                examples=[
+                    OpenApiExample(
+                        name="Not Found",
+                        value={"detail": "City not found"},
+                        status_codes=["404"],
+                    )
+                ]
             ),
         },
-        examples=[
-            OpenApiExample(
-                name="Success Example",
-                value={
-                    "success": True,
-                    "data": {
-                        "id": 5,
-                        "name": "Namangan",
-                        "code": "NM",
-                        "region_id": 1,
-                        "created_at": "2025-12-11T12:00:00Z"
-                    }
-                },
-                status_codes=[200],
-            ),
-            OpenApiExample(
-                name="Not Found",
-                value={"detail": "City not found"},
-                status_codes=[404],
-            ),
-        ],
     )
     def get(self, request, *args, **kwargs):
         city_id = kwargs.get("pk")

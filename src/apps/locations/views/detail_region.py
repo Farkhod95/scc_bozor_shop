@@ -24,22 +24,30 @@ class DetailRegionAPIView(RetrieveAPIView, ResponseController):
                     OpenApiExample(
                         name="Success Example",
                         value={
-                            "success": True,
+                            "message": "OK",
                             "data": {
                                 "id": 1,
-                                "name_uz": "Farg‘ona",
+                                "name_uz": "Farg’ona",
                                 "name_ru": "Фергана",
                                 "name_en": "Fergana",
                                 "name_uz_cyrl": "Фарғона",
+                                "code": "UZ-FA",
                                 "created_at": "2025-01-15T12:00:30Z",
                             }
                         },
-                        status_codes=[200],
+                        status_codes=["200"],
                     )
                 ],
             ),
             status.HTTP_404_NOT_FOUND: OpenApiResponse(
-                description="Region not found."
+                description="Region not found.",
+                examples=[
+                    OpenApiExample(
+                        name="Not Found",
+                        value={"detail": "Region not found"},
+                        status_codes=["404"],
+                    )
+                ]
             ),
         },
     )

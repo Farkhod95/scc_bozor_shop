@@ -20,18 +20,24 @@ class DeleteBazarAPIView(DestroyAPIView, ResponseController):
         description="Delete a bazar by its ID. Only SuperAdmin can delete bazars.",
         responses={
             **common_responses,
-            status.HTTP_204_NO_CONTENT: OpenApiResponse(
+            status.HTTP_200_OK: OpenApiResponse(
                 description="Bazar deleted successfully.",
                 examples=[
                     OpenApiExample(
-                        "Not Found Example",
-                        value={"detail": "Bazar does not exist."},
-                        status_codes=[400],
+                        "Success Example",
+                        value={"message": "Bazar deleted successfully."},
                     )
                 ]
             ),
             status.HTTP_404_NOT_FOUND: OpenApiResponse(
-                description="Bazar not found."
+                description="Bazar not found.",
+                examples=[
+                    OpenApiExample(
+                        "Not Found Example",
+                        value={"detail": "Bazar does not exist."},
+                        status_codes=[404],
+                    )
+                ]
             ),
         },
     )

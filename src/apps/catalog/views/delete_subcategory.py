@@ -20,8 +20,17 @@ class DeleteSubcategoryAPIView(DestroyAPIView, ResponseController):
         description="Delete subcategory by ID. Only SuperAdmin can delete subcategories.",
         responses={
             **common_responses,
-            status.HTTP_204_NO_CONTENT: OpenApiResponse(
+            status.HTTP_200_OK: OpenApiResponse(
                 description="Subcategory deleted successfully.",
+                examples=[
+                    OpenApiExample(
+                        "Success Example",
+                        value={"message": "Subcategory deleted successfully."},
+                    )
+                ]
+            ),
+            status.HTTP_404_NOT_FOUND: OpenApiResponse(
+                description="Subcategory not found.",
                 examples=[
                     OpenApiExample(
                         "Not Found Example",
@@ -29,9 +38,6 @@ class DeleteSubcategoryAPIView(DestroyAPIView, ResponseController):
                         status_codes=[404],
                     )
                 ]
-            ),
-            status.HTTP_404_NOT_FOUND: OpenApiResponse(
-                description="Subcategory not found."
             ),
         }
     )

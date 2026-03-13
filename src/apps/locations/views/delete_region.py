@@ -20,8 +20,17 @@ class DeleteRegionAPIView(DestroyAPIView, ResponseController):
         description="Delete a region by its ID. Only SuperAdmin or Admin can delete regions.",
         responses={
             **common_responses,
-            status.HTTP_204_NO_CONTENT: OpenApiResponse(
+            status.HTTP_200_OK: OpenApiResponse(
                 description="Region deleted successfully.",
+                examples=[
+                    OpenApiExample(
+                        "Success Example",
+                        value={"message": "Region deleted successfully."},
+                    )
+                ]
+            ),
+            status.HTTP_404_NOT_FOUND: OpenApiResponse(
+                description="Region not found.",
                 examples=[
                     OpenApiExample(
                         "Not Found Example",
@@ -29,9 +38,6 @@ class DeleteRegionAPIView(DestroyAPIView, ResponseController):
                         status_codes=[404],
                     )
                 ]
-            ),
-            status.HTTP_404_NOT_FOUND: OpenApiResponse(
-                description="Region not found."
             ),
         },
     )
