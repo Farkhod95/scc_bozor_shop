@@ -1,6 +1,7 @@
 from rest_framework import status
 from rest_framework.generics import RetrieveAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
+from drf_spectacular.types import OpenApiTypes
 
 from apps.bazars.services.detail_bazar import get_bazar_detail
 from apps.core.auth.authentication import JWTAuthentication
@@ -19,6 +20,7 @@ class DetailBazarAPIView(RetrieveAPIView, ResponseController):
         responses={
             **common_responses,
             status.HTTP_200_OK: OpenApiResponse(
+                response=OpenApiTypes.OBJECT,
                 description="Bazar detail returned successfully.",
                 examples=[
                     OpenApiExample(
@@ -64,6 +66,7 @@ class DetailBazarAPIView(RetrieveAPIView, ResponseController):
                 ]
             ),
             status.HTTP_404_NOT_FOUND: OpenApiResponse(
+                response=OpenApiTypes.OBJECT,
                 description="Bazar not found.",
                 examples=[
                     OpenApiExample(

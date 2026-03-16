@@ -1,6 +1,7 @@
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
+from drf_spectacular.types import OpenApiTypes
 from rest_framework import serializers
 
 from apps.bazars.services.create_review import create_review
@@ -29,6 +30,7 @@ class CreateReviewAPIView(CreateAPIView, ResponseController):
         responses={
             **common_responses,
             status.HTTP_201_CREATED: OpenApiResponse(
+                response=OpenApiTypes.OBJECT,
                 description="Review created successfully.",
                 examples=[
                     OpenApiExample(

@@ -1,6 +1,7 @@
 from rest_framework.generics import UpdateAPIView
 from rest_framework import status
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
+from drf_spectacular.types import OpenApiTypes
 from apps.bazars.services.update_bazar import update_bazar
 from rest_framework import serializers
 
@@ -37,6 +38,7 @@ class UpdateBazarView(UpdateAPIView, ResponseController):
         responses={
             **common_responses,
             status.HTTP_200_OK: OpenApiResponse(
+                response=OpenApiTypes.OBJECT,
                 description="Bazar updated successfully.",
                 examples=[
                     OpenApiExample(
@@ -58,6 +60,7 @@ class UpdateBazarView(UpdateAPIView, ResponseController):
                 ],
             ),
             status.HTTP_404_NOT_FOUND: OpenApiResponse(
+                response=OpenApiTypes.OBJECT,
                 description="Bazar or City not found."
             ),
         },

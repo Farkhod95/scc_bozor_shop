@@ -1,6 +1,7 @@
 from rest_framework import status, serializers
 from rest_framework.generics import CreateAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
+from drf_spectacular.types import OpenApiTypes
 
 from apps.bazars.services.create_bazar import create_bazar
 from apps.core.services.response_controller import ResponseController
@@ -35,6 +36,7 @@ class CreateBazarAPIView(CreateAPIView, ResponseController):
         responses={
             **common_responses,
             status.HTTP_201_CREATED: OpenApiResponse(
+                response=OpenApiTypes.OBJECT,
                 description="Bazar created successfully.",
                 examples=[
                     OpenApiExample(

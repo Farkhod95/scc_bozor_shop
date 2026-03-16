@@ -1,6 +1,7 @@
 from rest_framework import status, serializers
 from rest_framework.generics import UpdateAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
+from drf_spectacular.types import OpenApiTypes
 
 from apps.core.auth.authentication import JWTAuthentication
 from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin, IsBazarAdmin
@@ -30,6 +31,7 @@ class UpdateQRCodeAPIView(UpdateAPIView, ResponseController):
         responses={
             **common_responses,
             status.HTTP_200_OK: OpenApiResponse(
+                response=OpenApiTypes.OBJECT,
                 description="QR Code updated successfully.",
                 examples=[
                     OpenApiExample(

@@ -1,6 +1,7 @@
 from rest_framework import status
 from rest_framework.generics import DestroyAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
+from drf_spectacular.types import OpenApiTypes
 
 from apps.core.auth.authentication import JWTAuthentication
 from apps.core.auth.permissions import IsAuthenticated, IsSuperAdmin, IsBazarAdmin, IsManager
@@ -22,6 +23,7 @@ class DeletePlaceAPIView(DestroyAPIView, ResponseController):
         responses={
             **common_responses,
             status.HTTP_200_OK: OpenApiResponse(
+                response=OpenApiTypes.OBJECT,
                 description="Place deleted successfully",
                 examples=[
                     OpenApiExample(

@@ -1,6 +1,7 @@
 from rest_framework import status, serializers
 from rest_framework.generics import GenericAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
+from drf_spectacular.types import OpenApiTypes
 
 from apps.core.auth.authentication import JWTAuthentication
 from apps.core.auth.permissions import IsAuthenticated
@@ -26,6 +27,7 @@ class GetPlaceByQRAPIView(GenericAPIView, ResponseController):
         responses={
             **common_responses,
             status.HTTP_200_OK: OpenApiResponse(
+                response=OpenApiTypes.OBJECT,
                 description="Place retrieved by QR code",
                 examples=[
                     OpenApiExample(

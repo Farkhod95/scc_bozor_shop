@@ -1,6 +1,7 @@
 from rest_framework import serializers, status
 from rest_framework.generics import UpdateAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
+from drf_spectacular.types import OpenApiTypes
 
 from apps.bazars.services.update_place_product import update_place_product
 from apps.core.auth.authentication import JWTAuthentication
@@ -29,6 +30,7 @@ class UpdatePlaceProductAPIView(UpdateAPIView, ResponseController):
         responses={
             **common_responses,
             status.HTTP_200_OK: OpenApiResponse(
+                response=OpenApiTypes.OBJECT,
                 description="PlaceProduct updated successfully",
                 examples=[
                     OpenApiExample(

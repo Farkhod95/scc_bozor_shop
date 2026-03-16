@@ -1,6 +1,7 @@
 from rest_framework import status
 from rest_framework.generics import DestroyAPIView
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
+from drf_spectacular.types import OpenApiTypes
 
 from apps.bazars.services.delete_bazar import delete_bazar
 from apps.core.auth.authentication import JWTAuthentication
@@ -21,6 +22,7 @@ class DeleteBazarAPIView(DestroyAPIView, ResponseController):
         responses={
             **common_responses,
             status.HTTP_200_OK: OpenApiResponse(
+                response=OpenApiTypes.OBJECT,
                 description="Bazar deleted successfully.",
                 examples=[
                     OpenApiExample(
@@ -30,6 +32,7 @@ class DeleteBazarAPIView(DestroyAPIView, ResponseController):
                 ]
             ),
             status.HTTP_404_NOT_FOUND: OpenApiResponse(
+                response=OpenApiTypes.OBJECT,
                 description="Bazar not found.",
                 examples=[
                     OpenApiExample(
